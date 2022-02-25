@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Internal", "Internal", "{226F3236-502F-439B-8320-8F04750626A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QActions", "QActions", "{8DD765A0-D86D-4CD8-B1C7-F36E0E4EBA56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dlls", "Dlls", "{1588FF97-AAF9-47D5-B7C4-8378F820DC3E}"
+	ProjectSection(SolutionItems) = preProject
+		Dlls\readme.txt = Dlls\readme.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{1D14AAC3-A010-4366-BE94-D756B337DD1B}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\readme.txt = Documentation\readme.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2FB3B8A9-2E0E-453C-8626-AAA2AFB918A1}"
+	ProjectSection(SolutionItems) = preProject
+		protocol.xml = protocol.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Code Analysis", "Code Analysis", "{BA8D37E1-94BA-4541-8CCC-FB5AEE2952A5}"
+	ProjectSection(SolutionItems) = preProject
+		Internal\Code Analysis\SonarLint-QuickActions-Active.ruleset = Internal\Code Analysis\SonarLint-QuickActions-Active.ruleset
+		Internal\Code Analysis\SonarLint-QuickActions-Inactive.ruleset = Internal\Code Analysis\SonarLint-QuickActions-Inactive.ruleset
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAction_Helper", "QAction_Helper\QAction_Helper.csproj", "{B35B5DD3-687E-4FA6-BE99-0FA533DB143C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAction_1", "QAction_1\QAction_1.csproj", "{CD9BAD5F-3BB9-4675-ABF3-873FD6D45C92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAction_2", "QAction_2\QAction_2.csproj", "{AD233081-7E1E-4DA9-B18E-9400BCFC1E2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAction_1000", "QAction_1000\QAction_1000.csproj", "{B3BA3B69-81A9-4D86-BA44-E804BDC0B33F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAction_ClassLibrary", "QAction_ClassLibrary\QAction_ClassLibrary.csproj", "{69F6E583-5AAE-493B-872A-A379E94EF8AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B35B5DD3-687E-4FA6-BE99-0FA533DB143C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B35B5DD3-687E-4FA6-BE99-0FA533DB143C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B35B5DD3-687E-4FA6-BE99-0FA533DB143C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B35B5DD3-687E-4FA6-BE99-0FA533DB143C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD9BAD5F-3BB9-4675-ABF3-873FD6D45C92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD9BAD5F-3BB9-4675-ABF3-873FD6D45C92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD9BAD5F-3BB9-4675-ABF3-873FD6D45C92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD9BAD5F-3BB9-4675-ABF3-873FD6D45C92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD233081-7E1E-4DA9-B18E-9400BCFC1E2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD233081-7E1E-4DA9-B18E-9400BCFC1E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD233081-7E1E-4DA9-B18E-9400BCFC1E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD233081-7E1E-4DA9-B18E-9400BCFC1E2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3BA3B69-81A9-4D86-BA44-E804BDC0B33F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3BA3B69-81A9-4D86-BA44-E804BDC0B33F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3BA3B69-81A9-4D86-BA44-E804BDC0B33F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3BA3B69-81A9-4D86-BA44-E804BDC0B33F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69F6E583-5AAE-493B-872A-A379E94EF8AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69F6E583-5AAE-493B-872A-A379E94EF8AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69F6E583-5AAE-493B-872A-A379E94EF8AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69F6E583-5AAE-493B-872A-A379E94EF8AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BA8D37E1-94BA-4541-8CCC-FB5AEE2952A5} = {226F3236-502F-439B-8320-8F04750626A7}
+		{B35B5DD3-687E-4FA6-BE99-0FA533DB143C} = {226F3236-502F-439B-8320-8F04750626A7}
+		{CD9BAD5F-3BB9-4675-ABF3-873FD6D45C92} = {8DD765A0-D86D-4CD8-B1C7-F36E0E4EBA56}
+		{AD233081-7E1E-4DA9-B18E-9400BCFC1E2D} = {8DD765A0-D86D-4CD8-B1C7-F36E0E4EBA56}
+		{B3BA3B69-81A9-4D86-BA44-E804BDC0B33F} = {8DD765A0-D86D-4CD8-B1C7-F36E0E4EBA56}
+		{69F6E583-5AAE-493B-872A-A379E94EF8AD} = {226F3236-502F-439B-8320-8F04750626A7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {620D3B24-7AF6-4861-B6FB-4754C3B61022}
+	EndGlobalSection
+EndGlobal
