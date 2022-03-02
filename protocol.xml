@@ -55,7 +55,9 @@ Any inquiries can be addressed to:
 	<DeviceOID>998</DeviceOID>
 	<ElementType>Training Example</ElementType>
 	<Type relativeTimers="true">snmpv2</Type>
+	<!-- SuppressValidator 1.22.6 No WebInterface required for this example driver. -->
 	<Display defaultPage="General" pageOrder="General" wideColumnPages="General"/>
+	<!-- /SuppressValidator 1.22.6 -->
 	<SNMP includepages="true">auto</SNMP>
 
 	<Compliancies>
@@ -253,6 +255,14 @@ Any inquiries can be addressed to:
 	</QActions>
 
 	<Groups>
+		<Group id="1">
+			<Name>SNMP Ping Group</Name>
+			<Description>SNMP Ping Group</Description>
+			<Type>poll</Type>
+			<Content>
+				<Param>1000</Param>
+			</Content>
+		</Group>
 		<Group id="2">
 			<Name>After Startup</Name>
 			<Description>After Startup</Description>
@@ -311,6 +321,10 @@ Any inquiries can be addressed to:
 			</Content>
 		</Timer>
 	</Timers>
+
+	<PortSettings name="SNMP Connection">
+		
+	</PortSettings>
 
 	<VersionHistory>
 		<Branches>
