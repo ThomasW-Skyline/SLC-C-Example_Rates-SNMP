@@ -109,6 +109,44 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
+		public void Calculate_Valid_ToOlderCounter_WithTimeouts()
+		{
+			// Arrange
+			Mock<SLProtocol> protocolMock = new Mock<SLProtocol>();
+			var helper = SnmpRate32.FromJsonString(protocolMock.Object, "", groupId, minDelta, maxDelta);
+
+			protocolMock.Setup(p => p.NotifyProtocol(269, groupId, null)).Returns(10000);   // 10s
+			helper.BufferDelta();
+			helper.Calculate(0);    // Old counter
+			helper.BufferDelta();
+			helper.Calculate(1);    // Old counter
+
+			helper.BufferDelta();
+			helper.Calculate(5);	// Counter to be used
+			helper.BufferDelta();	// 10s
+
+			// Recent counters
+			protocolMock.Setup(p => p.NotifyProtocol(269, groupId, null)).Returns(80000);   // 80s
+			helper.Calculate(10);   // 1m30s
+
+			protocolMock.Setup(p => p.NotifyProtocol(269, groupId, null)).Returns(1000);   // 1s
+			helper.Calculate(20);	// 1m31s
+			helper.BufferDelta();	// 1m32s
+			helper.Calculate(30);	// 1m33s
+			helper.BufferDelta();   // 1m34s
+			helper.Calculate(40);	// 1m35s
+			helper.BufferDelta();   // 1m36s
+
+			// Act
+			protocolMock.Setup(p => p.NotifyProtocol(269, groupId, null)).Returns(4000);   // 4s
+			double rate = helper.Calculate(50);  // 1m40s
+
+			// Assert
+			double expectedRate = (50.0 - 5.0) / (4 + 1 + 1 + 1 + 1 + 1 + 1 + 80 + 10);
+			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
+		}
+
+		[TestMethod()]
 		public void Calculate_Valid_ToPreviousCounter()
 		{
 			// Arrange
@@ -185,6 +223,34 @@ namespace Skyline.Protocol.Rates.Tests
 
 			// Assert
 			double expectedRate = (50.0 - 5.0) / (100d / 60);
+			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
+		}
+
+		[TestMethod()]
+		public void Calculate_Valid_ToPreviousCounter_WithTimeouts()
+		{
+			// Arrange
+			Mock<SLProtocol> protocolMock = new Mock<SLProtocol>();
+			var helper = SnmpRate32.FromJsonString(protocolMock.Object, "", groupId, minDelta, maxDelta);
+
+			protocolMock.Setup(p => p.NotifyProtocol(269, groupId, null)).Returns(10000);   // 10s
+			helper.Calculate(0);    // Old counters
+			helper.Calculate(1);    // Old counters
+
+			helper.Calculate(5);    // Counter to be used
+
+			protocolMock.Setup(p => p.NotifyProtocol(269, groupId, null)).Returns(5000);   // 5s
+			helper.BufferDelta();   // 5s
+			helper.BufferDelta();   // 10s
+			helper.BufferDelta();   // 15s
+			helper.BufferDelta();   // 20s
+
+			// Act
+			protocolMock.Setup(p => p.NotifyProtocol(269, groupId, null)).Returns(100000);  // 100s
+			double rate = helper.Calculate(50);     // 120s
+
+			// Assert
+			double expectedRate = (50.0 - 5.0) / 120d;
 			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
 		}
 
