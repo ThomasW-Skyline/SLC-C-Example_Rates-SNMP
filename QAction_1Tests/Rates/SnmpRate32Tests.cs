@@ -334,7 +334,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void Serialize_Valid_TimeSpan()
+		public void Serialize_Valid()
 		{
 			// Arrange
 			Mock<SLProtocol> protocolMock = new Mock<SLProtocol>();
@@ -347,8 +347,8 @@ namespace Skyline.Protocol.Rates.Tests
 			string serializedTemp = helper1.ToJsonString();
 			var helper2 = SnmpRate32.FromJsonString(protocolMock.Object, serializedTemp, groupId, minDelta, maxDelta);
 
-			AddSameToBoth(helper1, helper2, 20, new TimeSpan(0, 0, 9));
-			AddSameToBoth(helper1, helper2, 30, new TimeSpan(0, 0, 8));
+			AddSameToBoth(protocolMock, helper1, helper2, 20, new TimeSpan(0, 0, 9));
+			AddSameToBoth(protocolMock, helper1, helper2, 30, new TimeSpan(0, 0, 8));
 
 			// Act
 			string serialized1 = helper1.ToJsonString();
@@ -361,10 +361,8 @@ namespace Skyline.Protocol.Rates.Tests
 		#endregion
 
 		#region HelperMethods
-		private static void AddSameToBoth(SnmpRate32 helper1, SnmpRate32 helper2, uint newCounter, TimeSpan time)
+		private static void AddSameToBoth(Mock<SLProtocol> protocolMock, SnmpRate32 helper1, SnmpRate32 helper2, uint newCounter, TimeSpan time)
 		{
-			Mock<SLProtocol> protocolMock = new Mock<SLProtocol>();
-
 			protocolMock.Setup(p => p.NotifyProtocol(269, groupId, null)).Returns((int)time.TotalMilliseconds);
 			helper1.Calculate(newCounter);
 			helper2.Calculate(newCounter);

@@ -61,10 +61,10 @@
 		protected readonly int groupId;
 
 		[JsonProperty]
-		protected readonly Rate32OnTimes rateOnTimes;
+		protected TimeSpan bufferedDelta;
 
 		[JsonProperty]
-		protected TimeSpan bufferedDelta;
+		protected readonly Rate32OnTimes rateOnTimes;
 
 		[JsonConstructor]
 		private SnmpRate32(int groupId, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase)

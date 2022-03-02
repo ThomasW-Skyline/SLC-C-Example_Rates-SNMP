@@ -5,7 +5,7 @@
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
         <ProductVersion>8.0.30703</ProductVersion>
         <SchemaVersion>2.0</SchemaVersion>
-        <ProjectGuid>{69F6E583-5AAE-493B-872A-A379E94EF8AD}</ProjectGuid>
+        <ProjectGuid>{41CBEDEE-6534-49A7-BFA9-77556C233FFC}</ProjectGuid>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>QAction_ClassLibrary</RootNamespace>

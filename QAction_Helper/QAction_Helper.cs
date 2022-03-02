@@ -8,6 +8,11 @@ namespace Skyline.DataMiner.Scripting
 {
 public static class Parameter
 {
+	/// <summary>PID: 992 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int streamstimeoutafterretriesflag_992 = 992;
+	/// <summary>PID: 992 | Type: read</summary>
+	public const int streamstimeoutafterretriesflag = 992;
 	public class Write
 	{
 	}
@@ -94,6 +99,12 @@ public interface SLProtocolExt : SLProtocol
 	StreamsQActionTable streams { get; set; }
 	object Afterstartup_dummy { get; set; }
 	object Dummyforqa3_dummy { get; set; }
+	object Fixed_0__fixed { get; set; }
+	object Fixed_1__fixed { get; set; }
+	object Streamstimeouttrigger_dummy { get; set; }
+	object Streamstimeoutafterretriesflag_992 { get; set; }
+	object Streamstimeoutafterretriesflag { get; set; }
+	object Streamsaftergrouptrigger_dummy { get; set; }
 	object Streamsindex_1001 { get; set; }
 	object Streamsindex { get; set; }
 	object Streamsdrescription_1002 { get; set; }
@@ -114,6 +125,19 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public System.Object Afterstartup_dummy {get { return GetParameter(2); }set { SetParameter(2, value); }}
 	/// <summary>PID: 3  | Type: dummy</summary>
 	public System.Object Dummyforqa3_dummy {get { return GetParameter(3); }set { SetParameter(3, value); }}
+	/// <summary>PID: 10  | Type: fixed</summary>
+	public System.Object Fixed_0__fixed {get { return GetParameter(10); }set { SetParameter(10, value); }}
+	/// <summary>PID: 11  | Type: fixed</summary>
+	public System.Object Fixed_1__fixed {get { return GetParameter(11); }set { SetParameter(11, value); }}
+	/// <summary>PID: 991  | Type: dummy</summary>
+	public System.Object Streamstimeouttrigger_dummy {get { return GetParameter(991); }set { SetParameter(991, value); }}
+	/// <summary>PID: 992  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Streamstimeoutafterretriesflag_992 {get { return GetParameter(992); }set { SetParameter(992, value); }}
+	/// <summary>PID: 992  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	public System.Object Streamstimeoutafterretriesflag {get { return GetParameter(992); }set { SetParameter(992, value); }}
+	/// <summary>PID: 993  | Type: dummy</summary>
+	public System.Object Streamsaftergrouptrigger_dummy {get { return GetParameter(993); }set { SetParameter(993, value); }}
 	/// <summary>PID: 1001  | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public System.Object Streamsindex_1001 {get { return GetParameter(1001); }set { SetParameter(1001, value); }}

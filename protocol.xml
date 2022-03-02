@@ -76,8 +76,64 @@ Any inquiries can be addressed to:
 			<Description>Dummy For QA3</Description>
 			<Type>dummy</Type>
 		</Param>
+
+		<Param id="10">
+			<Name>Fixed_0</Name>
+			<Description>Fixed 0</Description>
+			<Type>fixed</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>fixed</LengthType>
+				<Length>1</Length>
+				<Value>0</Value>
+			</Interprete>
+		</Param>
+		<Param id="11">
+			<Name>Fixed_1</Name>
+			<Description>Fixed 1</Description>
+			<Type>fixed</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>fixed</LengthType>
+				<Length>1</Length>
+				<Value>1</Value>
+			</Interprete>
+		</Param>
 		
 		<!-- Streams Table -->
+		<Param id="991">
+			<Name>streamsTimeoutTrigger</Name>
+			<Type>dummy</Type>
+		</Param>
+		<Param id="992">
+			<Name>streamsTimeoutAfterRetriesFlag</Name>
+			<Description>Streams Timeout After Retries Flag</Description>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<LengthType>next param</LengthType>
+				<Type>double</Type>
+			</Interprete>
+			<Measurement>
+				<Type>discreet</Type>
+				<Discreets>
+					<Discreet>
+						<Display>False</Display>
+						<Value>0</Value>
+					</Discreet>
+					<Discreet>
+						<Display>True</Display>
+						<Value>1</Value>
+					</Discreet>
+				</Discreets>
+			</Measurement>
+		</Param>
+		<Param id="993">
+			<Name>streamsAfterGroupTrigger</Name>
+			<Type>dummy</Type>
+		</Param>
 		<Param id="1000">
 			<Name>streams</Name>
 			<Description>Streams</Description>
@@ -250,7 +306,7 @@ Any inquiries can be addressed to:
 		<QAction id="2" name="After Startup" encoding="csharp" triggers="2">
 		</QAction>
 		
-		<QAction id="1000" name="Streams Changes" encoding="csharp" triggers="1000">
+		<QAction id="991" name="Streams Changes" encoding="csharp" triggers="991;993" entryPoint="Streams.ProcessTimeout;Streams.ProcessTable">
 		</QAction>
 	</QActions>
 
@@ -291,6 +347,46 @@ Any inquiries can be addressed to:
 				<Id>1</Id>
 			</Content>
 		</Trigger>
+	
+		<Trigger id="990">
+			<Name>StreamsBeforeGroup</Name>
+			<On id="1000">group</On>
+			<Time>before</Time>
+			<Type>action</Type>
+			<Content>
+				<Id>990</Id>
+			</Content>
+		</Trigger>
+		<Trigger id="991">
+			<Name>StreamsTimeout</Name>
+			<On id="1000">parameter</On>
+			<Time>timeout</Time>
+			<Type>action</Type>
+			<Content>
+				<Id>991</Id>
+			</Content>
+		</Trigger>
+		<Trigger id="992">
+			<Name>StreamsTimeoutAfterRetries</Name>
+			<On id="1000">parameter</On>
+			<Time>timeout after retries</Time>
+			<Type>action</Type>
+			<Content>
+				<Id>992</Id>
+			</Content>
+		</Trigger>
+		<Trigger id="993">
+			<Name>StreamsAfterGroup</Name>
+			<On id="1000">group</On>
+			<Time>after</Time>
+			<Condition>
+				<![CDATA[id:992 == 0]]>
+			</Condition>
+			<Type>action</Type>
+			<Content>
+				<Id>993</Id>
+			</Content>
+		</Trigger>
 	</Triggers>
 
 	<Actions>
@@ -308,6 +404,32 @@ Any inquiries can be addressed to:
 			<Name>Run QA3</Name>
 			<On id="3">parameter</On>
 			<Type>run actions</Type>
+		</Action>
+	
+		<Action id="990">
+			<Name>Streams Timeout After Retries Flag Reset</Name>
+			<On id="992">parameter</On>
+			<Type id="10">copy</Type>
+		</Action>
+		<Action id="991">
+			<Name>Streams Timeout Run Action</Name>
+			<On id="991">parameter</On>
+			<Type>run actions</Type>
+		</Action>
+		<Action id="992">
+			<Name>Streams Timeout After Retries Flag</Name>
+			<On id="992">parameter</On>
+			<Type id="11">copy</Type>
+		</Action>
+		<Action id="993">
+			<Name>Streams Calculate Bit Rates</Name>
+			<On id="993">parameter</On>
+			<Type>run actions</Type>
+		</Action>
+		<Action id="1000">
+			<Name>Streams Execute Next</Name>
+			<On id="1000">group</On>
+			<Type>execute next</Type>
 		</Action>
 	</Actions>
 
