@@ -90,7 +90,7 @@ Any inquiries can be addressed to:
 				<ColumnOption idx="4" pid="1005" type="retrieved" options=";save" />
 			</ArrayOptions>
 			<Information>
-				<Subtext>Streams Table</Subtext>
+				<Subtext>List of streams.</Subtext>
 			</Information>
 			<SNMP>
 				<Enabled>true</Enabled>
@@ -323,7 +323,9 @@ Any inquiries can be addressed to:
 	</Timers>
 
 	<PortSettings name="SNMP Connection">
-		
+		<BusAddress>
+			<Disabled>true</Disabled>
+		</BusAddress>
 	</PortSettings>
 
 	<VersionHistory>
