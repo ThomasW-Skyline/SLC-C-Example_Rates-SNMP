@@ -18,7 +18,7 @@ public static class QAction
     {
         try
         {
-
+			// Currently nothing to do at startup
         }
         catch (Exception ex)
         {
