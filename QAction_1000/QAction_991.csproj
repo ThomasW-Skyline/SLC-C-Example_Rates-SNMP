@@ -74,6 +74,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QAction_991.cs" />
     <Compile Include="Streams\StreamsProcessor.cs" />
+    <Compile Include="Streams\StreamsTimeoutProcessor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

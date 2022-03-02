@@ -8,7 +8,7 @@
 	using Skyline.Protocol.Rates;
 	using Skyline.Protocol.SafeConverters;
 
-	public class StreamsProcessor
+	public class StreamsTimeoutProcessor
 	{
 		private readonly StreamsGetter getter;
 		private readonly StreamsSetter setter;
@@ -16,7 +16,7 @@
 		private readonly SLProtocol protocol;
 		private const int groupId = 1000;
 
-		internal StreamsProcessor(SLProtocol protocol)
+		internal StreamsTimeoutProcessor(SLProtocol protocol)
 		{
 			this.protocol = protocol;
 
@@ -26,31 +26,23 @@
 			setter = new StreamsSetter(protocol);
 		}
 
-		internal void ProcessData()
+		internal void ProcessTimeout()
 		{
 			for (int i = 0; i < getter.Keys.Length; i++)
 			{
-				setter.SetColumnsData[Parameter.Streams.tablePid].Add(Convert.ToString(getter.Keys[i]));
+				string serializedHelper = Convert.ToString(getter.OctetsRateData[i]);
+				SnmpRate32 snmpRate32Helper = SnmpRate32.FromJsonString(protocol, serializedHelper, groupId, minDelta: new TimeSpan(0, 0, 5), maxDelta: new TimeSpan(0, 10, 0));
 
-				ProcessBitRates(i, minDelta: new TimeSpan(0, 0, 5), maxDelta: new TimeSpan(0, 10, 0));
+				snmpRate32Helper.BufferDelta();
+
+				setter.SetColumnsData[Parameter.Streams.tablePid].Add(Convert.ToString(getter.Keys[i]));
+				setter.SetColumnsData[Parameter.Streams.Pid.streamsbitratedata].Add(snmpRate32Helper.ToJsonString());
 			}
 		}
 
 		internal void UpdateProtocol()
 		{
 			setter.SetColumns();
-		}
-
-		private void ProcessBitRates(int getPosition, TimeSpan minDelta, TimeSpan maxDelta)
-		{
-			uint octets = SafeConvert.ToUInt32(Convert.ToDouble(getter.Octets[getPosition]));
-			string serializedHelper = Convert.ToString(getter.OctetsRateData[getPosition]);
-
-			SnmpRate32 snmpRate32Helper = SnmpRate32.FromJsonString(protocol, serializedHelper, groupId, minDelta, maxDelta);
-			double bitRate = snmpRate32Helper.Calculate(octets) / 8;
-
-			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrate].Add(bitRate);
-			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitratedata].Add(snmpRate32Helper.ToJsonString());
 		}
 
 		private class StreamsGetter
@@ -64,8 +56,6 @@
 
 			public object[] Keys { get; private set; }
 
-			public object[] Octets { get; private set; }
-
 			public object[] OctetsRateData { get; private set; }
 
 			internal void Load()
@@ -73,13 +63,11 @@
 				var tableData = (object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, new uint[]
 				{
 					Parameter.Streams.Idx.streamsindex,
-					Parameter.Streams.Idx.streamsoctetscounter,
 					Parameter.Streams.Idx.streamsbitratedata,
 				});
 
 				Keys = (object[])tableData[0];
-				Octets = (object[])tableData[1];
-				OctetsRateData = (object[])tableData[2];
+				OctetsRateData = (object[])tableData[1];
 			}
 		}
 
@@ -96,7 +84,6 @@
 				SetColumnsData = new Dictionary<object, List<object>>
 				{
 					{ Parameter.Streams.tablePid, new List<object>() },
-					{ Parameter.Streams.Pid.streamsbitrate, new List<object>() },
 					{ Parameter.Streams.Pid.streamsbitratedata, new List<object>() },
 				};
 			}

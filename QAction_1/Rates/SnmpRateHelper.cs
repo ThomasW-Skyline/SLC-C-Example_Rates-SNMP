@@ -127,6 +127,7 @@
 				new SnmpRate32(groupId, minDelta, maxDelta, rateBase);
 
 			instance.protocol = protocol;
+			//instance.groupId = groupId;	// TODO: chose between including the groupId in serialized version or add this line of code here.
 			return instance;
 		}
 
