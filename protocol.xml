@@ -76,7 +76,7 @@ Any inquiries can be addressed to:
 			<Description>Dummy For QA3</Description>
 			<Type>dummy</Type>
 		</Param>
-
+		
 		<Param id="10">
 			<Name>Fixed_0</Name>
 			<Description>Fixed 0</Description>
@@ -134,6 +134,89 @@ Any inquiries can be addressed to:
 			<Name>streamsAfterGroupTrigger</Name>
 			<Type>dummy</Type>
 		</Param>
+		<Param id="995" trending="true" save="true">
+			<Name>streamsRateCalculationsMethod</Name>
+			<Description>Streams Rate Calculation Method</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>
+					<![CDATA[Allows to chose between 2 methods of rate calculations for the Streams table:
+- Fast: This method will be faster and less resources eager but the results might be less accurate in some circumstances.
+		It will use a delta (time elapsed between current & previous polling cycle) on table level.
+- Accurate: This method will be more accurate but will be more resources eager.
+		It will use a delta (time elapsed between current & previous polling cycle) on row level.]]>
+				</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+				<DefaultValue>1</DefaultValue>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>General</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<!-- SuppressValidator 2.5.1 Alarm thresholds fully depending on end-user and use-case. -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
+			<!-- /SuppressValidator 2.5.1 -->
+			<Measurement>
+				<Type>discreet</Type>
+				<Discreets>
+					<Discreet>
+						<Display>Fast</Display>
+						<Value>1</Value>
+					</Discreet>
+					<Discreet>
+						<Display>Accurate</Display>
+						<Value>2</Value>
+					</Discreet>
+				</Discreets>
+			</Measurement>
+		</Param>
+		<Param id="996" setter="true">
+			<Name>streamsRateCalculationsMethod</Name>
+			<Description>Streams Rate Calculation Method</Description>
+			<Type>write</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>General</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<!-- SuppressValidator 2.5.1 Alarm thresholds fully depending on end-user and use-case. -->
+			<!-- /SuppressValidator 2.5.1 -->
+			<Measurement>
+				<Type>discreet</Type>
+				<Discreets>
+					<Discreet>
+						<Display>Fast</Display>
+						<Value>1</Value>
+					</Discreet>
+					<Discreet>
+						<Display>Accurate</Display>
+						<Value>2</Value>
+					</Discreet>
+				</Discreets>
+			</Measurement>
+		</Param>
 		<Param id="1000">
 			<Name>streams</Name>
 			<Description>Streams</Description>
@@ -159,7 +242,7 @@ Any inquiries can be addressed to:
 					<Position>
 						<Page>General</Page>
 						<Column>0</Column>
-						<Row>0</Row>
+						<Row>1</Row>
 					</Position>
 				</Positions>
 			</Display>
@@ -305,8 +388,10 @@ Any inquiries can be addressed to:
 		</QAction>
 		<QAction id="2" name="After Startup" encoding="csharp" triggers="2">
 		</QAction>
-		
-		<QAction id="991" name="Streams Changes" encoding="csharp" triggers="991;993" entryPoint="Streams.ProcessTimeout;Streams.ProcessTable">
+
+		<QAction id="991" name="Streams Processors" encoding="csharp" triggers="991;993" entryPoint="Streams.ProcessTimeout;Streams.ProcessTable">
+		</QAction>
+		<QAction id="995" name="Streams Rate Calculations Method" encoding="csharp" triggers="995">
 		</QAction>
 	</QActions>
 
@@ -347,7 +432,7 @@ Any inquiries can be addressed to:
 				<Id>1</Id>
 			</Content>
 		</Trigger>
-	
+
 		<Trigger id="990">
 			<Name>StreamsBeforeGroup</Name>
 			<On id="1000">group</On>
@@ -405,7 +490,7 @@ Any inquiries can be addressed to:
 			<On id="3">parameter</On>
 			<Type>run actions</Type>
 		</Action>
-	
+
 		<Action id="990">
 			<Name>Streams Timeout After Retries Flag Reset</Name>
 			<On id="992">parameter</On>

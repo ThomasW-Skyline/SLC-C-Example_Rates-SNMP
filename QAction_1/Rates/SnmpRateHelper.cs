@@ -55,11 +55,6 @@
 
 	public class SnmpRate32
 	{
-		protected SLProtocol protocol;
-
-		[JsonProperty]
-		protected readonly int groupId;
-
 		[JsonProperty]
 		protected TimeSpan bufferedDelta;
 
@@ -67,36 +62,30 @@
 		protected readonly Rate32OnTimes rateOnTimes;
 
 		[JsonConstructor]
-		private SnmpRate32(int groupId, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase)
+		private SnmpRate32(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase)
 		{
-			if (groupId < 0)
-			{
-				throw new ArgumentException("The group ID must not be negative.", "groupId");
-			}
-
-			this.groupId = groupId;
-
 			rateOnTimes = new Rate32OnTimes(minDelta, maxDelta, rateBase);
 			bufferedDelta = TimeSpan.Zero;
 		}
 
-		public double Calculate(uint newCounter, double faultyReturn = -1)
+		public double Calculate(SnmpDeltaHelper deltaHelper, string rowKey, uint newCounter, double faultyReturn = -1)
 		{
-			var delta = GetSnmpGroupExecutionDelta();
+			var delta = deltaHelper.GetDelta(rowKey);
 			if (!delta.HasValue)
 			{
 				return faultyReturn;
 			}
 
-			var rate = rateOnTimes.Calculate(newCounter, bufferedDelta + delta.Value, faultyReturn);
+			TimeSpan totalDelta = bufferedDelta + delta.Value;
+			var rate = rateOnTimes.Calculate(newCounter, totalDelta, faultyReturn);
 			bufferedDelta = TimeSpan.Zero;
 
 			return rate;
 		}
 
-		public void BufferDelta()
+		public void BufferDelta(SnmpDeltaHelper deltaHelper, string rowKey)
 		{
-			var delta = GetSnmpGroupExecutionDelta();
+			var delta = deltaHelper.GetDelta(rowKey);
 			if (!delta.HasValue)
 			{
 				return;
@@ -105,29 +94,14 @@
 			bufferedDelta += delta.Value;
 		}
 
-		private TimeSpan? GetSnmpGroupExecutionDelta()
-		{
-			int result = Convert.ToInt32(protocol.NotifyProtocol(269 /*NT_GET_BITRATE_DELTA*/, groupId, null));
-			protocol.Log("QA" + protocol.QActionID + "|GetSnmpGroupExecutionDelta|result '" + result + "'", LogType.DebugInfo, LogLevel.NoLogging);
-
-			if (result != -1)
-			{
-				return TimeSpan.FromMilliseconds(result);
-			}
-
-			return null;
-		}
-
-		public static SnmpRate32 FromJsonString(SLProtocol protocol, string rateHelperSerialized, int groupId, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
+		public static SnmpRate32 FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
 		{
 			// TODO: Rate32OnTimes.ValidateMinAndMaxDeltas(minDelta, maxDelta);
 
 			var instance = !String.IsNullOrWhiteSpace(rateHelperSerialized) ?
 				JsonConvert.DeserializeObject<SnmpRate32>(rateHelperSerialized) :
-				new SnmpRate32(groupId, minDelta, maxDelta, rateBase);
+				new SnmpRate32(minDelta, maxDelta, rateBase);
 
-			instance.protocol = protocol;
-			//instance.groupId = groupId;	// TODO: chose between including the groupId in serialized version or add this line of code here.
 			return instance;
 		}
 

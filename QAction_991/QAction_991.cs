@@ -4,7 +4,7 @@ using Skyline.DataMiner.Scripting;
 using Skyline.Protocol.Streams;
 
 /// <summary>
-/// DataMiner QAction Class: Fill Streams Table.
+/// DataMiner QAction Class: Streams Processors.
 /// </summary>
 public static class Streams
 {
@@ -45,6 +45,6 @@ public static class Streams
 			protocol.Log("QA" + protocol.QActionID + "|" + protocol.GetTriggerParameter() + "|Run|Exception thrown:" + Environment.NewLine + ex, LogType.Error, LogLevel.NoLogging);
 		}
 
-		protocol.Log("QA" + protocol.QActionID + "|ProcessTable|### Start of QAction", LogType.DebugInfo, LogLevel.NoLogging);
+		protocol.Log("QA" + protocol.QActionID + "|ProcessTable|### End of QAction", LogType.DebugInfo, LogLevel.NoLogging);
 	}
 }

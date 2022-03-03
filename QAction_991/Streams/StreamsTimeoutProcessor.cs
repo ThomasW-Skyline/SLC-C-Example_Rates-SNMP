@@ -28,14 +28,17 @@
 
 		internal void ProcessTimeout()
 		{
+			SnmpDeltaHelper snmpDeltaHelper = new SnmpDeltaHelper(protocol, groupId, Parameter.streamsratecalculationsmethod);
+
 			for (int i = 0; i < getter.Keys.Length; i++)
 			{
+				string streamPK = Convert.ToString(getter.Keys[i]);
 				string serializedHelper = Convert.ToString(getter.OctetsRateData[i]);
-				SnmpRate32 snmpRate32Helper = SnmpRate32.FromJsonString(protocol, serializedHelper, groupId, minDelta: new TimeSpan(0, 0, 5), maxDelta: new TimeSpan(0, 10, 0));
 
-				snmpRate32Helper.BufferDelta();
+				SnmpRate32 snmpRate32Helper = SnmpRate32.FromJsonString(serializedHelper, minDelta: new TimeSpan(0, 0, 5), maxDelta: new TimeSpan(0, 10, 0));
+				snmpRate32Helper.BufferDelta(snmpDeltaHelper, streamPK);
 
-				setter.SetColumnsData[Parameter.Streams.tablePid].Add(Convert.ToString(getter.Keys[i]));
+				setter.SetColumnsData[Parameter.Streams.tablePid].Add(streamPK);
 				setter.SetColumnsData[Parameter.Streams.Pid.streamsbitratedata].Add(snmpRate32Helper.ToJsonString());
 			}
 		}

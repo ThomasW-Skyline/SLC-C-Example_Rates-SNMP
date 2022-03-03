@@ -79,7 +79,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties DisLinkedXmlFile="C:\GIT\Examples\Protocols\SDF\SLC SDF Rates - SNMP\protocol.xml" DisProjectType="qactionProject" DisLinkId="991" />
+      <UserProperties DisLinkId="991" DisProjectType="qactionProject" DisLinkedXmlFile="C:\GIT\Examples\Protocols\SDF\SLC SDF Rates - SNMP\protocol.xml" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

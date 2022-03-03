@@ -28,11 +28,13 @@
 
 		internal void ProcessData()
 		{
+			SnmpDeltaHelper snmpDeltaHelper = new SnmpDeltaHelper(protocol, groupId, Parameter.streamsratecalculationsmethod);
+
 			for (int i = 0; i < getter.Keys.Length; i++)
 			{
 				setter.SetColumnsData[Parameter.Streams.tablePid].Add(Convert.ToString(getter.Keys[i]));
 
-				ProcessBitRates(i, minDelta: new TimeSpan(0, 0, 5), maxDelta: new TimeSpan(0, 10, 0));
+				ProcessBitRates(i, snmpDeltaHelper, minDelta: new TimeSpan(0, 0, 5), maxDelta: new TimeSpan(0, 10, 0));
 			}
 		}
 
@@ -41,13 +43,15 @@
 			setter.SetColumns();
 		}
 
-		private void ProcessBitRates(int getPosition, TimeSpan minDelta, TimeSpan maxDelta)
+		private void ProcessBitRates(int getPosition, SnmpDeltaHelper snmpDeltaHelper, TimeSpan minDelta, TimeSpan maxDelta)
 		{
+			string streamPK = Convert.ToString(getter.Keys[getPosition]);
 			uint octets = SafeConvert.ToUInt32(Convert.ToDouble(getter.Octets[getPosition]));
 			string serializedHelper = Convert.ToString(getter.OctetsRateData[getPosition]);
 
-			SnmpRate32 snmpRate32Helper = SnmpRate32.FromJsonString(protocol, serializedHelper, groupId, minDelta, maxDelta);
-			double bitRate = snmpRate32Helper.Calculate(octets) / 8;
+			SnmpRate32 snmpRate32Helper = SnmpRate32.FromJsonString(serializedHelper, minDelta, maxDelta);
+			double octetRate = snmpRate32Helper.Calculate(snmpDeltaHelper, streamPK, octets);
+			double bitRate = octetRate > 0 ? octetRate / 8 : octetRate;
 
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrate].Add(bitRate);
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitratedata].Add(snmpRate32Helper.ToJsonString());
