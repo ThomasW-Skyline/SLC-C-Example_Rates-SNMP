@@ -20,7 +20,7 @@
 		private TimeSpan delta;
 		private readonly Dictionary<string, TimeSpan> deltaPerInstance = new Dictionary<string, TimeSpan>();
 
-		public SnmpDeltaHelper(SLProtocol protocol, int groupId, int calculationMethodPid)
+		public SnmpDeltaHelper(SLProtocol protocol, int groupId, int calculationMethodPid = -1)
 		{
 			if (groupId < 0)
 			{
@@ -30,10 +30,19 @@
 			this.protocol = protocol;
 			this.groupId = groupId;
 
-			calculationMethod = (CalculationMethod)Convert.ToInt32(protocol.GetParameter(calculationMethodPid));
-			if (calculationMethod != CalculationMethod.Accurate && calculationMethod != CalculationMethod.Fast)
+			if (calculationMethodPid < 0)
 			{
-				throw new NotSupportedException("Unexpected SNMP Rate Calculation Method value '" + protocol.GetParameter(calculationMethodPid) + "' retrieved from Param with PID '" + calculationMethodPid + "'.");
+				// Default behavior which can also be used for rates based on standalone SNMP counters
+				calculationMethod = CalculationMethod.Fast;
+			}
+			else
+			{
+				// Used for rates based on SNMP columns
+				calculationMethod = (CalculationMethod)Convert.ToInt32(protocol.GetParameter(calculationMethodPid));
+				if (calculationMethod != CalculationMethod.Accurate && calculationMethod != CalculationMethod.Fast)
+				{
+					throw new NotSupportedException("Unexpected SNMP Rate Calculation Method value '" + protocol.GetParameter(calculationMethodPid) + "' retrieved from Param with PID '" + calculationMethodPid + "'.");
+				}
 			}
 		}
 
