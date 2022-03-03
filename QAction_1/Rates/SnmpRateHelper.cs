@@ -68,7 +68,7 @@
 			bufferedDelta = TimeSpan.Zero;
 		}
 
-		public double Calculate(SnmpDeltaHelper deltaHelper, string rowKey, uint newCounter, double faultyReturn = -1)
+		public double Calculate(SnmpDeltaHelper deltaHelper, uint newCounter, string rowKey = null, double faultyReturn = -1)
 		{
 			var delta = deltaHelper.GetDelta(rowKey);
 			if (!delta.HasValue)
@@ -83,7 +83,7 @@
 			return rate;
 		}
 
-		public void BufferDelta(SnmpDeltaHelper deltaHelper, string rowKey)
+		public void BufferDelta(SnmpDeltaHelper deltaHelper, string rowKey = null)
 		{
 			var delta = deltaHelper.GetDelta(rowKey);
 			if (!delta.HasValue)

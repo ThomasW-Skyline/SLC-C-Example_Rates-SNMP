@@ -56,7 +56,7 @@ Any inquiries can be addressed to:
 	<ElementType>Training Example</ElementType>
 	<Type relativeTimers="true">snmpv2</Type>
 	<!-- SuppressValidator 1.22.6 No WebInterface required for this example driver. -->
-	<Display defaultPage="General" pageOrder="General" wideColumnPages="General"/>
+	<Display defaultPage="General" pageOrder="General;Standalone;Table" wideColumnPages="Table;General"/>
 	<!-- /SuppressValidator 1.22.6 -->
 	<SNMP includepages="true">auto</SNMP>
 
@@ -77,6 +77,32 @@ Any inquiries can be addressed to:
 			<Type>dummy</Type>
 		</Param>
 		
+		<Param id="9" trending="false">
+			<Name>ReadMe</Name>
+			<Description>Read Me</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Description of this example protocol.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>General</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type lines="50">string</Type>
+			</Measurement>
+		</Param>
 		<Param id="10">
 			<Name>Fixed_0</Name>
 			<Description>Fixed 0</Description>
@@ -100,6 +126,141 @@ Any inquiries can be addressed to:
 				<Length>1</Length>
 				<Value>1</Value>
 			</Interprete>
+		</Param>
+		
+		<Param id="91">
+			<Name>CounterTimeoutTrigger</Name>
+			<Type>dummy</Type>
+		</Param>
+		<Param id="92">
+			<Name>CounterTimeoutAfterRetriesFlag</Name>
+			<Description>Counter Timeout After Retries Flag</Description>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<LengthType>next param</LengthType>
+				<Type>double</Type>
+			</Interprete>
+			<Measurement>
+				<Type>discreet</Type>
+				<Discreets>
+					<Discreet>
+						<Display>False</Display>
+						<Value>0</Value>
+					</Discreet>
+					<Discreet>
+						<Display>True</Display>
+						<Value>1</Value>
+					</Discreet>
+				</Discreets>
+			</Measurement>
+		</Param>
+		<Param id="93">
+			<Name>CounterAfterGroupTrigger</Name>
+			<Type>dummy</Type>
+		</Param>
+		<Param id="100" trending="false">
+			<Name>Counter</Name>
+			<Description>Counter</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>This is a counter</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<SNMP>
+				<Enabled>true</Enabled>
+				<OID type="complete">1.3.6.1.2.1.1.100.0</OID>
+				<Type>counter32</Type>
+			</SNMP>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Units>Units</Units>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Standalone</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="101" trending="true">
+			<Name>CounterRate</Name>
+			<Description>Counter Rate</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>The calculated rate based on the counter and delta time between SNMP group executions.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+				<Exceptions>
+					<Exception id="1" value="-1">
+						<Display state="disabled">N/A</Display>
+						<Value>-1</Value>
+					</Exception>
+				</Exceptions>
+			</Interprete>
+			<!-- SuppressValidator 2.5.1 Thresholds fully depending on users -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
+			<!-- /SuppressValidator 2.5.1 -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Decimals>3</Decimals>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Units>Units/s</Units>
+				<Positions>
+					<Position>
+						<Page>Standalone</Page>
+						<Column>0</Column>
+						<Row>2</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="102" trending="false">
+			<Name>CounterRateData</Name>
+			<Description>Counter Rate Data</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Used as a buffer parameter containing data necessary for rate calculations based on delta time between SNMP group executions.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Standalone</Page>
+						<Column>0</Column>
+						<Row>3</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type lines="10">string</Type>
+			</Measurement>
 		</Param>
 		
 		<!-- Streams Table -->
@@ -157,7 +318,7 @@ Any inquiries can be addressed to:
 				<RTDisplay>true</RTDisplay>
 				<Positions>
 					<Position>
-						<Page>General</Page>
+						<Page>Table</Page>
 						<Column>0</Column>
 						<Row>0</Row>
 					</Position>
@@ -195,7 +356,7 @@ Any inquiries can be addressed to:
 				<RTDisplay>true</RTDisplay>
 				<Positions>
 					<Position>
-						<Page>General</Page>
+						<Page>Table</Page>
 						<Column>0</Column>
 						<Row>0</Row>
 					</Position>
@@ -234,13 +395,13 @@ Any inquiries can be addressed to:
 			<SNMP>
 				<Enabled>true</Enabled>
 				<OID type="complete" options=";instance;multipleGetNext"></OID>
-				<!--<OID type="complete" options=";instance;multipleGetNext">1.3.6.1.2.1.1.100</OID>-->
+				<!--<OID type="complete" options=";instance;multipleGetNext">1.3.6.1.2.1.1.1000</OID>-->
 			</SNMP>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Positions>
 					<Position>
-						<Page>General</Page>
+						<Page>Table</Page>
 						<Column>0</Column>
 						<Row>1</Row>
 					</Position>
@@ -283,7 +444,7 @@ Any inquiries can be addressed to:
 			</Interprete>
 			<SNMP>
 				<Enabled>true</Enabled>
-				<OID type="complete">1.3.6.1.2.1.1.100.1.2</OID>
+				<OID type="complete">1.3.6.1.2.1.1.1000.1.2</OID>
 				<Type>octetstring</Type>
 			</SNMP>
 			<Display>
@@ -307,7 +468,7 @@ Any inquiries can be addressed to:
 			</Interprete>
 			<SNMP>
 				<Enabled>true</Enabled>
-				<OID type="complete">1.3.6.1.2.1.1.100.1.3</OID>
+				<OID type="complete">1.3.6.1.2.1.1.1000.1.3</OID>
 				<Type>integer</Type>
 			</SNMP>
 			<!-- SuppressValidator 2.5.1 Thresholds fully depending on users -->
@@ -326,7 +487,6 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		
 		<Param id="1004" trending="true">
 			<Name>streamsBitRate</Name>
 			<Description>Bit Rate (Streams)</Description>
@@ -389,6 +549,9 @@ Any inquiries can be addressed to:
 		<QAction id="2" name="After Startup" encoding="csharp" triggers="2">
 		</QAction>
 
+		<QAction id="91" name="Counter Processors" encoding="csharp" triggers="91;93" entryPoint="Counter.ProcessTimeout;Counter.ProcessCounter">
+		</QAction>
+
 		<QAction id="991" name="Streams Processors" encoding="csharp" triggers="991;993" entryPoint="Streams.ProcessTimeout;Streams.ProcessTable">
 		</QAction>
 		<QAction id="995" name="Streams Rate Calculations Method" encoding="csharp" triggers="995">
@@ -412,6 +575,15 @@ Any inquiries can be addressed to:
 				<Action>2</Action>
 			</Content>
 		</Group>
+
+		<Group id="100">
+			<Name>Poll Counter</Name>
+			<Description>Poll Counter</Description>
+			<Type>poll</Type>
+			<Content>
+				<Param>100</Param>
+			</Content>
+		</Group>
 		<Group id="1000">
 			<Name>Poll Streams</Name>
 			<Description>Poll Streams</Description>
@@ -433,6 +605,46 @@ Any inquiries can be addressed to:
 			</Content>
 		</Trigger>
 
+		<Trigger id="90">
+			<Name>CountersBeforeGroup</Name>
+			<On id="100">group</On>
+			<Time>before</Time>
+			<Type>action</Type>
+			<Content>
+				<Id>90</Id>
+			</Content>
+		</Trigger>
+		<Trigger id="91">
+			<Name>CountersTimeout</Name>
+			<On id="100">parameter</On>
+			<Time>timeout</Time>
+			<Type>action</Type>
+			<Content>
+				<Id>91</Id>
+			</Content>
+		</Trigger>
+		<Trigger id="92">
+			<Name>CountersTimeoutAfterRetries</Name>
+			<On id="100">parameter</On>
+			<Time>timeout after retries</Time>
+			<Type>action</Type>
+			<Content>
+				<Id>92</Id>
+			</Content>
+		</Trigger>
+		<Trigger id="93">
+			<Name>CountersAfterGroup</Name>
+			<On id="100">group</On>
+			<Time>after</Time>
+			<Condition>
+				<![CDATA[id:92 == 0]]>
+			</Condition>
+			<Type>action</Type>
+			<Content>
+				<Id>93</Id>
+			</Content>
+		</Trigger>
+		
 		<Trigger id="990">
 			<Name>StreamsBeforeGroup</Name>
 			<On id="1000">group</On>
@@ -491,6 +703,27 @@ Any inquiries can be addressed to:
 			<Type>run actions</Type>
 		</Action>
 
+		<Action id="90">
+			<Name>Counter Timeout After Retries Flag Reset</Name>
+			<On id="992">parameter</On>
+			<Type id="10">copy</Type>
+		</Action>
+		<Action id="91">
+			<Name>Counter Timeout Run Action</Name>
+			<On id="91">parameter</On>
+			<Type>run actions</Type>
+		</Action>
+		<Action id="92">
+			<Name>Counter Timeout After Retries Flag</Name>
+			<On id="92">parameter</On>
+			<Type id="11">copy</Type>
+		</Action>
+		<Action id="93">
+			<Name>Counter Calculate Bit Rates</Name>
+			<On id="93">parameter</On>
+			<Type>run actions</Type>
+		</Action>
+
 		<Action id="990">
 			<Name>Streams Timeout After Retries Flag Reset</Name>
 			<On id="992">parameter</On>
@@ -524,6 +757,7 @@ Any inquiries can be addressed to:
 			<Time initial="true">10000</Time>
 			<Interval>75</Interval>
 			<Content>
+				<Group>100</Group>
 				<Group>1000</Group>
 			</Content>
 		</Timer>

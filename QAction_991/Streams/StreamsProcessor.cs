@@ -50,7 +50,7 @@
 			string serializedHelper = Convert.ToString(getter.OctetsRateData[getPosition]);
 
 			SnmpRate32 snmpRate32Helper = SnmpRate32.FromJsonString(serializedHelper, minDelta, maxDelta);
-			double octetRate = snmpRate32Helper.Calculate(snmpDeltaHelper, streamPK, octets);
+			double octetRate = snmpRate32Helper.Calculate(snmpDeltaHelper, octets, streamPK);
 			double bitRate = octetRate > 0 ? octetRate / 8 : octetRate;
 
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrate].Add(bitRate);

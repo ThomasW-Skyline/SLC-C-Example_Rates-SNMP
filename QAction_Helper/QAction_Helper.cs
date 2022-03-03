@@ -8,6 +8,31 @@ namespace Skyline.DataMiner.Scripting
 {
 public static class Parameter
 {
+	/// <summary>PID: 9 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int readme_9 = 9;
+	/// <summary>PID: 9 | Type: read</summary>
+	public const int readme = 9;
+	/// <summary>PID: 92 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int countertimeoutafterretriesflag_92 = 92;
+	/// <summary>PID: 92 | Type: read</summary>
+	public const int countertimeoutafterretriesflag = 92;
+	/// <summary>PID: 100 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int counter_100 = 100;
+	/// <summary>PID: 100 | Type: read</summary>
+	public const int counter = 100;
+	/// <summary>PID: 101 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int counterrate_101 = 101;
+	/// <summary>PID: 101 | Type: read</summary>
+	public const int counterrate = 101;
+	/// <summary>PID: 102 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int counterratedata_102 = 102;
+	/// <summary>PID: 102 | Type: read</summary>
+	public const int counterratedata = 102;
 	/// <summary>PID: 992 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public const int streamstimeoutafterretriesflag_992 = 992;
@@ -111,8 +136,20 @@ public interface SLProtocolExt : SLProtocol
 	StreamsQActionTable streams { get; set; }
 	object Afterstartup_dummy { get; set; }
 	object Dummyforqa3_dummy { get; set; }
+	object Readme_9 { get; set; }
+	object Readme { get; set; }
 	object Fixed_0__fixed { get; set; }
 	object Fixed_1__fixed { get; set; }
+	object Countertimeouttrigger_dummy { get; set; }
+	object Countertimeoutafterretriesflag_92 { get; set; }
+	object Countertimeoutafterretriesflag { get; set; }
+	object Counteraftergrouptrigger_dummy { get; set; }
+	object Counter_100 { get; set; }
+	object Counter { get; set; }
+	object Counterrate_101 { get; set; }
+	object Counterrate { get; set; }
+	object Counterratedata_102 { get; set; }
+	object Counterratedata { get; set; }
 	object Streamstimeouttrigger_dummy { get; set; }
 	object Streamstimeoutafterretriesflag_992 { get; set; }
 	object Streamstimeoutafterretriesflag { get; set; }
@@ -140,10 +177,39 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public System.Object Afterstartup_dummy {get { return GetParameter(2); }set { SetParameter(2, value); }}
 	/// <summary>PID: 3  | Type: dummy</summary>
 	public System.Object Dummyforqa3_dummy {get { return GetParameter(3); }set { SetParameter(3, value); }}
+	/// <summary>PID: 9  | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Readme_9 {get { return GetParameter(9); }set { SetParameter(9, value); }}
+	/// <summary>PID: 9  | Type: read</summary>
+	public System.Object Readme {get { return GetParameter(9); }set { SetParameter(9, value); }}
 	/// <summary>PID: 10  | Type: fixed</summary>
 	public System.Object Fixed_0__fixed {get { return GetParameter(10); }set { SetParameter(10, value); }}
 	/// <summary>PID: 11  | Type: fixed</summary>
 	public System.Object Fixed_1__fixed {get { return GetParameter(11); }set { SetParameter(11, value); }}
+	/// <summary>PID: 91  | Type: dummy</summary>
+	public System.Object Countertimeouttrigger_dummy {get { return GetParameter(91); }set { SetParameter(91, value); }}
+	/// <summary>PID: 92  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Countertimeoutafterretriesflag_92 {get { return GetParameter(92); }set { SetParameter(92, value); }}
+	/// <summary>PID: 92  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	public System.Object Countertimeoutafterretriesflag {get { return GetParameter(92); }set { SetParameter(92, value); }}
+	/// <summary>PID: 93  | Type: dummy</summary>
+	public System.Object Counteraftergrouptrigger_dummy {get { return GetParameter(93); }set { SetParameter(93, value); }}
+	/// <summary>PID: 100  | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Counter_100 {get { return GetParameter(100); }set { SetParameter(100, value); }}
+	/// <summary>PID: 100  | Type: read</summary>
+	public System.Object Counter {get { return GetParameter(100); }set { SetParameter(100, value); }}
+	/// <summary>PID: 101  | Type: read | EXCEPTIONS: N/A = -1</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Counterrate_101 {get { return GetParameter(101); }set { SetParameter(101, value); }}
+	/// <summary>PID: 101  | Type: read | EXCEPTIONS: N/A = -1</summary>
+	public System.Object Counterrate {get { return GetParameter(101); }set { SetParameter(101, value); }}
+	/// <summary>PID: 102  | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Counterratedata_102 {get { return GetParameter(102); }set { SetParameter(102, value); }}
+	/// <summary>PID: 102  | Type: read</summary>
+	public System.Object Counterratedata {get { return GetParameter(102); }set { SetParameter(102, value); }}
 	/// <summary>PID: 991  | Type: dummy</summary>
 	public System.Object Streamstimeouttrigger_dummy {get { return GetParameter(991); }set { SetParameter(991, value); }}
 	/// <summary>PID: 992  | Type: read | DISCREETS: False = 0, True = 1</summary>

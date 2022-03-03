@@ -6,7 +6,6 @@
 	using Skyline.DataMiner.Scripting;
 	using Skyline.Protocol.Extensions;
 	using Skyline.Protocol.Rates;
-	using Skyline.Protocol.SafeConverters;
 
 	public class StreamsTimeoutProcessor
 	{

@@ -1,12 +1,15 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
 
 using Skyline.DataMiner.Scripting;
-using Skyline.Protocol.Streams;
+using Skyline.Protocol.Counter;
 
 /// <summary>
-/// DataMiner QAction Class: Streams Processors.
+/// DataMiner QAction Class.
 /// </summary>
-public static class Streams
+public static class Counter
 {
 	/// <summary>
 	/// The QAction entry point in case of timeout.
@@ -14,12 +17,12 @@ public static class Streams
 	/// <param name="protocol">Link with SLProtocol process.</param>
 	public static void ProcessTimeout(SLProtocol protocol)
 	{
-		const string MethodName = "Streams.ProcessTimeout";
+		const string MethodName = "Counter.ProcessTimeout";
 		////protocol.Log("QA" + protocol.QActionID + "|" + MethodName + "|### Start of QAction", LogType.DebugInfo, LogLevel.NoLogging);
 
 		try
 		{
-			StreamsTimeoutProcessor streamsHelper = new StreamsTimeoutProcessor(protocol);
+			CounterTimeoutProcessor streamsHelper = new CounterTimeoutProcessor(protocol);
 			streamsHelper.ProcessTimeout();
 			streamsHelper.UpdateProtocol();
 		}
@@ -35,14 +38,14 @@ public static class Streams
 	/// The QAction entry point in case of successful group execution.
 	/// </summary>
 	/// <param name="protocol">Link with SLProtocol process.</param>
-	public static void ProcessTable(SLProtocol protocol)
+	public static void ProcessCounter(SLProtocol protocol)
 	{
-		const string MethodName = "Streams.ProcessTable";
+		const string MethodName = "Counter.ProcessCounter";
 		////protocol.Log("QA" + protocol.QActionID + "|" + MethodName + "|### Start of QAction", LogType.DebugInfo, LogLevel.NoLogging);
 
 		try
 		{
-			StreamsProcessor streamsHelper = new StreamsProcessor(protocol);
+			CounterProcessor streamsHelper = new CounterProcessor(protocol);
 			streamsHelper.ProcessData();
 			streamsHelper.UpdateProtocol();
 		}

@@ -16,6 +16,7 @@
 		private readonly int groupId;
 
 		private readonly CalculationMethod calculationMethod;
+
 		private bool deltaLoaded;
 		private TimeSpan delta;
 		private readonly Dictionary<string, TimeSpan> deltaPerInstance = new Dictionary<string, TimeSpan>();
@@ -62,19 +63,26 @@
 			}
 		}
 
-		internal TimeSpan? GetDelta(string key)
+		internal TimeSpan? GetDelta(string rowKey)
 		{
 			if (!deltaLoaded)
 			{
 				LoadDelta();
 			}
 
+			// Based on SNMP standalone
+			if (rowKey == null)
+			{
+				return delta;
+			}
+
+			// Based on SNMP column
 			switch (calculationMethod)
 			{
 				case CalculationMethod.Fast:
 					return delta;
 				case CalculationMethod.Accurate:
-					return deltaPerInstance[key];
+					return deltaPerInstance[rowKey];
 				default:
 					return null;
 			}
