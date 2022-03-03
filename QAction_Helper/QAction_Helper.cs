@@ -135,7 +135,6 @@ public interface SLProtocolExt : SLProtocol
 	/// <summary>PID: 1000</summary>
 	StreamsQActionTable streams { get; set; }
 	object Afterstartup_dummy { get; set; }
-	object Dummyforqa3_dummy { get; set; }
 	object Readme_9 { get; set; }
 	object Readme { get; set; }
 	object Fixed_0__fixed { get; set; }
@@ -175,8 +174,6 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public StreamsQActionTable streams { get; set; }
 	/// <summary>PID: 2  | Type: dummy</summary>
 	public System.Object Afterstartup_dummy {get { return GetParameter(2); }set { SetParameter(2, value); }}
-	/// <summary>PID: 3  | Type: dummy</summary>
-	public System.Object Dummyforqa3_dummy {get { return GetParameter(3); }set { SetParameter(3, value); }}
 	/// <summary>PID: 9  | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public System.Object Readme_9 {get { return GetParameter(9); }set { SetParameter(9, value); }}

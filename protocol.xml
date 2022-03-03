@@ -67,13 +67,8 @@ Any inquiries can be addressed to:
 
 	<Params>
 		<Param id="2">
-			<Name>afterStartup</Name>
+			<Name>AfterStartup</Name>
 			<Description>After Startup</Description>
-			<Type>dummy</Type>
-		</Param>
-		<Param id="3">
-			<Name>dummyForQA3</Name>
-			<Description>Dummy For QA3</Description>
 			<Type>dummy</Type>
 		</Param>
 		
@@ -265,11 +260,11 @@ Any inquiries can be addressed to:
 		
 		<!-- Streams Table -->
 		<Param id="991">
-			<Name>streamsTimeoutTrigger</Name>
+			<Name>StreamsTimeoutTrigger</Name>
 			<Type>dummy</Type>
 		</Param>
 		<Param id="992">
-			<Name>streamsTimeoutAfterRetriesFlag</Name>
+			<Name>StreamsTimeoutAfterRetriesFlag</Name>
 			<Description>Streams Timeout After Retries Flag</Description>
 			<Type>read</Type>
 			<Interprete>
@@ -292,11 +287,11 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="993">
-			<Name>streamsAfterGroupTrigger</Name>
+			<Name>StreamsAfterGroupTrigger</Name>
 			<Type>dummy</Type>
 		</Param>
 		<Param id="995" trending="true" save="true">
-			<Name>streamsRateCalculationsMethod</Name>
+			<Name>StreamsRateCalculationsMethod</Name>
 			<Description>Streams Rate Calculation Method</Description>
 			<Type>read</Type>
 			<Information>
@@ -344,7 +339,7 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="996" setter="true">
-			<Name>streamsRateCalculationsMethod</Name>
+			<Name>StreamsRateCalculationsMethod</Name>
 			<Description>Streams Rate Calculation Method</Description>
 			<Type>write</Type>
 			<Interprete>
@@ -379,7 +374,7 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="1000">
-			<Name>streams</Name>
+			<Name>Streams</Name>
 			<Description>Streams</Description>
 			<Type>array</Type>
 			<ArrayOptions index="0">
@@ -412,7 +407,7 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="1001" trending="false">
-			<Name>streamsIndex</Name>
+			<Name>StreamsIndex</Name>
 			<Description>Index [IDX] (Streams)</Description>
 			<Type>read</Type>
 			<Information>
@@ -431,7 +426,7 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="1002" trending="false">
-			<Name>streamsDrescription</Name>
+			<Name>StreamsDrescription</Name>
 			<Description>Description (Streams)</Description>
 			<Type>read</Type>
 			<Information>
@@ -455,7 +450,7 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="1003" trending="true">
-			<Name>streamsOctetsCounter</Name>
+			<Name>StreamsOctetsCounter</Name>
 			<Description>Octets Counter (Streams)</Description>
 			<Type>read</Type>
 			<Information>
@@ -488,7 +483,7 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="1004" trending="true">
-			<Name>streamsBitRate</Name>
+			<Name>StreamsBitRate</Name>
 			<Description>Bit Rate (Streams)</Description>
 			<Type>read</Type>
 			<Information>
@@ -523,7 +518,7 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="1005" trending="false">
-			<Name>streamsBitRateData</Name>
+			<Name>StreamsBitRateData</Name>
 			<Description>Bit Rate Data (Streams)</Description>
 			<Type>read</Type>
 			<Information>
@@ -605,6 +600,7 @@ Any inquiries can be addressed to:
 			</Content>
 		</Trigger>
 
+		<!--Rate based on SNMP standalone-->
 		<Trigger id="90">
 			<Name>CountersBeforeGroup</Name>
 			<On id="100">group</On>
@@ -645,6 +641,7 @@ Any inquiries can be addressed to:
 			</Content>
 		</Trigger>
 		
+		<!--Rate based on SNMP column-->
 		<Trigger id="990">
 			<Name>StreamsBeforeGroup</Name>
 			<On id="1000">group</On>
@@ -697,12 +694,8 @@ Any inquiries can be addressed to:
 			<On id="2">parameter</On>
 			<Type>run actions</Type>
 		</Action>
-		<Action id="3">
-			<Name>Run QA3</Name>
-			<On id="3">parameter</On>
-			<Type>run actions</Type>
-		</Action>
 
+		<!--Rate based on SNMP standalone-->
 		<Action id="90">
 			<Name>Counter Timeout After Retries Flag Reset</Name>
 			<On id="992">parameter</On>
@@ -724,6 +717,7 @@ Any inquiries can be addressed to:
 			<Type>run actions</Type>
 		</Action>
 
+		<!--Rate based on SNMP column-->
 		<Action id="990">
 			<Name>Streams Timeout After Retries Flag Reset</Name>
 			<On id="992">parameter</On>

@@ -49,19 +49,16 @@
 				this.protocol = protocol;
 			}
 
-			public uint Counter { get; private set; }
 			public string CounterRateData { get; private set; }
 
 			internal void Load()
 			{
 				var counterData = (object[])protocol.GetParameters(new uint[]
 				{
-					Parameter.counter,
 					Parameter.counterratedata,
 				});
 
-				Counter = Convert.ToUInt32(counterData[0]);
-				CounterRateData = Convert.ToString(counterData[1]);
+				CounterRateData = Convert.ToString(counterData[0]);
 			}
 		}
 
