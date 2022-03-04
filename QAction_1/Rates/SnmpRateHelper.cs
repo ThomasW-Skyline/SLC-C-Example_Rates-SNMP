@@ -24,6 +24,21 @@
 			bufferedDelta = TimeSpan.Zero;
 		}
 
+		public double Calculate(SnmpDeltaHelper deltaHelper, T newCounter, string rowKey = null, double faultyReturn = -1)
+		{
+			var delta = deltaHelper.GetDelta(rowKey);
+			if (!delta.HasValue)
+			{
+				return faultyReturn;
+			}
+
+			newCounter.TimeSpan = bufferedDelta + delta.Value;
+			var rate = rateOnTimes.Calculate(newCounter, faultyReturn);
+			bufferedDelta = TimeSpan.Zero;
+
+			return rate;
+		}
+
 		public void BufferDelta(SnmpDeltaHelper deltaHelper, string rowKey = null)
 		{
 			var delta = deltaHelper.GetDelta(rowKey);
@@ -37,12 +52,12 @@
 
 		public string ToJsonString()
 		{
-			var settings = new JsonSerializerSettings
-			{
-				TypeNameHandling = TypeNameHandling.All
-			};
+			//var settings = new JsonSerializerSettings
+			//{
+			//	TypeNameHandling = TypeNameHandling.All
+			//};
 
-			return JsonConvert.SerializeObject(this, settings);
+			return JsonConvert.SerializeObject(this/*, settings*/);
 		}
 	}
 
@@ -56,30 +71,21 @@
 
 		public double Calculate(SnmpDeltaHelper deltaHelper, uint newCounter, string rowKey = null, double faultyReturn = -1)
 		{
-			var delta = deltaHelper.GetDelta(rowKey);
-			if (!delta.HasValue)
-			{
-				return faultyReturn;
-			}
-
-			TimeSpan totalDelta = bufferedDelta + delta.Value;
-			var rate = rateOnTimes.Calculate(newCounter, totalDelta, faultyReturn);
-			bufferedDelta = TimeSpan.Zero;
-
-			return rate;
+			var rateCounter = new Counter32WithTime(newCounter, TimeSpan.Zero);
+			return Calculate(deltaHelper, rateCounter, rowKey, faultyReturn);
 		}
 
 		public static SnmpRate32 FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
 		{
 			Rate32OnTimes.ValidateMinAndMaxDeltas(minDelta, maxDelta);
 
-			var settings = new JsonSerializerSettings
-			{
-				TypeNameHandling = TypeNameHandling.All
-			};
+			//var settings = new JsonSerializerSettings
+			//{
+			//	TypeNameHandling = TypeNameHandling.All
+			//};
 
 			var instance = !String.IsNullOrWhiteSpace(rateHelperSerialized) ?
-				JsonConvert.DeserializeObject<SnmpRate32>(rateHelperSerialized, settings) :
+				JsonConvert.DeserializeObject<SnmpRate32>(rateHelperSerialized/*, settings*/) :
 				new SnmpRate32(minDelta, maxDelta, rateBase);
 
 			return instance;
@@ -96,30 +102,21 @@
 
 		public double Calculate(SnmpDeltaHelper deltaHelper, ulong newCounter, string rowKey = null, double faultyReturn = -1)
 		{
-			var delta = deltaHelper.GetDelta(rowKey);
-			if (!delta.HasValue)
-			{
-				return faultyReturn;
-			}
-
-			TimeSpan totalDelta = bufferedDelta + delta.Value;
-			var rate = rateOnTimes.Calculate(newCounter, totalDelta, faultyReturn);
-			bufferedDelta = TimeSpan.Zero;
-
-			return rate;
+			var rateCounter = new Counter64WithTime(newCounter, TimeSpan.Zero);
+			return Calculate(deltaHelper, rateCounter, rowKey, faultyReturn);
 		}
 
 		public static SnmpRate64 FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
 		{
 			Rate64OnTimes.ValidateMinAndMaxDeltas(minDelta, maxDelta);
 
-			var settings = new JsonSerializerSettings
-			{
-				TypeNameHandling = TypeNameHandling.All
-			};
+			//var settings = new JsonSerializerSettings
+			//{
+			//	TypeNameHandling = TypeNameHandling.All
+			//};
 
 			var instance = !String.IsNullOrWhiteSpace(rateHelperSerialized) ?
-				JsonConvert.DeserializeObject<SnmpRate64>(rateHelperSerialized, settings) :
+				JsonConvert.DeserializeObject<SnmpRate64>(rateHelperSerialized/*, settings*/) :
 				new SnmpRate64(minDelta, maxDelta, rateBase);
 
 			return instance;

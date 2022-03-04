@@ -126,7 +126,7 @@
 	/// This class is meant to be used as base class for more specific RateHelpers depending on the range of counters (<see cref="System.UInt32"/>, <see cref="System.UInt64"/>, etc).
 	/// </summary>
 	[Serializable]
-	public abstract class RateOnDates<T, U> : RateHelper<T, U> where T : CounterWithDate<U>
+	public class RateOnDates<T, U> : RateHelper<T, U> where T : CounterWithDate<U>
 	{
 		[JsonConstructor]
 		private protected RateOnDates(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase) : base(minDelta, maxDelta, rateBase) { }
@@ -154,8 +154,6 @@
 
 			return base.Calculate(newRateCounter, oldCounterPos, rateTimeSpan, faultyReturn);
 		}
-
-		public abstract double Calculate(U newCounter, DateTime time, double faultyReturn = -1);
 	}
 
 	/// <summary>
@@ -163,22 +161,17 @@
 	/// This class is meant to be used as base class for more specific RateHelpers depending on the range of counters (<see cref="System.UInt32"/>, <see cref="System.UInt64"/>, etc).
 	/// </summary>
 	[Serializable]
-	public abstract class RateOnTimes<T, U> : RateHelper<T, U> where T : CounterWithTime<U>
+	public class RateOnTimes<T, U> : RateHelper<T, U> where T : CounterWithTime<U>
 	{
 		[JsonConstructor]
 		private protected RateOnTimes(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase) : base(minDelta, maxDelta, rateBase) { }
 
-		protected double Calculate(T newRateCounter, double faultyReturn)
+		internal double Calculate(T newRateCounter, double faultyReturn)
 		{
 			// Sanity Checks
-			if (counters.Any() && newRateCounter.TimeSpan > maxDelta)
+			if ((counters.Any() && newRateCounter.TimeSpan > maxDelta) || newRateCounter.TimeSpan < TimeSpan.Zero)
 			{
 				Reset();
-			}
-
-			if (newRateCounter.TimeSpan < TimeSpan.Zero)
-			{
-				return faultyReturn;
 			}
 
 			// Find previous counter to be used
@@ -197,8 +190,6 @@
 
 			return Calculate(newRateCounter, oldCounterPos, rateTimeSpan, faultyReturn);
 		}
-
-		public abstract double Calculate(U newCounter, TimeSpan delta, double faultyReturn = -1);
 
 	}
 	#endregion
@@ -220,7 +211,7 @@
 		/// <param name="time">The <see cref="System.DateTime"/> at which <paramref name="newCounter"/> value was taken.</param>
 		/// <param name="faultyReturn">The value to be returned in case a correct rate could not be calculated.</param>
 		/// <returns>The calculated rate or the value specified in <paramref name="faultyReturn"/> in case the rate can not be calculated.</returns>
-		public override double Calculate(uint newCounter, DateTime time, double faultyReturn = -1)
+		public double Calculate(uint newCounter, DateTime time, double faultyReturn = -1)
 		{
 			var rateCounter = new Counter32WithDate(newCounter, time);
 			return Calculate(rateCounter, faultyReturn);
@@ -259,7 +250,7 @@
 		/// <param name="delta">The elapse <see cref="System.TimeSpan"/> between this new counter and previous one.</param>
 		/// <param name="faultyReturn">The value to be returned in case a correct rate could not be calculated.</param>
 		/// <returns>The calculated rate or the value specified in <paramref name="faultyReturn"/> in case the rate can not be calculated.</returns>
-		public override double Calculate(uint newCounter, TimeSpan delta, double faultyReturn = -1)
+		public double Calculate(uint newCounter, TimeSpan delta, double faultyReturn = -1)
 		{
 			var rateCounter = new Counter32WithTime(newCounter, delta);
 			return Calculate(rateCounter, faultyReturn);
@@ -298,7 +289,7 @@
 		/// <param name="time">The <see cref="System.DateTime"/> at which <paramref name="newCounter"/> value was taken.</param>
 		/// <param name="faultyReturn">The value to be returned in case a correct rate could not be calculated.</param>
 		/// <returns>The calculated rate or the value specified in <paramref name="faultyReturn"/> in case the rate can not be calculated.</returns>
-		public override double Calculate(ulong newCounter, DateTime time, double faultyReturn = -1)
+		public double Calculate(ulong newCounter, DateTime time, double faultyReturn = -1)
 		{
 			var rateCounter = new Counter64WithDate(newCounter, time);
 			return Calculate(rateCounter, faultyReturn);
@@ -338,7 +329,7 @@
 		/// <param name="delta">The elapse <see cref="System.TimeSpan"/> between this new counter and previous one.</param>
 		/// <param name="faultyReturn">The value to be returned in case a correct rate could not be calculated.</param>
 		/// <returns>The calculated rate or the value specified in <paramref name="faultyReturn"/> in case the rate can not be calculated.</returns>
-		public override double Calculate(ulong newCounter, TimeSpan delta, double faultyReturn = -1)
+		public double Calculate(ulong newCounter, TimeSpan delta, double faultyReturn = -1)
 		{
 			var rateCounter = new Counter64WithTime(newCounter, delta);
 			return Calculate(rateCounter, faultyReturn);
