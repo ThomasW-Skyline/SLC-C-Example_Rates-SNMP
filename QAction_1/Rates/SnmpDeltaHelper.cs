@@ -33,12 +33,14 @@
 
 			if (calculationMethodPid < 0)
 			{
-				// Default behavior which can also be used for rates based on standalone SNMP counters
+				// Default behavior which will be used in following situations:
+				// - For rates based on standalone SNMP counters
+				// - For rates based on SNMP column counters if no 'Fast vs Accurate' user configuration is required (then Fast will be used)
 				calculationMethod = CalculationMethod.Fast;
 			}
 			else
 			{
-				// Used for rates based on SNMP columns
+				// Used for rates based on SNMP columns when provided the choice between 'Fast vs Accurate' to the end-user.
 				calculationMethod = (CalculationMethod)Convert.ToInt32(protocol.GetParameter(calculationMethodPid));
 				if (calculationMethod != CalculationMethod.Accurate && calculationMethod != CalculationMethod.Fast)
 				{
@@ -82,7 +84,14 @@
 				case CalculationMethod.Fast:
 					return delta;
 				case CalculationMethod.Accurate:
-					return deltaPerInstance[rowKey];
+					if (deltaPerInstance.ContainsKey(rowKey))
+					{
+						return deltaPerInstance[rowKey];
+					}
+					else
+					{
+						return delta;
+					}
 				default:
 					return null;
 			}
@@ -110,28 +119,46 @@
 		{
 			int deltaInMilliseconds = Convert.ToInt32(protocol.NotifyProtocol(269 /*NT_GET_BITRATE_DELTA*/, groupId, null));
 			delta = TimeSpan.FromMilliseconds(deltaInMilliseconds);
+			////protocol.Log("QA" + protocol.QActionID + "|LoadFastDelta|deltaInMilliseconds '" + deltaInMilliseconds + "' - delta '" + delta + "'", LogType.DebugInfo, LogLevel.NoLogging);
 		}
 
 		private void LoadAccurateDeltaValues()
 		{
-			if (!(protocol.NotifyProtocol(269 /*NT_GET_BITRATE_DELTA*/, groupId, "") is object[] deltaValues))
+			object deltaRaw = protocol.NotifyProtocol(269 /*NT_GET_BITRATE_DELTA*/, groupId, "");
+			switch (deltaRaw)
 			{
-				protocol.Log("QA" + protocol.QActionID + "|LoadSnmpGroupExecutionAccurateDeltas|Unexpected format returned by NT_GET_BITRATE_DELTA.", LogType.Error, LogLevel.NoLogging);
-				return;
-			}
+				case int deltaInMilliseconds:
+					// In case of timeout, a single delta is returned.
+					delta = TimeSpan.FromMilliseconds(deltaInMilliseconds);
+					////protocol.Log("QA" + protocol.QActionID + "|LoadAccurateDeltaValues|deltaInMilliseconds '" + deltaInMilliseconds + "' - delta '" + delta + "'", LogType.DebugInfo, LogLevel.NoLogging);
 
-			for (int i = 0; i < deltaValues.Length; i++)
-			{
-				if (!(deltaValues[i] is object[] deltaKeyAndValue) || deltaKeyAndValue.Length != 2)
-				{
-					protocol.Log("QA" + protocol.QActionID + "|LoadSnmpGroupExecutionAccurateDeltas|Unexpected format for deltaValues[" + i + "]", LogType.Error, LogLevel.NoLogging);
-					continue;
-				}
+					foreach (var key in deltaPerInstance.Keys)
+					{
+						deltaPerInstance[key] = delta;
+					}
 
-				string deltaKey = Convert.ToString(deltaKeyAndValue[0]);
-				int deltaInMilliseconds = Convert.ToInt32(deltaKeyAndValue[1]);
+					break;
+				case object[] deltaValues:
+					// In case of successful group execution, a delta per instance is returned.
+					for (int i = 0; i < deltaValues.Length; i++)
+					{
+						if (!(deltaValues[i] is object[] deltaKeyAndValue) || deltaKeyAndValue.Length != 2)
+						{
+							protocol.Log("QA" + protocol.QActionID + "|LoadSnmpGroupExecutionAccurateDeltas|Unexpected format for deltaValues[" + i + "]", LogType.Error, LogLevel.NoLogging);
+							continue;
+						}
 
-				deltaPerInstance[deltaKey] = TimeSpan.FromMilliseconds(deltaInMilliseconds);
+						string deltaKey = Convert.ToString(deltaKeyAndValue[0]);
+						int deltaInMilliseconds = Convert.ToInt32(deltaKeyAndValue[1]);
+
+						deltaPerInstance[deltaKey] = TimeSpan.FromMilliseconds(deltaInMilliseconds);
+						////protocol.Log("QA" + protocol.QActionID + "|LoadAccurateDeltaValues|deltaKey '" + deltaKey + "' - deltaInMilliseconds '" + deltaInMilliseconds + "' - delta '" + deltaPerInstance[deltaKey] + "'", LogType.DebugInfo, LogLevel.NoLogging);
+					}
+
+					break;
+				default:
+					protocol.Log("QA" + protocol.QActionID + "|LoadSnmpGroupExecutionAccurateDeltas|Unexpected format returned by NT_GET_BITRATE_DELTA.", LogType.Error, LogLevel.NoLogging);
+					break;
 			}
 		}
 	}

@@ -11,7 +11,7 @@ using static Skyline.Protocol.Rates.SnmpDeltaHelper;
 namespace Skyline.Protocol.Rates.Tests
 {
 	[TestClass()]
-	public class SnmpRate32Tests
+	public class SnmpRate64Tests
 	{
 		private readonly TimeSpan minDelta = new TimeSpan(0, 1, 0);
 		private readonly TimeSpan maxDelta = new TimeSpan(1, 0, 0);
@@ -27,7 +27,7 @@ namespace Skyline.Protocol.Rates.Tests
 			// Arrange
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();
-			var rateHelper = SnmpRate32.FromJsonString("", minDelta, maxDelta);
+			var rateHelper = SnmpRate64.FromJsonString("", minDelta, maxDelta);
 
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 10));
 			rateHelper.Calculate(deltaHelper, 10);
@@ -47,7 +47,7 @@ namespace Skyline.Protocol.Rates.Tests
 			// Arrange
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();
-			var rateHelper = SnmpRate32.FromJsonString("", minDelta, maxDelta);
+			var rateHelper = SnmpRate64.FromJsonString("", minDelta, maxDelta);
 
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 10));
 			rateHelper.Calculate(deltaHelper, 10);
@@ -67,7 +67,7 @@ namespace Skyline.Protocol.Rates.Tests
 			// Arrange
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();
-			var rateHelper = SnmpRate32.FromJsonString("", minDelta, maxDelta);
+			var rateHelper = SnmpRate64.FromJsonString("", minDelta, maxDelta);
 
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 0));
 			rateHelper.Calculate(deltaHelper, 10);
@@ -87,7 +87,7 @@ namespace Skyline.Protocol.Rates.Tests
 			// Arrange
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();
-			var rateHelper = SnmpRate32.FromJsonString("", minDelta, maxDelta);
+			var rateHelper = SnmpRate64.FromJsonString("", minDelta, maxDelta);
 
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 10));
 			rateHelper.Calculate(deltaHelper, 0);    // Old counter
@@ -101,7 +101,7 @@ namespace Skyline.Protocol.Rates.Tests
 
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 1));
 			rateHelper.Calculate(deltaHelper, 20);    // 1m31s
-			rateHelper.Calculate(deltaHelper, 30);    // 1m32s
+			rateHelper.Calculate(deltaHelper, 30);    // 1m64s
 			rateHelper.Calculate(deltaHelper, 40);    // 1m33s
 
 			// Act
@@ -119,7 +119,7 @@ namespace Skyline.Protocol.Rates.Tests
 			// Arrange
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();
-			var rateHelper = SnmpRate32.FromJsonString("", minDelta, maxDelta);
+			var rateHelper = SnmpRate64.FromJsonString("", minDelta, maxDelta);
 
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 10));
 			rateHelper.BufferDelta(deltaHelper);
@@ -137,7 +137,7 @@ namespace Skyline.Protocol.Rates.Tests
 
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 1));
 			rateHelper.Calculate(deltaHelper, 20);  // 1m31s
-			rateHelper.BufferDelta(deltaHelper);    // 1m32s
+			rateHelper.BufferDelta(deltaHelper);    // 1m64s
 			rateHelper.Calculate(deltaHelper, 30);  // 1m33s
 			rateHelper.BufferDelta(deltaHelper);   // 1m34s
 			rateHelper.Calculate(deltaHelper, 40);  // 1m35s
@@ -158,7 +158,7 @@ namespace Skyline.Protocol.Rates.Tests
 			// Arrange
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();
-			var rateHelper = SnmpRate32.FromJsonString("", minDelta, maxDelta);
+			var rateHelper = SnmpRate64.FromJsonString("", minDelta, maxDelta);
 
 			deltaHelper = ConfigureAccurateDelta(protocolMock, new object[] { new object[] { "PK_1", -1 }, new object[] { "PK_2", 10000 }, new object[] { "PK_3", -1 } });  // 10s
 			rateHelper.Calculate(deltaHelper, 0, "PK_2");    // Old counters
@@ -181,7 +181,7 @@ namespace Skyline.Protocol.Rates.Tests
 			// Arrange
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();
-			var rateHelper = SnmpRate32.FromJsonString("", minDelta, maxDelta);
+			var rateHelper = SnmpRate64.FromJsonString("", minDelta, maxDelta);
 
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 10));
 			rateHelper.Calculate(deltaHelper, 0);    // Old counters
@@ -204,7 +204,7 @@ namespace Skyline.Protocol.Rates.Tests
 			// Arrange
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();
-			var rateHelper = SnmpRate32.FromJsonString("", minDelta, maxDelta, RateBase.Day);
+			var rateHelper = SnmpRate64.FromJsonString("", minDelta, maxDelta, RateBase.Day);
 
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 10));
 			rateHelper.Calculate(deltaHelper, 5);
@@ -225,7 +225,7 @@ namespace Skyline.Protocol.Rates.Tests
 			// Arrange
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();
-			var rateHelper = SnmpRate32.FromJsonString("", minDelta, maxDelta, RateBase.Hour);
+			var rateHelper = SnmpRate64.FromJsonString("", minDelta, maxDelta, RateBase.Hour);
 
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 10));
 			rateHelper.Calculate(deltaHelper, 5);
@@ -245,7 +245,7 @@ namespace Skyline.Protocol.Rates.Tests
 			// Arrange
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();
-			var rateHelper = SnmpRate32.FromJsonString("", minDelta, maxDelta, RateBase.Minute);
+			var rateHelper = SnmpRate64.FromJsonString("", minDelta, maxDelta, RateBase.Minute);
 
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 10));
 			rateHelper.Calculate(deltaHelper, 5);
@@ -265,7 +265,7 @@ namespace Skyline.Protocol.Rates.Tests
 			// Arrange
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();
-			var rateHelper = SnmpRate32.FromJsonString("", minDelta, maxDelta);
+			var rateHelper = SnmpRate64.FromJsonString("", minDelta, maxDelta);
 
 			deltaHelper = ConfigureAccurateDelta(protocolMock, new object[] { new object[] { "PK_1", -1 }, new object[] { "PK_2", 10000 }, new object[] { "PK_3", -1 } });  // 10s
 			rateHelper.Calculate(deltaHelper, 0, "PK_2");    // Old counters
@@ -294,7 +294,7 @@ namespace Skyline.Protocol.Rates.Tests
 			// Arrange
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();
-			var rateHelper = SnmpRate32.FromJsonString("", minDelta, maxDelta);
+			var rateHelper = SnmpRate64.FromJsonString("", minDelta, maxDelta);
 
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 10));
 			rateHelper.Calculate(deltaHelper, 0);    // Old counters
@@ -323,10 +323,10 @@ namespace Skyline.Protocol.Rates.Tests
 			// Arrange
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();
-			var rateHelper = SnmpRate32.FromJsonString("", minDelta, maxDelta);
+			var rateHelper = SnmpRate64.FromJsonString("", minDelta, maxDelta);
 
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 0));
-			rateHelper.Calculate(deltaHelper, UInt32.MaxValue - 10);
+			rateHelper.Calculate(deltaHelper, UInt64.MaxValue - 10);
 
 			// Act
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 100));
@@ -347,14 +347,14 @@ namespace Skyline.Protocol.Rates.Tests
 			// Arrange
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();
-			var rateHelper1 = SnmpRate32.FromJsonString("", minDelta, maxDelta);
+			var rateHelper1 = SnmpRate64.FromJsonString("", minDelta, maxDelta);
 
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 10));
 			rateHelper1.Calculate(deltaHelper, 5);
 			rateHelper1.Calculate(deltaHelper, 10);
 
 			string serializedTemp = rateHelper1.ToJsonString();
-			var rateHelper2 = SnmpRate32.FromJsonString(serializedTemp, minDelta, maxDelta);
+			var rateHelper2 = SnmpRate64.FromJsonString(serializedTemp, minDelta, maxDelta);
 
 			// Different counter, same timing
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 9));
@@ -375,14 +375,14 @@ namespace Skyline.Protocol.Rates.Tests
 			// Arrange
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();
-			var rateHelper1 = SnmpRate32.FromJsonString("", minDelta, maxDelta);
+			var rateHelper1 = SnmpRate64.FromJsonString("", minDelta, maxDelta);
 
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 10));
 			rateHelper1.Calculate(deltaHelper, 5);
 			rateHelper1.Calculate(deltaHelper, 10);
 
 			string serializedTemp = rateHelper1.ToJsonString();
-			var rateHelper2 = SnmpRate32.FromJsonString(serializedTemp, minDelta, maxDelta);
+			var rateHelper2 = SnmpRate64.FromJsonString(serializedTemp, minDelta, maxDelta);
 
 			// Same counter, different timing
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 9));
@@ -405,14 +405,14 @@ namespace Skyline.Protocol.Rates.Tests
 			// Arrange
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();
-			var rateHelper1 = SnmpRate32.FromJsonString("", minDelta, maxDelta);
+			var rateHelper1 = SnmpRate64.FromJsonString("", minDelta, maxDelta);
 
 			deltaHelper = ConfigureFastDelta(protocolMock, new TimeSpan(0, 0, 10));
 			rateHelper1.Calculate(deltaHelper, 5);
 			rateHelper1.Calculate(deltaHelper, 10);
 
 			string serializedTemp = rateHelper1.ToJsonString();
-			var rateHelper2 = SnmpRate32.FromJsonString(serializedTemp, minDelta, maxDelta);
+			var rateHelper2 = SnmpRate64.FromJsonString(serializedTemp, minDelta, maxDelta);
 
 			AddSameToBoth(rateHelper1, rateHelper2, 20, new TimeSpan(0, 0, 9));
 			AddSameToBoth(rateHelper1, rateHelper2, 30, new TimeSpan(0, 0, 8));
@@ -453,7 +453,7 @@ namespace Skyline.Protocol.Rates.Tests
 			return deltaHelper;
 		}
 
-		private static void AddSameToBoth(SnmpRate32 helper1, SnmpRate32 helper2, uint newCounter, TimeSpan time)
+		private static void AddSameToBoth(SnmpRate64 helper1, SnmpRate64 helper2, uint newCounter, TimeSpan time)
 		{
 			SnmpDeltaHelper deltaHelper;
 			var protocolMock = new Mock<SLProtocol>();

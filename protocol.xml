@@ -390,7 +390,6 @@ Any inquiries can be addressed to:
 			<SNMP>
 				<Enabled>true</Enabled>
 				<OID type="complete" options=";instance;multipleGetNext"></OID>
-				<!--<OID type="complete" options=";instance;multipleGetNext">1.3.6.1.2.1.1.1000</OID>-->
 			</SNMP>
 			<Display>
 				<RTDisplay>true</RTDisplay>
@@ -698,7 +697,7 @@ Any inquiries can be addressed to:
 		<!--Rate based on SNMP standalone-->
 		<Action id="90">
 			<Name>Counter Timeout After Retries Flag Reset</Name>
-			<On id="992">parameter</On>
+			<On id="92">parameter</On>
 			<Type id="10">copy</Type>
 		</Action>
 		<Action id="91">
@@ -748,7 +747,7 @@ Any inquiries can be addressed to:
 	<Timers>
 		<Timer id="1">
 			<Name>Fast Timer (10s)</Name>
-			<Time initial="true">10000</Time>
+			<Time initial="true">30000</Time>
 			<Interval>75</Interval>
 			<Content>
 				<Group>100</Group>
