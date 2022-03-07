@@ -71,7 +71,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Skyline.Protocol.Rates.Counter32WithDate" Collapsed="true">
-    <Position X="5.75" Y="3.5" Width="1.75" />
+    <Position X="3.5" Y="3.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Rates\RateHelper.cs</FileName>
@@ -85,7 +85,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Skyline.Protocol.Rates.Counter64WithDate" Collapsed="true">
-    <Position X="3.75" Y="3.5" Width="1.75" />
+    <Position X="5.5" Y="3.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Rates\RateHelper.cs</FileName>
@@ -99,7 +99,7 @@
     </TypeIdentifier>
   </Class>
   <Enum Name="Skyline.Protocol.Rates.RateBase" Collapsed="true">
-    <Position X="11" Y="5.75" Width="1.5" />
+    <Position X="11" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAIAAAAAAAAAAAAAIAAAAAACIAAAAAAAAAAAA=</HashCode>
       <FileName>Rates\RateHelper.cs</FileName>
