@@ -311,9 +311,9 @@ Here are the 2 methods:
 				<Subtext>
 					<![CDATA[Allows to chose between 2 methods of rate calculations for the Streams table:
 - Fast: This method will be faster and less resources eager but the results might be less accurate in some circumstances.
-		It will use a delta (time elapsed between current & previous polling cycle) on table level.
+		It will use a delta (time elapsed between current & previous polling cycle) on group level.
 - Accurate: This method will be more accurate but will be more resources eager.
-		It will use a delta (time elapsed between current & previous polling cycle) on row level.]]>
+		It will use a delta (time elapsed between current & previous polling cycle) on table row level.]]>
 				</Subtext>
 			</Information>
 			<Interprete>
