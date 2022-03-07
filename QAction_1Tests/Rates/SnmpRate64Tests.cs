@@ -435,18 +435,18 @@ namespace Skyline.Protocol.Rates.Tests
 			return deltaHelper;
 		}
 
-		private static SnmpDeltaHelper ConfigureAccurateDelta(Mock<SLProtocol> protocolMock, object[] deltaValues, int calculationMethodPid = 100)
+		private static SnmpDeltaHelper ConfigureAccurateDelta(Mock<SLProtocol> protocolMock, object[] deltaValues, uint calculationMethodPid = 100)
 		{
-			protocolMock.Setup(p => p.GetParameter(calculationMethodPid)).Returns((int)CalculationMethod.Accurate);
+			protocolMock.Setup(p => p.GetParameter((int)calculationMethodPid)).Returns((int)CalculationMethod.Accurate);
 
 			SnmpDeltaHelper deltaHelper = new SnmpDeltaHelper(protocolMock.Object, groupId, calculationMethodPid);
 			protocolMock.Setup(p => p.NotifyProtocol(269, groupId, "")).Returns(deltaValues);
 			return deltaHelper;
 		}
 
-		private static SnmpDeltaHelper ConfigureAccurateTimeoutDelta(Mock<SLProtocol> protocolMock, TimeSpan delta, int calculationMethodPid = 100)
+		private static SnmpDeltaHelper ConfigureAccurateTimeoutDelta(Mock<SLProtocol> protocolMock, TimeSpan delta, uint calculationMethodPid = 100)
 		{
-			protocolMock.Setup(p => p.GetParameter(calculationMethodPid)).Returns((int)CalculationMethod.Accurate);
+			protocolMock.Setup(p => p.GetParameter((int)calculationMethodPid)).Returns((int)CalculationMethod.Accurate);
 
 			SnmpDeltaHelper deltaHelper = new SnmpDeltaHelper(protocolMock.Object, groupId, calculationMethodPid);
 			protocolMock.Setup(p => p.NotifyProtocol(269, groupId, "")).Returns((int)delta.TotalMilliseconds);
