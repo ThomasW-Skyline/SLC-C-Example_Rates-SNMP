@@ -8,6 +8,9 @@
 
 	using Skyline.DataMiner.Scripting;
 
+	/// <summary>
+	/// Allows retrieving delta time between 2 consecutive executions of an SNMP group.
+	/// </summary>
 	public class SnmpDeltaHelper
 	{
 		public enum CalculationMethod { Fast = 1, Accurate = 2 };
@@ -21,6 +24,12 @@
 		private TimeSpan delta;
 		private readonly Dictionary<string, TimeSpan> deltaPerInstance = new Dictionary<string, TimeSpan>();
 
+		/// <summary>
+		/// Creates a <see cref="SnmpDeltaHelper"/> instance. Such instance is used to retrieve delta time between 2 consecutive executions of an SNMP group.
+		/// </summary>
+		/// <param name="protocol">Link with SLProtocol process.</param>
+		/// <param name="groupId">The ID of the protocol group on which delta values are required.</param>
+		/// <param name="calculationMethodPid">The PID of the parameter allowing the user to choose between 'Fast' and 'Accurate' delta calculation methods.</param>
 		public SnmpDeltaHelper(SLProtocol protocol, int groupId, int calculationMethodPid = -1)
 		{
 			if (groupId < 0)
@@ -49,6 +58,27 @@
 			}
 		}
 
+		/// <summary>
+		/// Creates a <see cref="SnmpDeltaHelper"/> instance. Such instance is used to retrieve delta time between 2 consecutive executions of an SNMP group.
+		/// </summary>
+		/// <param name="protocol">Link with SLProtocol process.</param>
+		/// <param name="groupId">The ID of the protocol group on which delta values are required.</param>
+		/// <param name="calculationMethodPid">Allows to define which delta calculation methods should be used.</param>
+		public SnmpDeltaHelper(SLProtocol protocol, int groupId, CalculationMethod calculationMethod = CalculationMethod.Fast)
+		{
+			if (groupId < 0)
+			{
+				throw new ArgumentException("The group ID must not be negative.", "groupId");
+			}
+
+			this.protocol = protocol;
+			this.groupId = groupId;
+			this.calculationMethod = calculationMethod;
+		}
+
+		/// <summary>
+		/// Configures DataMiner to use the expected delta calculation method.
+		/// </summary>
 		public void UpdateCalculationMethod()
 		{
 			switch (calculationMethod)
@@ -65,6 +95,11 @@
 			}
 		}
 
+		/// <summary>
+		/// Retrieves the delta.
+		/// </summary>
+		/// <param name="rowKey">In case the delta calculation method is set to 'Accurate', allows to define the Primary Key of the table row for which a delta is required.</param>
+		/// <returns><see cref="System.TimeSpan"/> elapsed between the last 2 executions of a given SNMP group.</returns>
 		internal TimeSpan? GetDelta(string rowKey)
 		{
 			if (!deltaLoaded)
