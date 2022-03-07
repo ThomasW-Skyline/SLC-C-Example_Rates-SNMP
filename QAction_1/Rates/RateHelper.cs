@@ -223,6 +223,7 @@
 		/// <param name="rateHelperSerialized">Serialized <see cref="Rate32OnDates"/> instance.</param>
 		/// <param name="minDelta">Minimum <see cref="System.TimeSpan"/> necessary between 2 counters when calculating a rate. Counters will be buffered until this minimum delta is met.</param>
 		/// <param name="maxDelta">Maximum <see cref="System.TimeSpan"/> allowed between 2 counters when calculating a rate.</param>
+		/// <param name="rateBase">Choose whether the rate should be calculated per second, minute, hour or day.</param>
 		/// <returns>A new instance of the <see cref="Rate32OnDates"/> class with all data found in <paramref name="rateHelperSerialized"/>.</returns>
 		public static Rate32OnDates FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
 		{
@@ -262,6 +263,7 @@
 		/// <param name="rateHelperSerialized">Serialized <see cref="Rate32OnTimes"/> instance.</param>
 		/// <param name="minDelta">Minimum <see cref="System.TimeSpan"/> necessary between 2 counters when calculating a rate. Counters will be buffered until this minimum delta is met.</param>
 		/// <param name="maxDelta">Maximum <see cref="System.TimeSpan"/> allowed between 2 counters when calculating a rate.</param>
+		/// <param name="rateBase">Choose whether the rate should be calculated per second, minute, hour or day.</param>
 		/// <returns>A new instance of the <see cref="Rate32OnTimes"/> class with all data found in <paramref name="rateHelperSerialized"/>.</returns>
 		public static Rate32OnTimes FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
 		{

@@ -154,7 +154,7 @@ Any inquiries can be addressed to:
 			<Name>CounterAfterGroupTrigger</Name>
 			<Type>dummy</Type>
 		</Param>
-		<Param id="100" trending="false">
+		<Param id="100" trending="true">
 			<Name>Counter</Name>
 			<Description>Counter</Description>
 			<Type>read</Type>
