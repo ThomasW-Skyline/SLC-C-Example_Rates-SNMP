@@ -80,10 +80,14 @@
     <Compile Include="Rates\SnmpRateHelper.cs" />
     <Compile Include="SafeConverters\SafeConverters.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Rates\RateHelper.cd" />
+    <None Include="Rates\SnmpRateHelper.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties DisLinkedXmlFile="..\protocol.xml" DisProjectType="qactionProject" DisLinkId="1" />
+      <UserProperties DisLinkId="1" DisProjectType="qactionProject" DisLinkedXmlFile="..\protocol.xml" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Skyline.Protocol.Rates.SnmpRate&lt;T, U&gt;" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAIAAAAAABAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rates\SnmpRateHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skyline.Protocol.Rates.SnmpRate32" Collapsed="true">
+    <Position X="5.5" Y="2" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rates\SnmpRateHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skyline.Protocol.Rates.SnmpRate64" Collapsed="true">
+    <Position X="1.75" Y="2" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rates\SnmpRateHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
