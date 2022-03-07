@@ -30,7 +30,7 @@
 		/// <param name="protocol">Link with SLProtocol process.</param>
 		/// <param name="groupId">The ID of the protocol group on which delta values are required.</param>
 		/// <param name="calculationMethodPid">The PID of the parameter allowing the user to choose between 'Fast' and 'Accurate' delta calculation methods.</param>
-		public SnmpDeltaHelper(SLProtocol protocol, int groupId, int calculationMethodPid = -1)
+		public SnmpDeltaHelper(SLProtocol protocol, int groupId, uint calculationMethodPid)
 		{
 			if (groupId < 0)
 			{
@@ -40,21 +40,10 @@
 			this.protocol = protocol;
 			this.groupId = groupId;
 
-			if (calculationMethodPid < 0)
+			calculationMethod = (CalculationMethod)Convert.ToInt32(protocol.GetParameter((int)calculationMethodPid));
+			if (calculationMethod != CalculationMethod.Accurate && calculationMethod != CalculationMethod.Fast)
 			{
-				// Default behavior which will be used in following situations:
-				// - For rates based on standalone SNMP counters
-				// - For rates based on SNMP column counters if no 'Fast vs Accurate' user configuration is required (then Fast will be used)
-				calculationMethod = CalculationMethod.Fast;
-			}
-			else
-			{
-				// Used for rates based on SNMP columns when provided the choice between 'Fast vs Accurate' to the end-user.
-				calculationMethod = (CalculationMethod)Convert.ToInt32(protocol.GetParameter(calculationMethodPid));
-				if (calculationMethod != CalculationMethod.Accurate && calculationMethod != CalculationMethod.Fast)
-				{
-					throw new NotSupportedException("Unexpected SNMP Rate Calculation Method value '" + protocol.GetParameter(calculationMethodPid) + "' retrieved from Param with PID '" + calculationMethodPid + "'.");
-				}
+				throw new NotSupportedException("Unexpected SNMP Rate Calculation Method value '" + protocol.GetParameter((int)calculationMethodPid) + "' retrieved from Param with PID '" + calculationMethodPid + "'.");
 			}
 		}
 
@@ -63,7 +52,7 @@
 		/// </summary>
 		/// <param name="protocol">Link with SLProtocol process.</param>
 		/// <param name="groupId">The ID of the protocol group on which delta values are required.</param>
-		/// <param name="calculationMethodPid">Allows to define which delta calculation methods should be used.</param>
+		/// <param name="calculationMethodPid">Allows to define which delta calculation methods should be used. Note that opting for the 'Accurate' method only makes sense for SNMP tables.</param>
 		public SnmpDeltaHelper(SLProtocol protocol, int groupId, CalculationMethod calculationMethod = CalculationMethod.Fast)
 		{
 			if (groupId < 0)
