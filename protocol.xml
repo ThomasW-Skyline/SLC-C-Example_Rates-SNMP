@@ -760,7 +760,7 @@ Here are the 2 methods:
 	<Timers>
 		<Timer id="1">
 			<Name>Fast Timer (10s)</Name>
-			<Time initial="true">30000</Time>
+			<Time initial="true">10000</Time>
 			<Interval>75</Interval>
 			<Content>
 				<Group>100</Group>
