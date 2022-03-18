@@ -8,7 +8,7 @@
 
 	public enum RateBase { Second, Minute, Hour, Day };
 
-	#region RateHelperBaseClasses
+	#region Base Classes
 	/// <summary>
 	/// Class <see cref="RateHelper"/> helps calculating rates of all sorts (bit rates, counter rates, etc) based on counters.
 	/// This class is meant to be used as base class for more specific RateHelpers depending on the range of counters (<see cref="System.UInt32"/>, <see cref="System.UInt64"/>, etc).
@@ -16,6 +16,9 @@
 	[Serializable]
 	public class RateHelper<T, U> where T : RateCounter<U>
 	{
+		/// <summary>
+		/// Determines whether the rate should be calculated per second, minute, hour or day.
+		/// </summary>
 		[JsonProperty]
 		public RateBase RateBase { get; set; }
 
@@ -126,10 +129,10 @@
 	/// This class is meant to be used as base class for more specific RateHelpers depending on the range of counters (<see cref="System.UInt32"/>, <see cref="System.UInt64"/>, etc).
 	/// </summary>
 	[Serializable]
-	public class RateOnDates<T, U> : RateHelper<T, U> where T : CounterWithDate<U>
+	public class RateOnTimeStamp<T, U> : RateHelper<T, U> where T : CounterWithTimeStamp<U>
 	{
 		[JsonConstructor]
-		private protected RateOnDates(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase) : base(minDelta, maxDelta, rateBase) { }
+		private protected RateOnTimeStamp(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase) : base(minDelta, maxDelta, rateBase) { }
 
 		protected double Calculate(T newRateCounter, double faultyReturn)
 		{
@@ -161,10 +164,10 @@
 	/// This class is meant to be used as base class for more specific RateHelpers depending on the range of counters (<see cref="System.UInt32"/>, <see cref="System.UInt64"/>, etc).
 	/// </summary>
 	[Serializable]
-	public class RateOnTimes<T, U> : RateHelper<T, U> where T : CounterWithTime<U>
+	public class RateOnTimeSpan<T, U> : RateHelper<T, U> where T : CounterWithTimeSpan<U>
 	{
 		[JsonConstructor]
-		private protected RateOnTimes(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase) : base(minDelta, maxDelta, rateBase) { }
+		private protected RateOnTimeSpan(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase) : base(minDelta, maxDelta, rateBase) { }
 
 		internal double Calculate(T newRateCounter, double faultyReturn)
 		{
@@ -194,18 +197,18 @@
 	}
 	#endregion
 
-	#region RateHelperRealClasses
+	#region Real Classes
 	/// <summary>
 	/// Allows calculating rates of all sorts (bit rates, counter rates, etc) based on <see cref="System.UInt32"/> counters and <see cref="System.DateTime"/> values.
 	/// </summary>
 	[Serializable]
-	public class Rate32OnDates : RateOnDates<Counter32WithDate, uint>
+	public class Rate32OnTimeStamp : RateOnTimeStamp<Counter32WithTimeStamp, uint>
 	{
 		[JsonConstructor]
-		private Rate32OnDates(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase) : base(minDelta, maxDelta, rateBase) { }
+		private Rate32OnTimeStamp(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase) : base(minDelta, maxDelta, rateBase) { }
 
 		/// <summary>
-		/// Calculates the rate using provided <paramref name="newCounter"/> against previous counters buffered in this <see cref="Rate32OnDates"/> instance.
+		/// Calculates the rate using provided <paramref name="newCounter"/> against previous counters buffered in this <see cref="Rate32OnTimeStamp"/> instance.
 		/// </summary>
 		/// <param name="newCounter">The latest known counter value.</param>
 		/// <param name="time">The <see cref="System.DateTime"/> at which <paramref name="newCounter"/> value was taken.</param>
@@ -213,25 +216,25 @@
 		/// <returns>The calculated rate or the value specified in <paramref name="faultyReturn"/> in case the rate can not be calculated.</returns>
 		public double Calculate(uint newCounter, DateTime time, double faultyReturn = -1)
 		{
-			var rateCounter = new Counter32WithDate(newCounter, time);
+			var rateCounter = new Counter32WithTimeStamp(newCounter, time);
 			return Calculate(rateCounter, faultyReturn);
 		}
 
 		/// <summary>
-		/// Deserializes a JSON <see cref="System.String"/> to a <see cref="Rate32OnDates"/> instance.
+		/// Deserializes a JSON <see cref="System.String"/> to a <see cref="Rate32OnTimeStamp"/> instance.
 		/// </summary>
-		/// <param name="rateHelperSerialized">Serialized <see cref="Rate32OnDates"/> instance.</param>
+		/// <param name="rateHelperSerialized">Serialized <see cref="Rate32OnTimeStamp"/> instance.</param>
 		/// <param name="minDelta">Minimum <see cref="System.TimeSpan"/> necessary between 2 counters when calculating a rate. Counters will be buffered until this minimum delta is met.</param>
 		/// <param name="maxDelta">Maximum <see cref="System.TimeSpan"/> allowed between 2 counters when calculating a rate.</param>
 		/// <param name="rateBase">Choose whether the rate should be calculated per second, minute, hour or day.</param>
-		/// <returns>A new instance of the <see cref="Rate32OnDates"/> class with all data found in <paramref name="rateHelperSerialized"/>.</returns>
-		public static Rate32OnDates FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
+		/// <returns>A new instance of the <see cref="Rate32OnTimeStamp"/> class with all data found in <paramref name="rateHelperSerialized"/>.</returns>
+		public static Rate32OnTimeStamp FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
 		{
 			ValidateMinAndMaxDeltas(minDelta, maxDelta);
 
 			return !String.IsNullOrWhiteSpace(rateHelperSerialized) ?
-				JsonConvert.DeserializeObject<Rate32OnDates>(rateHelperSerialized) :
-				new Rate32OnDates(minDelta, maxDelta, rateBase);
+				JsonConvert.DeserializeObject<Rate32OnTimeStamp>(rateHelperSerialized) :
+				new Rate32OnTimeStamp(minDelta, maxDelta, rateBase);
 		}
 	}
 
@@ -239,13 +242,13 @@
 	/// Allows calculating rates of all sorts (bit rates, counter rates, etc) based on <see cref="System.UInt32"/> counters and <see cref="System.TimeSpan"/> values.
 	/// </summary>
 	[Serializable]
-	public class Rate32OnTimes : RateOnTimes<Counter32WithTime, uint>
+	public class Rate32OnTimeSpan : RateOnTimeSpan<Counter32WithTimeSpan, uint>
 	{
 		[JsonConstructor]
-		internal Rate32OnTimes(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase) : base(minDelta, maxDelta, rateBase) { }
+		internal Rate32OnTimeSpan(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase) : base(minDelta, maxDelta, rateBase) { }
 
 		/// <summary>
-		/// Calculates the rate using provided <paramref name="newCounter"/> against previous counters buffered in this <see cref="Rate32OnTimes"/> instance.
+		/// Calculates the rate using provided <paramref name="newCounter"/> against previous counters buffered in this <see cref="Rate32OnTimeSpan"/> instance.
 		/// </summary>
 		/// <param name="newCounter">The latest known counter value.</param>
 		/// <param name="delta">The elapse <see cref="System.TimeSpan"/> between this new counter and previous one.</param>
@@ -253,25 +256,25 @@
 		/// <returns>The calculated rate or the value specified in <paramref name="faultyReturn"/> in case the rate can not be calculated.</returns>
 		public double Calculate(uint newCounter, TimeSpan delta, double faultyReturn = -1)
 		{
-			var rateCounter = new Counter32WithTime(newCounter, delta);
+			var rateCounter = new Counter32WithTimeSpan(newCounter, delta);
 			return Calculate(rateCounter, faultyReturn);
 		}
 
 		/// <summary>
-		/// Deserializes a JSON <see cref="System.String"/> to a <see cref="Rate32OnTimes"/> instance.
+		/// Deserializes a JSON <see cref="System.String"/> to a <see cref="Rate32OnTimeSpan"/> instance.
 		/// </summary>
-		/// <param name="rateHelperSerialized">Serialized <see cref="Rate32OnTimes"/> instance.</param>
+		/// <param name="rateHelperSerialized">Serialized <see cref="Rate32OnTimeSpan"/> instance.</param>
 		/// <param name="minDelta">Minimum <see cref="System.TimeSpan"/> necessary between 2 counters when calculating a rate. Counters will be buffered until this minimum delta is met.</param>
 		/// <param name="maxDelta">Maximum <see cref="System.TimeSpan"/> allowed between 2 counters when calculating a rate.</param>
 		/// <param name="rateBase">Choose whether the rate should be calculated per second, minute, hour or day.</param>
-		/// <returns>A new instance of the <see cref="Rate32OnTimes"/> class with all data found in <paramref name="rateHelperSerialized"/>.</returns>
-		public static Rate32OnTimes FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
+		/// <returns>A new instance of the <see cref="Rate32OnTimeSpan"/> class with all data found in <paramref name="rateHelperSerialized"/>.</returns>
+		public static Rate32OnTimeSpan FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
 		{
 			ValidateMinAndMaxDeltas(minDelta, maxDelta);
 
 			return !String.IsNullOrWhiteSpace(rateHelperSerialized) ?
-				JsonConvert.DeserializeObject<Rate32OnTimes>(rateHelperSerialized) :
-				new Rate32OnTimes(minDelta, maxDelta, rateBase);
+				JsonConvert.DeserializeObject<Rate32OnTimeSpan>(rateHelperSerialized) :
+				new Rate32OnTimeSpan(minDelta, maxDelta, rateBase);
 		}
 	}
 
@@ -279,13 +282,13 @@
 	/// Allows calculating rates of all sorts (bit rates, counter rates, etc) based on <see cref="System.UInt64"/> counters and <see cref="System.DateTime"/> values.
 	/// </summary>
 	[Serializable]
-	public class Rate64OnDates : RateOnDates<Counter64WithDate, ulong>
+	public class Rate64OnTimeStamp : RateOnTimeStamp<Counter64WithTimeStamp, ulong>
 	{
 		[JsonConstructor]
-		private Rate64OnDates(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase) : base(minDelta, maxDelta, rateBase) { }
+		private Rate64OnTimeStamp(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase) : base(minDelta, maxDelta, rateBase) { }
 
 		/// <summary>
-		/// Calculates the rate using provided <paramref name="newCounter"/> against previous counters buffered in this <see cref="Rate64OnDates"/> instance.
+		/// Calculates the rate using provided <paramref name="newCounter"/> against previous counters buffered in this <see cref="Rate64OnTimeStamp"/> instance.
 		/// </summary>
 		/// <param name="newCounter">The latest known counter value.</param>
 		/// <param name="time">The <see cref="System.DateTime"/> at which <paramref name="newCounter"/> value was taken.</param>
@@ -293,25 +296,25 @@
 		/// <returns>The calculated rate or the value specified in <paramref name="faultyReturn"/> in case the rate can not be calculated.</returns>
 		public double Calculate(ulong newCounter, DateTime time, double faultyReturn = -1)
 		{
-			var rateCounter = new Counter64WithDate(newCounter, time);
+			var rateCounter = new Counter64WithTimeStamp(newCounter, time);
 			return Calculate(rateCounter, faultyReturn);
 		}
 
 		/// <summary>
-		/// Deserializes a JSON <see cref="System.String"/> to a <see cref="Rate64OnDates"/> instance.
+		/// Deserializes a JSON <see cref="System.String"/> to a <see cref="Rate64OnTimeStamp"/> instance.
 		/// </summary>
-		/// <param name="rateHelperSerialized">Serialized <see cref="Rate64OnDates"/> instance.</param>
+		/// <param name="rateHelperSerialized">Serialized <see cref="Rate64OnTimeStamp"/> instance.</param>
 		/// <param name="minDelta">Minimum <see cref="System.TimeSpan"/> necessary between 2 counters when calculating a rate. Counters will be buffered until this minimum delta is met.</param>
 		/// <param name="maxDelta">Maximum <see cref="System.TimeSpan"/> allowed between 2 counters when calculating a rate.</param>
 		/// <param name="rateBase">Choose whether the rate should be calculated per second, minute, hour or day.</param>
-		/// <returns>A new instance of the <see cref="Rate64OnDates"/> class with all data found in <paramref name="rateHelperSerialized"/>.</returns>
-		public static Rate64OnDates FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
+		/// <returns>A new instance of the <see cref="Rate64OnTimeStamp"/> class with all data found in <paramref name="rateHelperSerialized"/>.</returns>
+		public static Rate64OnTimeStamp FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
 		{
 			ValidateMinAndMaxDeltas(minDelta, maxDelta);
 
 			return !String.IsNullOrWhiteSpace(rateHelperSerialized) ?
-				JsonConvert.DeserializeObject<Rate64OnDates>(rateHelperSerialized) :
-				new Rate64OnDates(minDelta, maxDelta, rateBase);
+				JsonConvert.DeserializeObject<Rate64OnTimeStamp>(rateHelperSerialized) :
+				new Rate64OnTimeStamp(minDelta, maxDelta, rateBase);
 		}
 	}
 
@@ -319,13 +322,13 @@
 	/// Allows calculating rates of all sorts (bit rates, counter rates, etc) based on <see cref="System.UInt64"/> counters and <see cref="System.TimeSpan"/> values.
 	/// </summary>
 	[Serializable]
-	public class Rate64OnTimes : RateOnTimes<Counter64WithTime, ulong>
+	public class Rate64OnTimeSpan : RateOnTimeSpan<Counter64WithTimeSpan, ulong>
 	{
 		[JsonConstructor]
-		internal Rate64OnTimes(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase) : base(minDelta, maxDelta, rateBase) { }
+		internal Rate64OnTimeSpan(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase) : base(minDelta, maxDelta, rateBase) { }
 
 		/// <summary>
-		/// Calculates the rate using provided <paramref name="newCounter"/> against previous counters buffered in this <see cref="Rate64OnTimes"/> instance.
+		/// Calculates the rate using provided <paramref name="newCounter"/> against previous counters buffered in this <see cref="Rate64OnTimeSpan"/> instance.
 		/// </summary>
 		/// <param name="newCounter">The latest known counter value.</param>
 		/// <param name="delta">The elapse <see cref="System.TimeSpan"/> between this new counter and previous one.</param>
@@ -333,101 +336,27 @@
 		/// <returns>The calculated rate or the value specified in <paramref name="faultyReturn"/> in case the rate can not be calculated.</returns>
 		public double Calculate(ulong newCounter, TimeSpan delta, double faultyReturn = -1)
 		{
-			var rateCounter = new Counter64WithTime(newCounter, delta);
+			var rateCounter = new Counter64WithTimeSpan(newCounter, delta);
 			return Calculate(rateCounter, faultyReturn);
 		}
 
 		/// <summary>
-		/// Deserializes a JSON <see cref="System.String"/> to a <see cref="Rate64OnTimes"/> instance.
+		/// Deserializes a JSON <see cref="System.String"/> to a <see cref="Rate64OnTimeSpan"/> instance.
 		/// </summary>
-		/// <param name="rateHelperSerialized">Serialized <see cref="Rate64OnTimes"/> instance.</param>
+		/// <param name="rateHelperSerialized">Serialized <see cref="Rate64OnTimeSpan"/> instance.</param>
 		/// <param name="minDelta">Minimum <see cref="System.TimeSpan"/> necessary between 2 counters when calculating a rate. Counters will be buffered until this minimum delta is met.</param>
 		/// <param name="maxDelta">Maximum <see cref="System.TimeSpan"/> allowed between 2 counters when calculating a rate.</param>
 		/// <param name="rateBase">Choose whether the rate should be calculated per second, minute, hour or day.</param>
-		/// <returns>A new instance of the <see cref="Rate64OnTimes"/> class with all data found in <paramref name="rateHelperSerialized"/>.</returns>
-		public static Rate64OnTimes FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
+		/// <returns>A new instance of the <see cref="Rate64OnTimeSpan"/> class with all data found in <paramref name="rateHelperSerialized"/>.</returns>
+		public static Rate64OnTimeSpan FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
 		{
 			ValidateMinAndMaxDeltas(minDelta, maxDelta);
 
 			return !String.IsNullOrWhiteSpace(rateHelperSerialized) ?
-				JsonConvert.DeserializeObject<Rate64OnTimes>(rateHelperSerialized) :
-				new Rate64OnTimes(minDelta, maxDelta, rateBase);
-		}
-	}
-	#endregion
-
-	#region RateCounterBaseClasses
-	public class RateCounter<U>
-	{
-		public U Counter { get; set; }
-
-		private protected RateCounter() { }     // Default constructor for Deserializer
-	}
-
-	public class CounterWithDate<U> : RateCounter<U>
-	{
-		public DateTime DateTime { get; set; }
-
-		private protected CounterWithDate() { }     // Default constructor for Deserializer
-
-		internal CounterWithDate(DateTime dateTime)
-		{
-			DateTime = dateTime;
+				JsonConvert.DeserializeObject<Rate64OnTimeSpan>(rateHelperSerialized) :
+				new Rate64OnTimeSpan(minDelta, maxDelta, rateBase);
 		}
 	}
 
-	public class CounterWithTime<U> : RateCounter<U>
-	{
-		public TimeSpan TimeSpan { get; set; }
-
-		private protected CounterWithTime() { }     // Default constructor for Deserializer
-
-		internal CounterWithTime(TimeSpan timeSpan)
-		{
-			TimeSpan = timeSpan;
-		}
-	}
-	#endregion
-
-	#region RateCounterRealClasses
-	public class Counter32WithDate : CounterWithDate<uint>
-	{
-		private Counter32WithDate() { }     // Default constructor for Deserializer
-
-		internal Counter32WithDate(uint counter, DateTime dateTime) : base(dateTime)
-		{
-			Counter = counter;
-		}
-	}
-
-	public class Counter32WithTime : CounterWithTime<uint>
-	{
-		private Counter32WithTime() { }     // Default constructor for Deserializer
-
-		internal Counter32WithTime(uint counter, TimeSpan timeSpan) : base(timeSpan)
-		{
-			Counter = counter;
-		}
-	}
-
-	public class Counter64WithDate : CounterWithDate<ulong>
-	{
-		private Counter64WithDate() { }     // Default constructor for Deserializer
-
-		internal Counter64WithDate(ulong counter, DateTime dateTime) : base(dateTime)
-		{
-			Counter = counter;
-		}
-	}
-
-	public class Counter64WithTime : CounterWithTime<ulong>
-	{
-		private Counter64WithTime() { }     // Default constructor for Deserializer
-
-		internal Counter64WithTime(ulong counter, TimeSpan timeSpan) : base(timeSpan)
-		{
-			Counter = counter;
-		}
-	}
-	#endregion
+#endregion
 }

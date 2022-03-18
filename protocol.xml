@@ -86,11 +86,11 @@ Any inquiries can be addressed to:
 				<DefaultValue>
 					<![CDATA[
 This protocol demonstrates how to calculate rates based on counters polled over SNMP.
-This implementation is based on a DataMiner feature allowing to retrive the delta (TimeSpan) between the 2 last executions of a given group.
+This implementation is based on a DataMiner feature allowing to retrieve the delta (TimeSpan) between the 2 last executions of a given group.
 
 There are actually 2 methods used by DataMiner to calculate those delta values, the method used is dynamically configurable per group.
 Here are the 2 methods:
-	- Fast: A single value is returned representing the elpased time between the last 2 executions of a group.
+	- Fast: A single value is returned representing the elapsed time between the last 2 executions of a group.
 	- Accurate: This method only makes sense when used on table groups.
 		Instead of returning only one delta on group level, it returns a delta per table row.
 		This method is useful to get more accurate results when polling big SNMP tables but, obviously, is more ressources eager than the 'Fast' method.

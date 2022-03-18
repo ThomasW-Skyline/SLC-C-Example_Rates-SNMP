@@ -14,13 +14,13 @@
 	/// Class <see cref="SnmpRate"/> helps calculating rates of all sorts (bit rates, counter rates, etc) based on counters polled over SNMP.
 	/// This class is meant to be used as base class for more specific SnmpRate helpers depending on the range of counters (<see cref="System.UInt32"/>, <see cref="System.UInt64"/>, etc).
 	/// </summary>
-	public class SnmpRate<T, U> where T : CounterWithTime<U>
+	public class SnmpRate<T, U> where T : CounterWithTimeSpan<U>
 	{
 		[JsonProperty]
 		protected TimeSpan bufferedDelta;
 
 		[JsonProperty]
-		protected RateOnTimes<T, U> rateOnTimes;
+		protected RateOnTimeSpan<T, U> rateOnTimes;
 
 		[JsonConstructor]
 		private protected SnmpRate()
@@ -77,12 +77,12 @@
 	/// <summary>
 	/// Allows calculating rates of all sorts (bit rates, counter rates, etc) based on <see cref="System.UInt32"/> counters polled over SNMP.
 	/// </summary>
-	public class SnmpRate32 : SnmpRate<Counter32WithTime, uint>
+	public class SnmpRate32 : SnmpRate<Counter32WithTimeSpan, uint>
 	{
 		[JsonConstructor]
 		private SnmpRate32(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase)
 		{
-			rateOnTimes = new Rate32OnTimes(minDelta, maxDelta, rateBase);
+			rateOnTimes = new Rate32OnTimeSpan(minDelta, maxDelta, rateBase);
 		}
 
 		/// <summary>
@@ -95,7 +95,7 @@
 		/// <returns>The calculated rate or the value specified in <paramref name="faultyReturn"/> in case the rate can not be calculated.</returns>
 		public double Calculate(SnmpDeltaHelper deltaHelper, uint newCounter, string rowKey = null, double faultyReturn = -1)
 		{
-			var rateCounter = new Counter32WithTime(newCounter, TimeSpan.Zero);
+			var rateCounter = new Counter32WithTimeSpan(newCounter, TimeSpan.Zero);
 			return Calculate(deltaHelper, rateCounter, rowKey, faultyReturn);
 		}
 
@@ -109,7 +109,7 @@
 		/// <returns>A new instance of the <see cref="SnmpRate32"/> class with all data found in <paramref name="rateHelperSerialized"/>.</returns>
 		public static SnmpRate32 FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
 		{
-			Rate32OnTimes.ValidateMinAndMaxDeltas(minDelta, maxDelta);
+			Rate32OnTimeSpan.ValidateMinAndMaxDeltas(minDelta, maxDelta);
 
 			//var settings = new JsonSerializerSettings
 			//{
@@ -127,12 +127,12 @@
 	/// <summary>
 	/// Allows calculating rates of all sorts (bit rates, counter rates, etc) based on <see cref="System.UInt64"/> counters polled over SNMP.
 	/// </summary>
-	public class SnmpRate64 : SnmpRate<Counter64WithTime, ulong>
+	public class SnmpRate64 : SnmpRate<Counter64WithTimeSpan, ulong>
 	{
 		[JsonConstructor]
 		private SnmpRate64(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase)
 		{
-			rateOnTimes = new Rate64OnTimes(minDelta, maxDelta, rateBase);
+			rateOnTimes = new Rate64OnTimeSpan(minDelta, maxDelta, rateBase);
 		}
 
 		/// <summary>
@@ -145,7 +145,7 @@
 		/// <returns>The calculated rate or the value specified in <paramref name="faultyReturn"/> in case the rate can not be calculated.</returns>
 		public double Calculate(SnmpDeltaHelper deltaHelper, ulong newCounter, string rowKey = null, double faultyReturn = -1)
 		{
-			var rateCounter = new Counter64WithTime(newCounter, TimeSpan.Zero);
+			var rateCounter = new Counter64WithTimeSpan(newCounter, TimeSpan.Zero);
 			return Calculate(deltaHelper, rateCounter, rowKey, faultyReturn);
 		}
 
@@ -159,7 +159,7 @@
 		/// <returns>A new instance of the <see cref="SnmpRate64"/> class with all data found in <paramref name="rateHelperSerialized"/>.</returns>
 		public static SnmpRate64 FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
 		{
-			Rate64OnTimes.ValidateMinAndMaxDeltas(minDelta, maxDelta);
+			Rate64OnTimeSpan.ValidateMinAndMaxDeltas(minDelta, maxDelta);
 
 			//var settings = new JsonSerializerSettings
 			//{

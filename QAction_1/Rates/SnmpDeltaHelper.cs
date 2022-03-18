@@ -57,7 +57,7 @@
 		{
 			if (groupId < 0)
 			{
-				throw new ArgumentException("The group ID must not be negative.", "groupId");
+				throw new ArgumentException("The group ID is negative.", "groupId");
 			}
 
 			this.protocol = protocol;
@@ -68,8 +68,16 @@
 		/// <summary>
 		/// Configures DataMiner to use the expected delta calculation method.
 		/// </summary>
-		public void UpdateCalculationMethod()
+		/// <param name="protocol">Link with SLProtocol process</param>
+		/// <param name="groupId">The ID of the protocol group for which the delta tracking method should be changed.</param>
+		/// <param name="calculationMethodPid">Allows to define which delta calculation methods should be used. Note that opting for the 'Accurate' method only makes sense for SNMP tables.</param>
+		public static void UpdateRateDeltaTracking(SLProtocol protocol, int groupId, CalculationMethod calculationMethod)
 		{
+			if (groupId < 0)
+			{
+				throw new ArgumentException("The group ID is negative.", "groupId");
+			}
+
 			switch (calculationMethod)
 			{
 				case CalculationMethod.Fast:
@@ -79,8 +87,7 @@
 					protocol.NotifyProtocol(/*NT_SET_BITRATE_DELTA_INDEX_TRACKING*/ 448, groupId, true);
 					break;
 				default:
-					// Unknown calculation method, do nothing (already handled in constructor)
-					break;
+					throw new ArgumentException("The calculationMethod is unknown.", nameof(calculationMethod));
 			}
 		}
 
