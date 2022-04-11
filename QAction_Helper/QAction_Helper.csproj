@@ -23,7 +23,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>..\Internal\Code Analysis\SonarLint-QuickActions-Inactive.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Internal\Code Analysis\qaction-debug.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\QAction_Helper.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,7 +33,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>..\Internal\Code Analysis\SonarLint-QuickActions-Inactive.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Internal\Code Analysis\qaction-release.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Release\QAction_Helper.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
@@ -45,17 +47,19 @@
     <Reference Include="QactionHelperBaseClasses">
       <HintPath>C:\Skyline DataMiner\Files\QactionHelperBaseClasses.dll</HintPath>
     </Reference>
-    <Content Include="Settings.StyleCop" />
     <Content Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QAction_Helper.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="stylecop.json" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties DisLinkedXmlFile="..\protocol.xml" DisProjectType="qactionHelperProject" DisLinkId="" />
+      <UserProperties DisLinkId="" DisProjectType="qactionHelperProject" DisLinkedXmlFile="..\protocol.xml" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

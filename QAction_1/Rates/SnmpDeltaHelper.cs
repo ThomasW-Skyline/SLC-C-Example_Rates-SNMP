@@ -43,7 +43,8 @@
 			calculationMethod = (CalculationMethod)Convert.ToInt32(protocol.GetParameter((int)calculationMethodPid));
 			if (calculationMethod != CalculationMethod.Accurate && calculationMethod != CalculationMethod.Fast)
 			{
-				throw new NotSupportedException("Unexpected SNMP Rate Calculation Method value '" + protocol.GetParameter((int)calculationMethodPid) + "' retrieved from Param with PID '" + calculationMethodPid + "'.");
+				throw new NotSupportedException("Unexpected SNMP Rate Calculation Method value '" + protocol.GetParameter((int)calculationMethodPid) + "'" +
+					" retrieved from Param with PID '" + calculationMethodPid + "'.");
 			}
 		}
 
@@ -115,14 +116,7 @@
 				case CalculationMethod.Fast:
 					return delta;
 				case CalculationMethod.Accurate:
-					if (deltaPerInstance.ContainsKey(rowKey))
-					{
-						return deltaPerInstance[rowKey];
-					}
-					else
-					{
-						return delta;
-					}
+					return deltaPerInstance.ContainsKey(rowKey) ? deltaPerInstance[rowKey] : delta;
 				default:
 					return null;
 			}
@@ -183,7 +177,9 @@
 						int deltaInMilliseconds = Convert.ToInt32(deltaKeyAndValue[1]);
 
 						deltaPerInstance[deltaKey] = TimeSpan.FromMilliseconds(deltaInMilliseconds);
-						////protocol.Log("QA" + protocol.QActionID + "|LoadAccurateDeltaValues|deltaKey '" + deltaKey + "' - deltaInMilliseconds '" + deltaInMilliseconds + "' - delta '" + deltaPerInstance[deltaKey] + "'", LogType.DebugInfo, LogLevel.NoLogging);
+						////protocol.Log("QA" + protocol.QActionID + "|LoadAccurateDeltaValues|deltaKey '" + deltaKey + "' " +
+						////	"- deltaInMilliseconds '" + deltaInMilliseconds + "' " +
+						////	"- delta '" + deltaPerInstance[deltaKey] + "'", LogType.DebugInfo, LogLevel.NoLogging);
 					}
 
 					break;
