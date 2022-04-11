@@ -76,14 +76,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProtocolExtensions.cs" />
-    <Compile Include="Rates\RateCounter.cs" />
-    <Compile Include="Rates\RateHelper.cs" />
-    <Compile Include="Rates\SnmpDeltaHelper.cs" />
-    <Compile Include="Rates\SnmpRateHelper.cs" />
-    <Compile Include="SafeConverters\SafeConverters.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Rates\RateHelpers.cd" />
     <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>

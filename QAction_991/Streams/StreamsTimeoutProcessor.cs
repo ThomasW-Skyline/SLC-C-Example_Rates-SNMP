@@ -3,17 +3,17 @@
 	using System;
 	using System.Collections.Generic;
 
+	using Skyline.DataMiner.Library.Protocol.Snmp.Rates;
 	using Skyline.DataMiner.Scripting;
 	using Skyline.Protocol.Extensions;
-	using Skyline.Protocol.Rates;
 
 	public class StreamsTimeoutProcessor
 	{
-		private readonly StreamsGetter getter;
-		private readonly StreamsSetter setter;
+		private const int GroupId = 1000;
 
 		private readonly SLProtocol protocol;
-		private const int groupId = 1000;
+		private readonly StreamsGetter getter;
+		private readonly StreamsSetter setter;
 
 		internal StreamsTimeoutProcessor(SLProtocol protocol)
 		{
@@ -27,7 +27,7 @@
 
 		internal void ProcessTimeout()
 		{
-			SnmpDeltaHelper snmpDeltaHelper = new SnmpDeltaHelper(protocol, groupId, Parameter.streamsratecalculationsmethod);
+			SnmpDeltaHelper snmpDeltaHelper = new SnmpDeltaHelper(protocol, GroupId, Parameter.streamsratecalculationsmethod);
 
 			for (int i = 0; i < getter.Keys.Length; i++)
 			{
@@ -75,20 +75,18 @@
 
 		private class StreamsSetter
 		{
-			internal readonly Dictionary<object, List<object>> SetColumnsData;
-
 			private readonly SLProtocol protocol;
 
 			internal StreamsSetter(SLProtocol protocol)
 			{
 				this.protocol = protocol;
-
-				SetColumnsData = new Dictionary<object, List<object>>
-				{
-					{ Parameter.Streams.tablePid, new List<object>() },
-					{ Parameter.Streams.Pid.streamsbitratedata, new List<object>() },
-				};
 			}
+
+			internal Dictionary<object, List<object>> SetColumnsData { get; } = new Dictionary<object, List<object>>
+			{
+				{ Parameter.Streams.tablePid, new List<object>() },
+				{ Parameter.Streams.Pid.streamsbitratedata, new List<object>() },
+			};
 
 			internal void SetColumns()
 			{

@@ -1,12 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-
-using Interop.SLDms;
 
 using Skyline.DataMiner.Scripting;
-using static Skyline.Protocol.Rates.SnmpDeltaHelper;
+
+using static Skyline.DataMiner.Library.Protocol.Snmp.Rates.SnmpDeltaHelper;
 
 /// <summary>
 /// DataMiner QAction Class: After Startup.

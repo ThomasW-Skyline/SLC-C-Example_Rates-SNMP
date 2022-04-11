@@ -4,13 +4,13 @@
 	using System.Collections.Generic;
 	using System.Linq;
 
+	using Skyline.DataMiner.Library.Protocol.Snmp.Rates;
 	using Skyline.DataMiner.Scripting;
-	using Skyline.Protocol.Rates;
 
 	public class CounterTimeoutProcessor
 	{
+		private const int GroupId = 100;
 		private readonly SLProtocol protocol;
-		private const int groupId = 100;
 
 		private readonly Getter getter;
 		private readonly Setter setter;
@@ -27,7 +27,7 @@
 
 		internal void ProcessTimeout()
 		{
-			SnmpDeltaHelper snmpDeltaHelper = new SnmpDeltaHelper(protocol, groupId);
+			SnmpDeltaHelper snmpDeltaHelper = new SnmpDeltaHelper(protocol, GroupId);
 
 			SnmpRate32 snmpRateHelper = SnmpRate32.FromJsonString(getter.CounterRateData, minDelta: new TimeSpan(0, 0, 5), maxDelta: new TimeSpan(0, 10, 0));
 			snmpRateHelper.BufferDelta(snmpDeltaHelper);
@@ -66,12 +66,12 @@
 		{
 			private readonly SLProtocol protocol;
 
-			internal readonly Dictionary<int, object> SetParamsData = new Dictionary<int, object>();
-
 			internal Setter(SLProtocol protocol)
 			{
 				this.protocol = protocol;
 			}
+
+			internal Dictionary<int, object> SetParamsData { get; } = new Dictionary<int, object>();
 
 			internal void SetParams()
 			{

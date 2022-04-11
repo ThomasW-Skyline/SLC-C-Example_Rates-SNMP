@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 
 using Skyline.DataMiner.Scripting;
-using static Skyline.Protocol.Rates.SnmpDeltaHelper;
+
+using static Skyline.DataMiner.Library.Protocol.Snmp.Rates.SnmpDeltaHelper;
 
 /// <summary>
 /// DataMiner QAction Class: Streams Rate Calculations Method.
