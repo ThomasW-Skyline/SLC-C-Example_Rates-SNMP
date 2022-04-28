@@ -78,8 +78,8 @@
     <Compile Include="Streams\StreamsTimeoutProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Skyline.DataMiner.Library.Protocol">
-      <Version>1.2.1.2-gerritFDCP179881RateHelpersV2.12</Version>
+    <PackageReference Include="SLC.Lib.Protocol">
+      <Version>1.2.1.2-gerritFDCP179881RateHelpersV2.15</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
@@ -93,7 +93,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties DisLinkedXmlFile="C:\GIT\Examples\Protocols\SDF\SLC SDF Rates - SNMP\protocol.xml" DisProjectType="qactionProject" DisLinkId="991" />
+      <UserProperties DisLinkId="991" DisProjectType="qactionProject" DisLinkedXmlFile="C:\GIT\Examples\Protocols\SDF\SLC SDF Rates - SNMP\protocol.xml" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
