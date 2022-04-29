@@ -1,8 +1,7 @@
 using System;
 
+using Skyline.DataMiner.Library.Protocol.Snmp.Rates;
 using Skyline.DataMiner.Scripting;
-
-using static Skyline.DataMiner.Library.Protocol.Snmp.Rates.SnmpDeltaHelper;
 
 /// <summary>
 /// DataMiner QAction Class: Streams Rate Calculations Method.
@@ -18,7 +17,7 @@ public static class QAction
 		try
 		{
 			CalculationMethod rateCalculationsMethod = (CalculationMethod)Convert.ToInt32(protocol.GetParameter(Parameter.streamsratecalculationsmethod));
-			UpdateRateDeltaTracking(protocol, groupId: 1000, rateCalculationsMethod);
+			SnmpDeltaHelper.UpdateRateDeltaTracking(protocol, groupId: 1000, rateCalculationsMethod);
 		}
 		catch (Exception ex)
 		{
