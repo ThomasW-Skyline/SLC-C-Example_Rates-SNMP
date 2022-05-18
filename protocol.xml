@@ -56,7 +56,7 @@ Any inquiries can be addressed to:
 	<ElementType>Training Example</ElementType>
 	<Type relativeTimers="true">snmpv2</Type>
 	<!-- SuppressValidator 1.22.6 No WebInterface required for this example driver. -->
-	<Display defaultPage="General" pageOrder="General;Standalone;Table" wideColumnPages="Table;General"/>
+	<Display defaultPage="General" pageOrder="General;Standalone;Table" wideColumnPages="General;Table"/>
 	<!-- /SuppressValidator 1.22.6 -->
 	<SNMP includepages="true">auto</SNMP>
 
@@ -71,7 +71,7 @@ Any inquiries can be addressed to:
 			<Description>After Startup</Description>
 			<Type>dummy</Type>
 		</Param>
-
+		
 		<Param id="9" trending="false">
 			<Name>ReadMe</Name>
 			<Description>Read Me</Description>
@@ -135,7 +135,7 @@ Here are the 2 methods:
 				<Value>1</Value>
 			</Interprete>
 		</Param>
-
+		
 		<Param id="91">
 			<Name>CounterTimeoutTrigger</Name>
 			<Type>dummy</Type>
@@ -270,7 +270,7 @@ Here are the 2 methods:
 				<Type lines="10">string</Type>
 			</Measurement>
 		</Param>
-
+		
 		<!-- Streams Table -->
 		<Param id="991">
 			<Name>StreamsTimeoutTrigger</Name>
