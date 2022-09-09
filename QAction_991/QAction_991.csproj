@@ -70,6 +70,7 @@
       <HintPath>C:\Skyline DataMiner\Files\SLLoggerUtil.dll</HintPath>
     </Reference>
     <Content Include=".editorconfig" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,7 +94,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties DisLinkId="991" DisProjectType="qactionProject" DisLinkedXmlFile="C:\GIT\Examples\Protocols\SDF\SLC SDF Rates - SNMP\protocol.xml" />
+      <UserProperties DisLinkedXmlFile="C:\GIT\Examples\Protocols\SDF\SLC SDF Rates - SNMP\protocol.xml" DisProjectType="qactionProject" DisLinkId="991" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -47,7 +47,7 @@ Any inquiries can be addressed to:
 <Protocol xmlns="http://www.skyline.be/protocol">
 	<Name>SLC SDF Rates - SNMP</Name>
 	<Description>SLC SDF Rates - SNMP DataMiner driver</Description>
-	<Version>1.0.1.1</Version>
+	<Version>1.0.1.2</Version>
 	<IntegrationID>DMS-DRV-0000</IntegrationID>
 	<Provider>Skyline Communications</Provider>
 	<Vendor>Skyline</Vendor>
@@ -847,6 +847,17 @@ Here are the 2 methods:
 										<References>
 											<TaskId>179881</TaskId>
 										</References>
+									</MinorVersion>
+									<MinorVersion id="2" basedOn="1.0.1.1">
+										<Date>2022-09-09</Date>
+										<Provider>
+											<Author>SVD</Author>
+											<Company>Skyline Communications</Company>
+										</Provider>
+										<Changes>
+											<Fix>Use SafeConvert for standalone rate counter to avoid overflow exceptions.</Fix>
+											<Fix>Detect device reboot in order to reset buffers and avoid faulty results.</Fix>
+										</Changes>
 									</MinorVersion>
 								</MinorVersions>
 							</MajorVersion>
