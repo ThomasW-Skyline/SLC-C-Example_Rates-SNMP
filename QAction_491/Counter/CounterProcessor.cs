@@ -4,6 +4,7 @@
 	using System.Collections.Generic;
 	using System.Linq;
 
+	using Skyline.DataMiner.Library.Common.SafeConverters;
 	using Skyline.DataMiner.Library.Protocol.Snmp.Rates;
 	using Skyline.DataMiner.Scripting;
 
@@ -62,7 +63,7 @@
 					Parameter.counterratedata,
 				});
 
-				Counter = Convert.ToUInt32(counterData[0]);
+				Counter = SafeConvert.ToUInt32(Convert.ToDouble(counterData[0]));
 				CounterRateData = Convert.ToString(counterData[1]);
 			}
 		}

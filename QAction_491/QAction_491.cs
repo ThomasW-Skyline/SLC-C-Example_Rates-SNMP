@@ -22,9 +22,9 @@ public static class Counter
 
 		try
 		{
-			CounterTimeoutProcessor streamsHelper = new CounterTimeoutProcessor(protocol);
-			streamsHelper.ProcessTimeout();
-			streamsHelper.UpdateProtocol();
+			CounterTimeoutProcessor counterHelper = new CounterTimeoutProcessor(protocol);
+			counterHelper.ProcessTimeout();
+			counterHelper.UpdateProtocol();
 		}
 		catch (Exception ex)
 		{
@@ -45,9 +45,9 @@ public static class Counter
 
 		try
 		{
-			CounterProcessor streamsHelper = new CounterProcessor(protocol);
-			streamsHelper.ProcessData();
-			streamsHelper.UpdateProtocol();
+			CounterProcessor counterHelper = new CounterProcessor(protocol);
+			counterHelper.ProcessData();
+			counterHelper.UpdateProtocol();
 		}
 		catch (Exception ex)
 		{
