@@ -13,26 +13,31 @@ public static class Parameter
 	public const int readme_9 = 9;
 	/// <summary>PID: 9 | Type: read</summary>
 	public const int readme = 9;
-	/// <summary>PID: 92 | Type: read</summary>
+	/// <summary>PID: 103 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public const int countertimeoutafterretriesflag_92 = 92;
-	/// <summary>PID: 92 | Type: read</summary>
-	public const int countertimeoutafterretriesflag = 92;
-	/// <summary>PID: 100 | Type: read</summary>
+	public const int sysuptime_103 = 103;
+	/// <summary>PID: 103 | Type: read</summary>
+	public const int sysuptime = 103;
+	/// <summary>PID: 492 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public const int counter_100 = 100;
-	/// <summary>PID: 100 | Type: read</summary>
-	public const int counter = 100;
-	/// <summary>PID: 101 | Type: read</summary>
+	public const int countertimeoutafterretriesflag_492 = 492;
+	/// <summary>PID: 492 | Type: read</summary>
+	public const int countertimeoutafterretriesflag = 492;
+	/// <summary>PID: 500 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public const int counterrate_101 = 101;
-	/// <summary>PID: 101 | Type: read</summary>
-	public const int counterrate = 101;
-	/// <summary>PID: 102 | Type: read</summary>
+	public const int counter_500 = 500;
+	/// <summary>PID: 500 | Type: read</summary>
+	public const int counter = 500;
+	/// <summary>PID: 501 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public const int counterratedata_102 = 102;
-	/// <summary>PID: 102 | Type: read</summary>
-	public const int counterratedata = 102;
+	public const int counterrate_501 = 501;
+	/// <summary>PID: 501 | Type: read</summary>
+	public const int counterrate = 501;
+	/// <summary>PID: 502 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int counterratedata_502 = 502;
+	/// <summary>PID: 502 | Type: read</summary>
+	public const int counterratedata = 502;
 	/// <summary>PID: 992 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public const int streamstimeoutafterretriesflag_992 = 992;
@@ -139,15 +144,17 @@ public interface SLProtocolExt : SLProtocol
 	object Readme { get; set; }
 	object Fixed_0__fixed { get; set; }
 	object Fixed_1__fixed { get; set; }
+	object Sysuptime_103 { get; set; }
+	object Sysuptime { get; set; }
 	object Countertimeouttrigger_dummy { get; set; }
-	object Countertimeoutafterretriesflag_92 { get; set; }
+	object Countertimeoutafterretriesflag_492 { get; set; }
 	object Countertimeoutafterretriesflag { get; set; }
 	object Counteraftergrouptrigger_dummy { get; set; }
-	object Counter_100 { get; set; }
+	object Counter_500 { get; set; }
 	object Counter { get; set; }
-	object Counterrate_101 { get; set; }
+	object Counterrate_501 { get; set; }
 	object Counterrate { get; set; }
-	object Counterratedata_102 { get; set; }
+	object Counterratedata_502 { get; set; }
 	object Counterratedata { get; set; }
 	object Streamstimeouttrigger_dummy { get; set; }
 	object Streamstimeoutafterretriesflag_992 { get; set; }
@@ -183,30 +190,35 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public System.Object Fixed_0__fixed {get { return GetParameter(10); }set { SetParameter(10, value); }}
 	/// <summary>PID: 11  | Type: fixed</summary>
 	public System.Object Fixed_1__fixed {get { return GetParameter(11); }set { SetParameter(11, value); }}
-	/// <summary>PID: 91  | Type: dummy</summary>
-	public System.Object Countertimeouttrigger_dummy {get { return GetParameter(91); }set { SetParameter(91, value); }}
-	/// <summary>PID: 92  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	/// <summary>PID: 103  | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public System.Object Countertimeoutafterretriesflag_92 {get { return GetParameter(92); }set { SetParameter(92, value); }}
-	/// <summary>PID: 92  | Type: read | DISCREETS: False = 0, True = 1</summary>
-	public System.Object Countertimeoutafterretriesflag {get { return GetParameter(92); }set { SetParameter(92, value); }}
-	/// <summary>PID: 93  | Type: dummy</summary>
-	public System.Object Counteraftergrouptrigger_dummy {get { return GetParameter(93); }set { SetParameter(93, value); }}
-	/// <summary>PID: 100  | Type: read</summary>
+	public System.Object Sysuptime_103 {get { return GetParameter(103); }set { SetParameter(103, value); }}
+	/// <summary>PID: 103  | Type: read</summary>
+	public System.Object Sysuptime {get { return GetParameter(103); }set { SetParameter(103, value); }}
+	/// <summary>PID: 491  | Type: dummy</summary>
+	public System.Object Countertimeouttrigger_dummy {get { return GetParameter(491); }set { SetParameter(491, value); }}
+	/// <summary>PID: 492  | Type: read | DISCREETS: False = 0, True = 1</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public System.Object Counter_100 {get { return GetParameter(100); }set { SetParameter(100, value); }}
-	/// <summary>PID: 100  | Type: read</summary>
-	public System.Object Counter {get { return GetParameter(100); }set { SetParameter(100, value); }}
-	/// <summary>PID: 101  | Type: read | EXCEPTIONS: N/A = -1</summary>
+	public System.Object Countertimeoutafterretriesflag_492 {get { return GetParameter(492); }set { SetParameter(492, value); }}
+	/// <summary>PID: 492  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	public System.Object Countertimeoutafterretriesflag {get { return GetParameter(492); }set { SetParameter(492, value); }}
+	/// <summary>PID: 493  | Type: dummy</summary>
+	public System.Object Counteraftergrouptrigger_dummy {get { return GetParameter(493); }set { SetParameter(493, value); }}
+	/// <summary>PID: 500  | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public System.Object Counterrate_101 {get { return GetParameter(101); }set { SetParameter(101, value); }}
-	/// <summary>PID: 101  | Type: read | EXCEPTIONS: N/A = -1</summary>
-	public System.Object Counterrate {get { return GetParameter(101); }set { SetParameter(101, value); }}
-	/// <summary>PID: 102  | Type: read</summary>
+	public System.Object Counter_500 {get { return GetParameter(500); }set { SetParameter(500, value); }}
+	/// <summary>PID: 500  | Type: read</summary>
+	public System.Object Counter {get { return GetParameter(500); }set { SetParameter(500, value); }}
+	/// <summary>PID: 501  | Type: read | EXCEPTIONS: N/A = -1</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public System.Object Counterratedata_102 {get { return GetParameter(102); }set { SetParameter(102, value); }}
-	/// <summary>PID: 102  | Type: read</summary>
-	public System.Object Counterratedata {get { return GetParameter(102); }set { SetParameter(102, value); }}
+	public System.Object Counterrate_501 {get { return GetParameter(501); }set { SetParameter(501, value); }}
+	/// <summary>PID: 501  | Type: read | EXCEPTIONS: N/A = -1</summary>
+	public System.Object Counterrate {get { return GetParameter(501); }set { SetParameter(501, value); }}
+	/// <summary>PID: 502  | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Counterratedata_502 {get { return GetParameter(502); }set { SetParameter(502, value); }}
+	/// <summary>PID: 502  | Type: read</summary>
+	public System.Object Counterratedata {get { return GetParameter(502); }set { SetParameter(502, value); }}
 	/// <summary>PID: 991  | Type: dummy</summary>
 	public System.Object Streamstimeouttrigger_dummy {get { return GetParameter(991); }set { SetParameter(991, value); }}
 	/// <summary>PID: 992  | Type: read | DISCREETS: False = 0, True = 1</summary>
