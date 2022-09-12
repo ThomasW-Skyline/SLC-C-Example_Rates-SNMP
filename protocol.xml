@@ -858,6 +858,9 @@ Here are the 2 methods:
 											<Fix>Use SafeConvert for standalone rate counter to avoid overflow exceptions.</Fix>
 											<Fix>Detect device reboot in order to reset buffers and avoid faulty results.</Fix>
 										</Changes>
+										<References>
+											<TaskId>185873</TaskId>
+										</References>
 									</MinorVersion>
 								</MinorVersions>
 							</MajorVersion>
