@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Linq;
 
 	using Skyline.DataMiner.Library.Common.SafeConverters;
 	using Skyline.DataMiner.Library.Protocol.Snmp.Rates;
@@ -40,6 +41,7 @@
 
 		internal void UpdateProtocol()
 		{
+			setter.SetParams();
 			setter.SetColumns();
 		}
 
@@ -47,9 +49,20 @@
 		{
 			string streamPK = Convert.ToString(getter.Keys[getPosition]);
 			uint octets = SafeConvert.ToUInt32(Convert.ToDouble(getter.Octets[getPosition]));
-			string serializedHelper = Convert.ToString(getter.OctetsRateData[getPosition]);
 
-			SnmpRate32 snmpRate32Helper = SnmpRate32.FromJsonString(serializedHelper, minDelta, maxDelta);
+			SnmpRate32 snmpRate32Helper;
+			if (getter.IsSnmpAgentRestarted)
+			{
+				setter.SetParamsData[Parameter.countersnmpagentrestartflag] = 0;
+
+				snmpRate32Helper = SnmpRate32.FromJsonString("", minDelta, maxDelta);
+			}
+			else
+			{
+				string serializedHelper = Convert.ToString(getter.OctetsRateData[getPosition]);
+				snmpRate32Helper = SnmpRate32.FromJsonString(serializedHelper, minDelta, maxDelta);
+			}
+
 			double octetRate = snmpRate32Helper.Calculate(snmpDeltaHelper, octets, streamPK);
 			double bitRate = octetRate > 0 ? octetRate / 8 : octetRate;
 
@@ -72,18 +85,32 @@
 
 			public object[] OctetsRateData { get; private set; }
 
+			public bool IsSnmpAgentRestarted { get; private set; }
+
 			internal void Load()
 			{
-				var tableData = (object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, new uint[]
+				IsSnmpAgentRestarted = Convert.ToBoolean(Convert.ToInt16(protocol.GetParameter(Parameter.streamssnmpagentrestartflag)));
+
+				List<uint> columnsToGet = new List<uint>
 				{
 					Parameter.Streams.Idx.streamsindex,
 					Parameter.Streams.Idx.streamsoctetscounter,
-					Parameter.Streams.Idx.streamsbitratedata,
-				});
+				};
+
+				if (!IsSnmpAgentRestarted)
+				{
+					columnsToGet.Add(Parameter.Streams.Idx.streamsbitratedata);
+				}
+
+				var tableData = (object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, columnsToGet.ToArray());
 
 				Keys = (object[])tableData[0];
 				Octets = (object[])tableData[1];
-				OctetsRateData = (object[])tableData[2];
+
+				if (!IsSnmpAgentRestarted)
+				{
+					OctetsRateData = (object[])tableData[2];
+				}
 			}
 		}
 
@@ -103,9 +130,16 @@
 				{ Parameter.Streams.Pid.streamsbitratedata, new List<object>() },
 			};
 
+			internal Dictionary<int, object> SetParamsData { get; } = new Dictionary<int, object>();
+
 			internal void SetColumns()
 			{
 				protocol.SetColumns(SetColumnsData);
+			}
+
+			internal void SetParams()
+			{
+				protocol.SetParameters(SetParamsData.Keys.ToArray(), SetParamsData.Values.ToArray());
 			}
 		}
 	}

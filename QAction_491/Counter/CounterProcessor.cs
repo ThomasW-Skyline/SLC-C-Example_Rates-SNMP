@@ -30,9 +30,19 @@
 		{
 			SnmpDeltaHelper snmpDeltaHelper = new SnmpDeltaHelper(protocol, GroupId);
 
-			SnmpRate32 snmpRateHelper = SnmpRate32.FromJsonString(getter.CounterRateData, minDelta: new TimeSpan(0, 0, 5), maxDelta: new TimeSpan(0, 10, 0));
-			double rate = snmpRateHelper.Calculate(snmpDeltaHelper, getter.Counter);
+			SnmpRate32 snmpRateHelper;
+			if (getter.IsSnmpAgentRestarted)
+			{
+				setter.SetParamsData[Parameter.countersnmpagentrestartflag] = 0;
 
+				snmpRateHelper = SnmpRate32.FromJsonString("", minDelta: new TimeSpan(0, 0, 5), maxDelta: new TimeSpan(0, 10, 0));
+			}
+			else
+			{
+				snmpRateHelper = SnmpRate32.FromJsonString(getter.CounterRateData, minDelta: new TimeSpan(0, 0, 5), maxDelta: new TimeSpan(0, 10, 0));
+			}
+
+			double rate = snmpRateHelper.Calculate(snmpDeltaHelper, getter.Counter);
 			setter.SetParamsData[Parameter.counterrate] = rate;
 			setter.SetParamsData[Parameter.counterratedata] = snmpRateHelper.ToJsonString();
 		}
@@ -55,16 +65,20 @@
 
 			public string CounterRateData { get; private set; }
 
+			public bool IsSnmpAgentRestarted { get; private set; }
+
 			internal void Load()
 			{
 				var counterData = (object[])protocol.GetParameters(new uint[]
 				{
 					Parameter.counter,
 					Parameter.counterratedata,
+					Parameter.countersnmpagentrestartflag,
 				});
 
 				Counter = SafeConvert.ToUInt32(Convert.ToDouble(counterData[0]));
 				CounterRateData = Convert.ToString(counterData[1]);
+				IsSnmpAgentRestarted = Convert.ToBoolean(Convert.ToInt16(counterData[2]));
 			}
 		}
 

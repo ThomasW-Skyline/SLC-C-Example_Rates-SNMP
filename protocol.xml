@@ -136,7 +136,61 @@ Here are the 2 methods:
 			</Interprete>
 		</Param>
 		
-		<Param id="103" trending="false">
+		<Param id="91">
+			<Name>SysUptimeTimeoutTrigger</Name>
+			<Type>dummy</Type>
+		</Param>
+		<Param id="92">
+			<Name>SysUptimeTimeoutAfterRetriesFlag</Name>
+			<Description>SysUptime Timeout After Retries Flag</Description>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<LengthType>next param</LengthType>
+				<Type>double</Type>
+			</Interprete>
+			<Measurement>
+				<Type>discreet</Type>
+				<Discreets>
+					<Discreet>
+						<Display>False</Display>
+						<Value>0</Value>
+					</Discreet>
+					<Discreet>
+						<Display>True</Display>
+						<Value>1</Value>
+					</Discreet>
+				</Discreets>
+			</Measurement>
+		</Param>
+		<Param id="93">
+			<Name>SysUptimeAfterGroupTrigger</Name>
+			<Type>dummy</Type>
+		</Param>
+		<Param id="95" trending="false">
+			<Name>sysUptimeBuffer</Name>
+			<Description>System Uptime Buffer</Description>
+			<Information>
+				<Subtext>This buffer contains necessary data in order to determine if the SNMP agent of the data source has restarted.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>General</Page>
+						<Column>0</Column>
+						<Row>2</Row>
+					</Position>
+				</Positions>
+			</Display>
+		</Param>
+		<Param id="100" trending="false">
 			<Name>sysUptime</Name>
 			<Description>System Uptime</Description>
 			<Information>
@@ -199,6 +253,35 @@ Here are the 2 methods:
 		<Param id="493">
 			<Name>CounterAfterGroupTrigger</Name>
 			<Type>dummy</Type>
+		</Param>
+		<Param id="494" trending="false">
+			<Name>CounterSnmpAgentRestartFlag</Name>
+			<Description>SNMP Agent Restart Flag for Counter.</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>This flag is set to true if an SNMP Agent restart was detected since last Counter successful group execution.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>discreet</Type>
+				<Discreets>
+					<Discreet>
+						<Display>False</Display>
+						<Value>0</Value>
+					</Discreet>
+					<Discreet>
+						<Display>True</Display>
+						<Value>1</Value>
+					</Discreet>
+				</Discreets>
+			</Measurement>
 		</Param>
 		<Param id="500" trending="true">
 			<Name>Counter</Name>
@@ -335,6 +418,35 @@ Here are the 2 methods:
 		<Param id="993">
 			<Name>StreamsAfterGroupTrigger</Name>
 			<Type>dummy</Type>
+		</Param>
+		<Param id="994" trending="false">
+			<Name>StreamsSnmpAgentRestartFlag</Name>
+			<Description>SNMP Agent Restart Flag for Streams.</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>This flag is set to true if an SNMP Agent restart was detected since last Streams successful group execution.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>discreet</Type>
+				<Discreets>
+					<Discreet>
+						<Display>False</Display>
+						<Value>0</Value>
+					</Discreet>
+					<Discreet>
+						<Display>True</Display>
+						<Value>1</Value>
+					</Discreet>
+				</Discreets>
+			</Measurement>
 		</Param>
 		<Param id="995" trending="true" save="true">
 			<Name>StreamsRateCalculationsMethod</Name>
@@ -588,6 +700,9 @@ Here are the 2 methods:
 		</QAction>
 		<QAction id="2" name="After Startup" encoding="csharp" triggers="2">
 		</QAction>
+		
+		<QAction id="91" name="SysUptime Processors" encoding="csharp" triggers="91;93" entryPoint="SysUptime.ProcessTimeout;SysUptime.ProcessNewValue">
+		</QAction>
 
 		<QAction id="491" name="Counter Processors" encoding="csharp" triggers="491;493" entryPoint="Counter.ProcessTimeout;Counter.ProcessCounter">
 		</QAction>
@@ -604,7 +719,7 @@ Here are the 2 methods:
 			<Description>System Parameters</Description>
 			<Type>poll</Type>
 			<Content>
-				<Param>103</Param>
+				<Param>100</Param>
 			</Content>
 		</Group>
 		<Group id="2">
@@ -642,6 +757,47 @@ Here are the 2 methods:
 			<Type>action</Type>
 			<Content>
 				<Id>1</Id>
+			</Content>
+		</Trigger>
+		
+		<!--Detection of SNMP Agent restart-->
+		<Trigger id="90">
+			<Name>SysUptimeBeforeGroup</Name>
+			<On id="1">group</On>
+			<Time>before</Time>
+			<Type>action</Type>
+			<Content>
+				<Id>90</Id>
+			</Content>
+		</Trigger>
+		<Trigger id="91">
+			<Name>SysUptimeTimeout</Name>
+			<On id="100">parameter</On>
+			<Time>timeout</Time>
+			<Type>action</Type>
+			<Content>
+				<Id>91</Id>
+			</Content>
+		</Trigger>
+		<Trigger id="92">
+			<Name>SysUptimeTimeoutAfterRetries</Name>
+			<On id="100">parameter</On>
+			<Time>timeout after retries</Time>
+			<Type>action</Type>
+			<Content>
+				<Id>92</Id>
+			</Content>
+		</Trigger>
+		<Trigger id="93">
+			<Name>SysUptimeAfterGroup</Name>
+			<On id="1">group</On>
+			<Time>after</Time>
+			<Condition>
+				<![CDATA[id:92 == 0]]>
+			</Condition>
+			<Type>action</Type>
+			<Content>
+				<Id>93</Id>
 			</Content>
 		</Trigger>
 
@@ -737,6 +893,27 @@ Here are the 2 methods:
 		<Action id="2">
 			<Name>After Startup QAction</Name>
 			<On id="2">parameter</On>
+			<Type>run actions</Type>
+		</Action>
+		
+		<Action id="90">
+			<Name>Counter Timeout After Retries Flag Reset</Name>
+			<On id="92">parameter</On>
+			<Type id="10">copy</Type>
+		</Action>
+		<Action id="91">
+			<Name>Counter Timeout Run Action</Name>
+			<On id="91">parameter</On>
+			<Type>run actions</Type>
+		</Action>
+		<Action id="92">
+			<Name>Counter Timeout After Retries Flag</Name>
+			<On id="92">parameter</On>
+			<Type id="11">copy</Type>
+		</Action>
+		<Action id="93">
+			<Name>Counter Calculate Bit Rates</Name>
+			<On id="93">parameter</On>
 			<Type>run actions</Type>
 		</Action>
 

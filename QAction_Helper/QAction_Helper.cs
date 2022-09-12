@@ -13,16 +13,31 @@ public static class Parameter
 	public const int readme_9 = 9;
 	/// <summary>PID: 9 | Type: read</summary>
 	public const int readme = 9;
-	/// <summary>PID: 103 | Type: read</summary>
+	/// <summary>PID: 92 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public const int sysuptime_103 = 103;
-	/// <summary>PID: 103 | Type: read</summary>
-	public const int sysuptime = 103;
+	public const int sysuptimetimeoutafterretriesflag_92 = 92;
+	/// <summary>PID: 92 | Type: read</summary>
+	public const int sysuptimetimeoutafterretriesflag = 92;
+	/// <summary>PID: 95 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int sysuptimebuffer_95 = 95;
+	/// <summary>PID: 95 | Type: read</summary>
+	public const int sysuptimebuffer = 95;
+	/// <summary>PID: 100 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int sysuptime_100 = 100;
+	/// <summary>PID: 100 | Type: read</summary>
+	public const int sysuptime = 100;
 	/// <summary>PID: 492 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public const int countertimeoutafterretriesflag_492 = 492;
 	/// <summary>PID: 492 | Type: read</summary>
 	public const int countertimeoutafterretriesflag = 492;
+	/// <summary>PID: 494 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int countersnmpagentrestartflag_494 = 494;
+	/// <summary>PID: 494 | Type: read</summary>
+	public const int countersnmpagentrestartflag = 494;
 	/// <summary>PID: 500 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public const int counter_500 = 500;
@@ -43,6 +58,11 @@ public static class Parameter
 	public const int streamstimeoutafterretriesflag_992 = 992;
 	/// <summary>PID: 992 | Type: read</summary>
 	public const int streamstimeoutafterretriesflag = 992;
+	/// <summary>PID: 994 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int streamssnmpagentrestartflag_994 = 994;
+	/// <summary>PID: 994 | Type: read</summary>
+	public const int streamssnmpagentrestartflag = 994;
 	/// <summary>PID: 995 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public const int streamsratecalculationsmethod_995 = 995;
@@ -144,12 +164,20 @@ public interface SLProtocolExt : SLProtocol
 	object Readme { get; set; }
 	object Fixed_0__fixed { get; set; }
 	object Fixed_1__fixed { get; set; }
-	object Sysuptime_103 { get; set; }
+	object Sysuptimetimeouttrigger_dummy { get; set; }
+	object Sysuptimetimeoutafterretriesflag_92 { get; set; }
+	object Sysuptimetimeoutafterretriesflag { get; set; }
+	object Sysuptimeaftergrouptrigger_dummy { get; set; }
+	object Sysuptimebuffer_95 { get; set; }
+	object Sysuptimebuffer { get; set; }
+	object Sysuptime_100 { get; set; }
 	object Sysuptime { get; set; }
 	object Countertimeouttrigger_dummy { get; set; }
 	object Countertimeoutafterretriesflag_492 { get; set; }
 	object Countertimeoutafterretriesflag { get; set; }
 	object Counteraftergrouptrigger_dummy { get; set; }
+	object Countersnmpagentrestartflag_494 { get; set; }
+	object Countersnmpagentrestartflag { get; set; }
 	object Counter_500 { get; set; }
 	object Counter { get; set; }
 	object Counterrate_501 { get; set; }
@@ -160,6 +188,8 @@ public interface SLProtocolExt : SLProtocol
 	object Streamstimeoutafterretriesflag_992 { get; set; }
 	object Streamstimeoutafterretriesflag { get; set; }
 	object Streamsaftergrouptrigger_dummy { get; set; }
+	object Streamssnmpagentrestartflag_994 { get; set; }
+	object Streamssnmpagentrestartflag { get; set; }
 	object Streamsratecalculationsmethod_995 { get; set; }
 	object Streamsratecalculationsmethod { get; set; }
 	object Streamsratecalculationsmethod_996 { get; set; }
@@ -190,11 +220,25 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public System.Object Fixed_0__fixed {get { return GetParameter(10); }set { SetParameter(10, value); }}
 	/// <summary>PID: 11  | Type: fixed</summary>
 	public System.Object Fixed_1__fixed {get { return GetParameter(11); }set { SetParameter(11, value); }}
-	/// <summary>PID: 103  | Type: read</summary>
+	/// <summary>PID: 91  | Type: dummy</summary>
+	public System.Object Sysuptimetimeouttrigger_dummy {get { return GetParameter(91); }set { SetParameter(91, value); }}
+	/// <summary>PID: 92  | Type: read | DISCREETS: False = 0, True = 1</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public System.Object Sysuptime_103 {get { return GetParameter(103); }set { SetParameter(103, value); }}
-	/// <summary>PID: 103  | Type: read</summary>
-	public System.Object Sysuptime {get { return GetParameter(103); }set { SetParameter(103, value); }}
+	public System.Object Sysuptimetimeoutafterretriesflag_92 {get { return GetParameter(92); }set { SetParameter(92, value); }}
+	/// <summary>PID: 92  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	public System.Object Sysuptimetimeoutafterretriesflag {get { return GetParameter(92); }set { SetParameter(92, value); }}
+	/// <summary>PID: 93  | Type: dummy</summary>
+	public System.Object Sysuptimeaftergrouptrigger_dummy {get { return GetParameter(93); }set { SetParameter(93, value); }}
+	/// <summary>PID: 95  | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Sysuptimebuffer_95 {get { return GetParameter(95); }set { SetParameter(95, value); }}
+	/// <summary>PID: 95  | Type: read</summary>
+	public System.Object Sysuptimebuffer {get { return GetParameter(95); }set { SetParameter(95, value); }}
+	/// <summary>PID: 100  | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Sysuptime_100 {get { return GetParameter(100); }set { SetParameter(100, value); }}
+	/// <summary>PID: 100  | Type: read</summary>
+	public System.Object Sysuptime {get { return GetParameter(100); }set { SetParameter(100, value); }}
 	/// <summary>PID: 491  | Type: dummy</summary>
 	public System.Object Countertimeouttrigger_dummy {get { return GetParameter(491); }set { SetParameter(491, value); }}
 	/// <summary>PID: 492  | Type: read | DISCREETS: False = 0, True = 1</summary>
@@ -204,6 +248,11 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public System.Object Countertimeoutafterretriesflag {get { return GetParameter(492); }set { SetParameter(492, value); }}
 	/// <summary>PID: 493  | Type: dummy</summary>
 	public System.Object Counteraftergrouptrigger_dummy {get { return GetParameter(493); }set { SetParameter(493, value); }}
+	/// <summary>PID: 494  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Countersnmpagentrestartflag_494 {get { return GetParameter(494); }set { SetParameter(494, value); }}
+	/// <summary>PID: 494  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	public System.Object Countersnmpagentrestartflag {get { return GetParameter(494); }set { SetParameter(494, value); }}
 	/// <summary>PID: 500  | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public System.Object Counter_500 {get { return GetParameter(500); }set { SetParameter(500, value); }}
@@ -228,6 +277,11 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public System.Object Streamstimeoutafterretriesflag {get { return GetParameter(992); }set { SetParameter(992, value); }}
 	/// <summary>PID: 993  | Type: dummy</summary>
 	public System.Object Streamsaftergrouptrigger_dummy {get { return GetParameter(993); }set { SetParameter(993, value); }}
+	/// <summary>PID: 994  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Streamssnmpagentrestartflag_994 {get { return GetParameter(994); }set { SetParameter(994, value); }}
+	/// <summary>PID: 994  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	public System.Object Streamssnmpagentrestartflag {get { return GetParameter(994); }set { SetParameter(994, value); }}
 	/// <summary>PID: 995  | Type: read | DISCREETS: Fast = 1, Accurate = 2</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public System.Object Streamsratecalculationsmethod_995 {get { return GetParameter(995); }set { SetParameter(995, value); }}
