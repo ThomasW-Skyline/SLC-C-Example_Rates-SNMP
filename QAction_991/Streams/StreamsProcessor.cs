@@ -53,7 +53,7 @@
 			SnmpRate32 snmpRate32Helper;
 			if (getter.IsSnmpAgentRestarted)
 			{
-				setter.SetParamsData[Parameter.countersnmpagentrestartflag] = 0;
+				setter.SetParamsData[Parameter.streamssnmpagentrestartflag] = 0;
 
 				snmpRate32Helper = SnmpRate32.FromJsonString("", minDelta, maxDelta);
 			}

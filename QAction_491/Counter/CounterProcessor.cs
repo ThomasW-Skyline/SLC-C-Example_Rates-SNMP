@@ -10,7 +10,7 @@
 
 	public class CounterProcessor
 	{
-		private const int GroupId = 100;
+		private const int GroupId = 500;
 		private readonly SLProtocol protocol;
 
 		private readonly Getter getter;
