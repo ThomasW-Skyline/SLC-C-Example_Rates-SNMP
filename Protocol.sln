@@ -14,9 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dlls", "Dlls", "{1588FF97-A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{1D14AAC3-A010-4366-BE94-D756B337DD1B}"
 	ProjectSection(SolutionItems) = preProject
-		QAction_1\Rates\RateHelper.cd = QAction_1\Rates\RateHelper.cd
 		Documentation\readme.txt = Documentation\readme.txt
-		QAction_1\Rates\SnmpRateHelper.cd = QAction_1\Rates\SnmpRateHelper.cd
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2FB3B8A9-2E0E-453C-8626-AAA2AFB918A1}"
