@@ -30,7 +30,7 @@ public static class SysUptime
 			SnmpHelper snmpHelper = SnmpHelper.FromJsonString(sysUptimeBuffer, snmpDeltaHelper);
 			snmpHelper.BufferDelta();
 
-			paramsToSet.Add(Parameter.sysuptimebuffer, snmpHelper.ToString());
+			paramsToSet.Add(Parameter.sysuptimebuffer, snmpHelper.ToJsonString());
 
 			protocol.SetParameters(paramsToSet.Keys.ToArray(), paramsToSet.Values.ToArray());
 		}
@@ -62,7 +62,7 @@ public static class SysUptime
 				paramsToSet.Add(Parameter.countersnmpagentrestartflag, 1);
 			}
 
-			paramsToSet.Add(Parameter.sysuptimebuffer, snmpHelper.ToString());
+			paramsToSet.Add(Parameter.sysuptimebuffer, snmpHelper.ToJsonString());
 
 			protocol.SetParameters(paramsToSet.Keys.ToArray(), paramsToSet.Values.ToArray());
 		}

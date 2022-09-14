@@ -41,13 +41,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="SLManagedScripting">
-      <HintPath>C:\Skyline DataMiner\Files\SLManagedScripting.dll</HintPath>
-    </Reference>
-    <Reference Include="QactionHelperBaseClasses">
-      <HintPath>C:\Skyline DataMiner\Files\QactionHelperBaseClasses.dll</HintPath>
-    </Reference>
     <Content Include=".editorconfig" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -55,6 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="stylecop.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Skyline.DataMiner.Dev.Protocol">
+      <Version>10.0.0.5</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

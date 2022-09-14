@@ -268,6 +268,18 @@ Here are the 2 methods:
 			</Interprete>
 			<Display>
 				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>General</Page>
+						<Column>0</Column>
+						<Row>3</Row>
+					</Position>
+					<Position>
+						<Page>Standalone</Page>
+						<Column>0</Column>
+						<Row>4</Row>
+					</Position>
+				</Positions>
 			</Display>
 			<Measurement>
 				<Type>discreet</Type>
@@ -433,6 +445,18 @@ Here are the 2 methods:
 			</Interprete>
 			<Display>
 				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>General</Page>
+						<Column>0</Column>
+						<Row>4</Row>
+					</Position>
+					<Position>
+						<Page>Table</Page>
+						<Column>0</Column>
+						<Row>1</Row>
+					</Position>
+				</Positions>
 			</Display>
 			<Measurement>
 				<Type>discreet</Type>
@@ -555,7 +579,7 @@ Here are the 2 methods:
 					<Position>
 						<Page>Table</Page>
 						<Column>0</Column>
-						<Row>1</Row>
+						<Row>2</Row>
 					</Position>
 				</Positions>
 			</Display>
@@ -897,22 +921,22 @@ Here are the 2 methods:
 		</Action>
 		
 		<Action id="90">
-			<Name>Counter Timeout After Retries Flag Reset</Name>
+			<Name>SysUptime Timeout After Retries Flag Reset</Name>
 			<On id="92">parameter</On>
 			<Type id="10">copy</Type>
 		</Action>
 		<Action id="91">
-			<Name>Counter Timeout Run Action</Name>
+			<Name>SysUptime Timeout Run Action</Name>
 			<On id="91">parameter</On>
 			<Type>run actions</Type>
 		</Action>
 		<Action id="92">
-			<Name>Counter Timeout After Retries Flag</Name>
+			<Name>SysUptime Timeout After Retries Flag</Name>
 			<On id="92">parameter</On>
 			<Type id="11">copy</Type>
 		</Action>
 		<Action id="93">
-			<Name>Counter Calculate Bit Rates</Name>
+			<Name>SysUptime Calculate Bit Rates</Name>
 			<On id="93">parameter</On>
 			<Type>run actions</Type>
 		</Action>
