@@ -230,6 +230,10 @@ Here are the 2 methods:
 		<Param id="492">
 			<Name>CounterTimeoutAfterRetriesFlag</Name>
 			<Description>Counter Timeout After Retries Flag</Description>
+			<Information>
+				<Subtext><![CDATA[When the group is finished, this flag is used to determine if we should calculate rates or not.
+Note this whole logic is required instead of simply calculating rates on response in order to make sure we also update rates when polling succeeded but the polled counter didn't change.]]></Subtext>
+			</Information>
 			<Type>read</Type>
 			<Interprete>
 				<RawType>numeric text</RawType>
@@ -407,6 +411,12 @@ Here are the 2 methods:
 		<Param id="992">
 			<Name>StreamsTimeoutAfterRetriesFlag</Name>
 			<Description>Streams Timeout After Retries Flag</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[When the group is finished, this flag is used to determine if we should calculate rates or not.
+Note this whole logic is required instead of simply calculating rates on response in order to make sure we also update rates when polling succeeded but the polled table didn't change.]]>
+				</Subtext>
+			</Information>
 			<Type>read</Type>
 			<Interprete>
 				<RawType>numeric text</RawType>
