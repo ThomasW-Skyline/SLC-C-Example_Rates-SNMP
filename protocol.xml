@@ -71,7 +71,7 @@ Any inquiries can be addressed to:
 			<Description>After Startup</Description>
 			<Type>dummy</Type>
 		</Param>
-		
+
 		<Param id="9" trending="false">
 			<Name>ReadMe</Name>
 			<Description>Read Me</Description>
@@ -135,7 +135,7 @@ Here are the 2 methods:
 				<Value>1</Value>
 			</Interprete>
 		</Param>
-		
+
 		<Param id="91">
 			<Name>SysUptimeTimeoutTrigger</Name>
 			<Type>dummy</Type>
@@ -167,7 +167,7 @@ Here are the 2 methods:
 			<Name>SysUptimeAfterGroupTrigger</Name>
 			<Type>dummy</Type>
 		</Param>
-		<Param id="95" trending="false">
+		<Param id="95" trending="false" save="true">
 			<Name>sysUptimeBuffer</Name>
 			<Description>System Uptime Buffer</Description>
 			<Information>
@@ -222,7 +222,7 @@ Here are the 2 methods:
 				<Type options="time">number</Type>
 			</Measurement>
 		</Param>
-		
+
 		<Param id="491">
 			<Name>CounterTimeoutTrigger</Name>
 			<Type>dummy</Type>
@@ -231,8 +231,10 @@ Here are the 2 methods:
 			<Name>CounterTimeoutAfterRetriesFlag</Name>
 			<Description>Counter Timeout After Retries Flag</Description>
 			<Information>
-				<Subtext><![CDATA[When the group is finished, this flag is used to determine if we should calculate rates or not.
-Note this whole logic is required instead of simply calculating rates on response in order to make sure we also update rates when polling succeeded but the polled counter didn't change.]]></Subtext>
+				<Subtext>
+					<![CDATA[When the group is finished, this flag is used to determine if we should calculate rates or not.
+Note this whole logic is required instead of simply calculating rates on response in order to make sure we also update rates when polling succeeded but the polled counter didn't change.]]>
+				</Subtext>
 			</Information>
 			<Type>read</Type>
 			<Interprete>
@@ -376,7 +378,7 @@ Note this whole logic is required instead of simply calculating rates on respons
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="502" trending="false">
+		<Param id="502" trending="false" save="true">
 			<Name>CounterRateData</Name>
 			<Description>Counter Rate Data</Description>
 			<Type>read</Type>
@@ -402,7 +404,7 @@ Note this whole logic is required instead of simply calculating rates on respons
 				<Type lines="10">string</Type>
 			</Measurement>
 		</Param>
-		
+
 		<!-- Streams Table -->
 		<Param id="991">
 			<Name>StreamsTimeoutTrigger</Name>
@@ -734,7 +736,7 @@ Note this whole logic is required instead of simply calculating rates on respons
 		</QAction>
 		<QAction id="2" name="After Startup" encoding="csharp" triggers="2">
 		</QAction>
-		
+
 		<QAction id="91" name="SysUptime Processors" encoding="csharp" triggers="91;93" entryPoint="SysUptime.ProcessTimeout;SysUptime.ProcessNewValue">
 		</QAction>
 
@@ -793,7 +795,7 @@ Note this whole logic is required instead of simply calculating rates on respons
 				<Id>1</Id>
 			</Content>
 		</Trigger>
-		
+
 		<!--Detection of SNMP Agent restart-->
 		<Trigger id="90">
 			<Name>SysUptimeBeforeGroup</Name>
@@ -929,7 +931,7 @@ Note this whole logic is required instead of simply calculating rates on respons
 			<On id="2">parameter</On>
 			<Type>run actions</Type>
 		</Action>
-		
+
 		<Action id="90">
 			<Name>SysUptime Timeout After Retries Flag Reset</Name>
 			<On id="92">parameter</On>
