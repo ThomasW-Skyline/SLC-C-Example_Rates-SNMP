@@ -69,7 +69,7 @@
       <Version>1.2.2.4-DevPackSplit.4</Version>
     </PackageReference>
     <PackageReference Include="SLC.Lib.Protocol">
-      <Version>1.2.2.4-Dev185873SnmpAgentRestartDetection.10</Version>
+      <Version>1.2.2.4-Dev185873SnmpAgentRestartDetection.17</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
