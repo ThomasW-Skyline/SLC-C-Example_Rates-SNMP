@@ -39,10 +39,6 @@
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Skyline.DataMiner.Storage.Types, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9789b1eac4cb1b12, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Skyline DataMiner\Files\Skyline.DataMiner.Storage.Types.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <ProjectReference Include="..\QAction_1\QAction_1.csproj">
       <Project>{CD9BAD5F-3BB9-4675-ABF3-873FD6D45C92}</Project>
@@ -83,7 +79,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties DisLinkedXmlFile="C:\GIT\Examples\Protocols\SDF\SLC SDF Rates - SNMP\protocol.xml" DisProjectType="qactionProject" DisLinkId="491" />
+      <UserProperties DisLinkId="491" DisProjectType="qactionProject" DisLinkedXmlFile="C:\GIT\Examples\Protocols\SDF\SLC SDF Rates - SNMP\protocol.xml" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
