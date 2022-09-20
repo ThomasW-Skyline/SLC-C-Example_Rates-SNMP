@@ -63,7 +63,7 @@
       <Version>10.0.0.5</Version>
     </PackageReference>
     <PackageReference Include="SLC.Lib.Protocol">
-      <Version>1.2.2.4-Dev185873SnmpAgentRestartDetection.17</Version>
+      <Version>1.2.2.5</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
@@ -74,7 +74,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties DisLinkedXmlFile="..\protocol.xml" DisProjectType="qactionProject" DisLinkId="91" />
+      <UserProperties DisLinkId="91" DisProjectType="qactionProject" DisLinkedXmlFile="..\protocol.xml" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
