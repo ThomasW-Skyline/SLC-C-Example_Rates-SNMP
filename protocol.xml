@@ -1090,6 +1090,9 @@ Note this whole logic is required instead of simply calculating rates on respons
 										<Changes>
 											<Fix>Fixed conversion from octets to bits</Fix>
 										</Changes>
+										<References>
+											<TaskId>198352</TaskId>
+										</References>
 									</MinorVersion>
 								</MinorVersions>
 							</MajorVersion>
