@@ -55,7 +55,7 @@
 			{
 				setter.SetParamsData[Parameter.streamssnmpagentrestartflag] = 0;
 
-				snmpRate32Helper = SnmpRate32.FromJsonString("", minDelta, maxDelta);
+				snmpRate32Helper = SnmpRate32.FromJsonString(String.Empty, minDelta, maxDelta);
 			}
 			else
 			{
@@ -64,7 +64,7 @@
 			}
 
 			double octetRate = snmpRate32Helper.Calculate(snmpDeltaHelper, octets, streamPK);
-			double bitRate = octetRate > 0 ? octetRate / 8 : octetRate;
+			double bitRate = octetRate > 0 ? octetRate * 8 : octetRate;
 
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrate].Add(bitRate);
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitratedata].Add(snmpRate32Helper.ToJsonString());
@@ -139,7 +139,7 @@
 
 			internal void SetParams()
 			{
-				protocol.SetParameters(SetParamsData.Keys.ToArray(), SetParamsData.Values.ToArray());
+				protocol.SetParams(SetParamsData);
 			}
 		}
 	}

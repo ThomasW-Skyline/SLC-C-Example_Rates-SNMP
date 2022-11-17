@@ -62,11 +62,13 @@
 
 			internal void Load()
 			{
-				var tableData = (object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, new uint[]
+				uint[] columnsToGet = new uint[]
 				{
 					Parameter.Streams.Idx.streamsindex,
 					Parameter.Streams.Idx.streamsbitratedata,
-				});
+				};
+
+				var tableData = (object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, columnsToGet);
 
 				Keys = (object[])tableData[0];
 				OctetsRateData = (object[])tableData[1];

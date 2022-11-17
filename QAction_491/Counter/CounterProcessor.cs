@@ -7,6 +7,7 @@
 	using Skyline.DataMiner.Library.Common.SafeConverters;
 	using Skyline.DataMiner.Library.Protocol.Snmp.Rates;
 	using Skyline.DataMiner.Scripting;
+	using Skyline.Protocol.Extensions;
 
 	public class CounterProcessor
 	{
@@ -35,7 +36,7 @@
 			{
 				setter.SetParamsData[Parameter.countersnmpagentrestartflag] = 0;
 
-				snmpRateHelper = SnmpRate32.FromJsonString("", minDelta: new TimeSpan(0, 0, 5), maxDelta: new TimeSpan(0, 10, 0));
+				snmpRateHelper = SnmpRate32.FromJsonString(String.Empty, minDelta: new TimeSpan(0, 0, 5), maxDelta: new TimeSpan(0, 10, 0));
 			}
 			else
 			{
@@ -95,7 +96,7 @@
 
 			internal void SetParams()
 			{
-				protocol.SetParameters(SetParamsData.Keys.ToArray(), SetParamsData.Values.ToArray());
+				protocol.SetParams(SetParamsData);
 			}
 		}
 	}

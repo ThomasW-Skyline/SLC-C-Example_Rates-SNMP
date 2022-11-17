@@ -47,7 +47,7 @@ Any inquiries can be addressed to:
 <Protocol xmlns="http://www.skyline.be/protocol">
 	<Name>SLC SDF Rates - SNMP</Name>
 	<Description>SLC SDF Rates - SNMP DataMiner driver</Description>
-	<Version>1.0.1.2</Version>
+	<Version>1.0.1.3</Version>
 	<IntegrationID>DMS-DRV-0000</IntegrationID>
 	<Provider>Skyline Communications</Provider>
 	<Vendor>Skyline</Vendor>
@@ -1080,6 +1080,16 @@ Note this whole logic is required instead of simply calculating rates on respons
 										<References>
 											<TaskId>185873</TaskId>
 										</References>
+									</MinorVersion>
+									<MinorVersion id="3" basedOn="1.0.1.2">
+										<Date>2022-11-17</Date>
+										<Provider>
+											<Author>SVD</Author>
+											<Company>Skyline Communications</Company>
+										</Provider>
+										<Changes>
+											<Fix>Fixed conversion from octets to bits</Fix>
+										</Changes>
 									</MinorVersion>
 								</MinorVersions>
 							</MajorVersion>
