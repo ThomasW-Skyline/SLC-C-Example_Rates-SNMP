@@ -4,8 +4,9 @@
 	using System.Collections.Generic;
 	using System.Linq;
 
-	using Skyline.DataMiner.Library.Protocol.Snmp.Rates;
 	using Skyline.DataMiner.Scripting;
+	using Skyline.DataMiner.Utils.Rates.Protocol;
+	using Skyline.DataMiner.Utils.SNMP;
 
 	public class CounterTimeoutProcessor
 	{

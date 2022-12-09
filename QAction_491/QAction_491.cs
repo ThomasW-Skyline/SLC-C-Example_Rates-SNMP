@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 
 using Skyline.DataMiner.Scripting;
 using Skyline.Protocol.Counter;

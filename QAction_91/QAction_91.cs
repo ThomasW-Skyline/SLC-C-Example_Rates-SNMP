@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
 
-using Skyline.DataMiner.Library.Protocol.Snmp;
-using Skyline.DataMiner.Library.Protocol.Snmp.Rates;
 using Skyline.DataMiner.Scripting;
+using Skyline.DataMiner.Utils.SNMP;
 
 /// <summary>
 /// DataMiner SysUptime Class.
