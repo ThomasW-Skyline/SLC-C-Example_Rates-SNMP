@@ -1,15 +1,14 @@
 using System;
-
 using Skyline.DataMiner.Scripting;
 using Skyline.Protocol.Counter;
 
 /// <summary>
-/// DataMiner QAction Class.
+///     DataMiner QAction Class.
 /// </summary>
 public static class Counter
 {
 	/// <summary>
-	/// The QAction entry point in case of timeout.
+	///     The QAction entry point in case of timeout.
 	/// </summary>
 	/// <param name="protocol">Link with SLProtocol process.</param>
 	public static void ProcessTimeout(SLProtocol protocol)
@@ -32,7 +31,7 @@ public static class Counter
 	}
 
 	/// <summary>
-	/// The QAction entry point in case of successful group execution.
+	///     The QAction entry point in case of successful group execution.
 	/// </summary>
 	/// <param name="protocol">Link with SLProtocol process.</param>
 	public static void ProcessCounter(SLProtocol protocol)

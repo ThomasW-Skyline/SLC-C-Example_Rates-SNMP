@@ -3,7 +3,6 @@
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
-
 	using Skyline.DataMiner.Scripting;
 
 	public static class ProtocolExtension

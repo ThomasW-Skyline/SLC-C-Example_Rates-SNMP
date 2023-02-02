@@ -2,7 +2,6 @@
 {
 	using System;
 	using System.Collections.Generic;
-
 	using Skyline.DataMiner.Scripting;
 	using Skyline.DataMiner.Utils.Rates.Protocol;
 	using Skyline.DataMiner.Utils.SafeConverters;
@@ -12,9 +11,9 @@
 	public class CounterProcessor
 	{
 		private const int GroupId = 500;
-		private readonly SLProtocol protocol;
 
 		private readonly Getter getter;
+		private readonly SLProtocol protocol;
 		private readonly Setter setter;
 
 		public CounterProcessor(SLProtocol protocol)
@@ -36,11 +35,11 @@
 			{
 				setter.SetParamsData[Parameter.countersnmpagentrestartflag] = 0;
 
-				snmpRateHelper = SnmpRate32.FromJsonString(String.Empty, minDelta: new TimeSpan(0, 0, 5), maxDelta: new TimeSpan(0, 10, 0));
+				snmpRateHelper = SnmpRate32.FromJsonString(String.Empty, new TimeSpan(0, 0, 5), new TimeSpan(0, 10, 0));
 			}
 			else
 			{
-				snmpRateHelper = SnmpRate32.FromJsonString(getter.CounterRateData, minDelta: new TimeSpan(0, 0, 5), maxDelta: new TimeSpan(0, 10, 0));
+				snmpRateHelper = SnmpRate32.FromJsonString(getter.CounterRateData, new TimeSpan(0, 0, 5), new TimeSpan(0, 10, 0));
 			}
 
 			double rate = snmpRateHelper.Calculate(snmpDeltaHelper, getter.Counter);
@@ -70,7 +69,7 @@
 
 			internal void Load()
 			{
-				var counterData = (object[])protocol.GetParameters(new uint[]
+				object[] counterData = (object[])protocol.GetParameters(new uint[]
 				{
 					Parameter.counter,
 					Parameter.counterratedata,

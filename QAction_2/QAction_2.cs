@@ -1,15 +1,14 @@
 using System;
-
 using Skyline.DataMiner.Scripting;
 using Skyline.DataMiner.Utils.SNMP;
 
 /// <summary>
-/// DataMiner QAction Class: After Startup.
+///     DataMiner QAction Class: After Startup.
 /// </summary>
 public static class QAction
 {
 	/// <summary>
-	/// The QAction entry point.
+	///     The QAction entry point.
 	/// </summary>
 	/// <param name="protocol">Link with SLProtocol process.</param>
 	public static void Run(SLProtocol protocol)
@@ -20,7 +19,7 @@ public static class QAction
 			CalculationMethod rateCalculationsMethod = (CalculationMethod)Convert.ToInt32(protocol.GetParameter(Parameter.streamsratecalculationsmethod));
 			if (rateCalculationsMethod == CalculationMethod.Accurate)
 			{
-				SnmpDeltaHelper.UpdateRateDeltaTracking(protocol, groupId: 1000, CalculationMethod.Accurate);
+				SnmpDeltaHelper.UpdateRateDeltaTracking(protocol, 1000, CalculationMethod.Accurate);
 			}
 		}
 		catch (Exception ex)
