@@ -28,6 +28,26 @@ public static class Parameter
 	public const int sysuptime_100 = 100;
 	/// <summary>PID: 100 | Type: read</summary>
 	public const int sysuptime = 100;
+	/// <summary>PID: 101 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int sysname_101 = 101;
+	/// <summary>PID: 101 | Type: read</summary>
+	public const int sysname = 101;
+	/// <summary>PID: 102 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int syscontact_102 = 102;
+	/// <summary>PID: 102 | Type: read</summary>
+	public const int syscontact = 102;
+	/// <summary>PID: 103 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int syslocation_103 = 103;
+	/// <summary>PID: 103 | Type: read</summary>
+	public const int syslocation = 103;
+	/// <summary>PID: 104 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int sysdescr_104 = 104;
+	/// <summary>PID: 104 | Type: read</summary>
+	public const int sysdescr = 104;
 	/// <summary>PID: 492 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public const int countertimeoutafterretriesflag_492 = 492;
@@ -70,6 +90,21 @@ public static class Parameter
 	public const int streamsratecalculationsmethod = 995;
 	public class Write
 	{
+		/// <summary>PID: 201 | Type: write</summary>
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public const int sysname_201 = 201;
+		/// <summary>PID: 201 | Type: write</summary>
+		public const int sysname = 201;
+		/// <summary>PID: 202 | Type: write</summary>
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public const int syscontact_202 = 202;
+		/// <summary>PID: 202 | Type: write</summary>
+		public const int syscontact = 202;
+		/// <summary>PID: 203 | Type: write</summary>
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public const int syslocation_203 = 203;
+		/// <summary>PID: 203 | Type: write</summary>
+		public const int syslocation = 203;
 		/// <summary>PID: 996 | Type: write</summary>
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public const int streamsratecalculationsmethod_996 = 996;
@@ -147,6 +182,12 @@ public static class Parameter
 }
 public class WriteParameters
 {
+	/// <summary>PID: 201  | Type: write</summary>
+	public System.Object Sysname {get { return Protocol.GetParameter(201); }set { Protocol.SetParameter(201, value); }}
+	/// <summary>PID: 202  | Type: write</summary>
+	public System.Object Syscontact {get { return Protocol.GetParameter(202); }set { Protocol.SetParameter(202, value); }}
+	/// <summary>PID: 203  | Type: write</summary>
+	public System.Object Syslocation {get { return Protocol.GetParameter(203); }set { Protocol.SetParameter(203, value); }}
 	/// <summary>PID: 996  | Type: write | DISCREETS: Fast = 1, Accurate = 2</summary>
 	public System.Object Streamsratecalculationsmethod {get { return Protocol.GetParameter(996); }set { Protocol.SetParameter(996, value); }}
 	public SLProtocolExt Protocol;
@@ -172,6 +213,17 @@ public interface SLProtocolExt : SLProtocol
 	object Sysuptimebuffer { get; set; }
 	object Sysuptime_100 { get; set; }
 	object Sysuptime { get; set; }
+	object Sysname_101 { get; set; }
+	object Sysname { get; set; }
+	object Syscontact_102 { get; set; }
+	object Syscontact { get; set; }
+	object Syslocation_103 { get; set; }
+	object Syslocation { get; set; }
+	object Sysdescr_104 { get; set; }
+	object Sysdescr { get; set; }
+	object Sysname_201 { get; set; }
+	object Syscontact_202 { get; set; }
+	object Syslocation_203 { get; set; }
 	object Countertimeouttrigger_dummy { get; set; }
 	object Countertimeoutafterretriesflag_492 { get; set; }
 	object Countertimeoutafterretriesflag { get; set; }
@@ -239,6 +291,35 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public System.Object Sysuptime_100 {get { return GetParameter(100); }set { SetParameter(100, value); }}
 	/// <summary>PID: 100  | Type: read</summary>
 	public System.Object Sysuptime {get { return GetParameter(100); }set { SetParameter(100, value); }}
+	/// <summary>PID: 101  | Type: read | EXCEPTIONS: N/A = -1</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Sysname_101 {get { return GetParameter(101); }set { SetParameter(101, value); }}
+	/// <summary>PID: 101  | Type: read | EXCEPTIONS: N/A = -1</summary>
+	public System.Object Sysname {get { return GetParameter(101); }set { SetParameter(101, value); }}
+	/// <summary>PID: 102  | Type: read | EXCEPTIONS: N/A = -1</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Syscontact_102 {get { return GetParameter(102); }set { SetParameter(102, value); }}
+	/// <summary>PID: 102  | Type: read | EXCEPTIONS: N/A = -1</summary>
+	public System.Object Syscontact {get { return GetParameter(102); }set { SetParameter(102, value); }}
+	/// <summary>PID: 103  | Type: read | EXCEPTIONS: N/A = -1</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Syslocation_103 {get { return GetParameter(103); }set { SetParameter(103, value); }}
+	/// <summary>PID: 103  | Type: read | EXCEPTIONS: N/A = -1</summary>
+	public System.Object Syslocation {get { return GetParameter(103); }set { SetParameter(103, value); }}
+	/// <summary>PID: 104  | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Sysdescr_104 {get { return GetParameter(104); }set { SetParameter(104, value); }}
+	/// <summary>PID: 104  | Type: read</summary>
+	public System.Object Sysdescr {get { return GetParameter(104); }set { SetParameter(104, value); }}
+	/// <summary>PID: 201  | Type: write</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Sysname_201 {get { return GetParameter(201); }set { SetParameter(201, value); }}
+	/// <summary>PID: 202  | Type: write</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Syscontact_202 {get { return GetParameter(202); }set { SetParameter(202, value); }}
+	/// <summary>PID: 203  | Type: write</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Syslocation_203 {get { return GetParameter(203); }set { SetParameter(203, value); }}
 	/// <summary>PID: 491  | Type: dummy</summary>
 	public System.Object Countertimeouttrigger_dummy {get { return GetParameter(491); }set { SetParameter(491, value); }}
 	/// <summary>PID: 492  | Type: read | DISCREETS: False = 0, True = 1</summary>
