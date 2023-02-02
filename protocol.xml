@@ -817,7 +817,7 @@ Note this whole logic is required instead of simply calculating rates on respons
 			<Description>Poll System Uptime And Streams</Description>
 			<Type>poll action</Type>
 			<Content>
-				<!--This group & ation are making sure we always detect SNMP agent restarts before calculating stream rates-->
+				<!--This group & action are making sure we always detect SNMP agent restarts before calculating stream rates-->
 				<Action>1001</Action>
 			</Content>
 		</Group>
