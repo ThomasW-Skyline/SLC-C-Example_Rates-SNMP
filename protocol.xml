@@ -47,7 +47,7 @@ Any inquiries can be addressed to:
 <Protocol xmlns="http://www.skyline.be/protocol">
 	<Name>SLC SDF Rates - SNMP</Name>
 	<Description>SLC SDF Rates - SNMP DataMiner driver</Description>
-	<Version>1.0.1.4</Version>
+	<Version>1.0.1.5</Version>
 	<IntegrationID>DMS-DRV-0000</IntegrationID>
 	<Provider>Skyline Communications</Provider>
 	<Vendor>Skyline</Vendor>
@@ -757,11 +757,12 @@ Note this whole logic is required instead of simply calculating rates on respons
 
 	<Groups>
 		<Group id="1">
-			<Name>System Parameters</Name>
-			<Description>System Parameters</Description>
+			<Name>System Uptime</Name>
+			<Description>System Uptime</Description>
 			<Type>poll</Type>
 			<Content>
 				<Param>100</Param>
+				<!--Do not add other params here-->
 			</Content>
 		</Group>
 		<Group id="2">
@@ -770,6 +771,15 @@ Note this whole logic is required instead of simply calculating rates on respons
 			<Type>poll action</Type>
 			<Content>
 				<Action>2</Action>
+			</Content>
+		</Group>
+		<Group id="10">
+			<Name>System Parameters</Name>
+			<Description>System Parameters</Description>
+			<Type>poll</Type>
+			<Content>
+				<Param>100</Param>
+				<!--Other system params can be added here-->
 			</Content>
 		</Group>
 
@@ -781,12 +791,28 @@ Note this whole logic is required instead of simply calculating rates on respons
 				<Param>500</Param>
 			</Content>
 		</Group>
+		<Group id="501">
+			<Name>Poll Sys Uptime And Counter</Name>
+			<Description>Poll Sys Uptime And Counter</Description>
+			<Type>poll action</Type>
+			<Content>
+				<Action>501</Action>
+			</Content>
+		</Group>
 		<Group id="1000">
 			<Name>Poll Streams</Name>
 			<Description>Poll Streams</Description>
 			<Type>poll</Type>
 			<Content>
 				<Param>1000</Param>
+			</Content>
+		</Group>
+		<Group id="1001">
+			<Name>Poll Sys Uptime And Streams</Name>
+			<Description>Poll Sys Uptime And Streams</Description>
+			<Type>poll action</Type>
+			<Content>
+				<Action>1001</Action>
 			</Content>
 		</Group>
 	</Groups>
@@ -980,6 +1006,11 @@ Note this whole logic is required instead of simply calculating rates on respons
 			<On id="493">parameter</On>
 			<Type>run actions</Type>
 		</Action>
+		<Action id="501">
+			<Name>PollSysUptimeBeforeCounter</Name>
+			<On id="500;1">group</On>
+			<Type>execute next</Type>
+		</Action>
 
 		<!--Rate based on SNMP column-->
 		<Action id="990">
@@ -1007,6 +1038,11 @@ Note this whole logic is required instead of simply calculating rates on respons
 			<On id="1000">group</On>
 			<Type>execute next</Type>
 		</Action>
+		<Action id="1001">
+			<Name>PollSysUptimeBeforeStreams</Name>
+			<On id="1000;1">group</On>
+			<Type>execute next</Type>
+		</Action>
 	</Actions>
 
 	<Timers>
@@ -1016,8 +1052,9 @@ Note this whole logic is required instead of simply calculating rates on respons
 			<Interval>75</Interval>
 			<Content>
 				<Group>1</Group>
-				<Group>500</Group>
-				<Group>1000</Group>
+				<Group>10</Group>
+				<Group>501</Group>
+				<Group>1001</Group>
 			</Content>
 		</Timer>
 	</Timers>
@@ -1102,6 +1139,19 @@ Note this whole logic is required instead of simply calculating rates on respons
 										</Provider>
 										<Changes>
 											<Change>Use specific small packages rather than bulky Class Library.</Change>
+										</Changes>
+										<References>
+											<TaskId>198352</TaskId>
+										</References>
+									</MinorVersion>
+									<MinorVersion id="5" basedOn="1.0.1.4">
+										<Date>2023-02-02</Date>
+										<Provider>
+											<Author>RSP</Author>
+											<Company>Skyline Communications</Company>
+										</Provider>
+										<Changes>
+											<Change>Added actions to poll SysUptime before every group that leads to rate calculations to minimize risk of a race condition after SNMP agent restart.</Change>
 										</Changes>
 										<References>
 											<TaskId>198352</TaskId>
