@@ -3,6 +3,7 @@
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
+
 	using Skyline.DataMiner.Scripting;
 	using Skyline.DataMiner.Utils.Rates.Protocol;
 	using Skyline.DataMiner.Utils.SNMP;
@@ -11,8 +12,8 @@
 	{
 		private const int GroupId = 100;
 
-		private readonly Getter getter;
 		private readonly SLProtocol protocol;
+		private readonly Getter getter;
 		private readonly Setter setter;
 
 		public CounterTimeoutProcessor(SLProtocol protocol)

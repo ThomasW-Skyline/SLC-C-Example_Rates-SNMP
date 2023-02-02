@@ -761,8 +761,11 @@ Note this whole logic is required instead of simply calculating rates on respons
 			<Description>System Uptime</Description>
 			<Type>poll</Type>
 			<Content>
+				<!--This group has following purposes:
+						- Be used as ping group when going into slow poll mode.
+						- Be used to detect when the device reboots.
+					Therefore, it is recommended not to add any other param to it.-->
 				<Param>100</Param>
-				<!--Do not add other params here-->
 			</Content>
 		</Group>
 		<Group id="2">
@@ -773,13 +776,13 @@ Note this whole logic is required instead of simply calculating rates on respons
 				<Action>2</Action>
 			</Content>
 		</Group>
-		<Group id="10">
+		
+		<Group id="100">
 			<Name>System Parameters</Name>
 			<Description>System Parameters</Description>
 			<Type>poll</Type>
 			<Content>
 				<Param>100</Param>
-				<!--Other system params can be added here-->
 			</Content>
 		</Group>
 
@@ -792,13 +795,15 @@ Note this whole logic is required instead of simply calculating rates on respons
 			</Content>
 		</Group>
 		<Group id="501">
-			<Name>Poll Sys Uptime And Counter</Name>
-			<Description>Poll Sys Uptime And Counter</Description>
+			<Name>Poll System Uptime And Counter</Name>
+			<Description>Poll System Uptime And Counter</Description>
 			<Type>poll action</Type>
 			<Content>
+				<!--This group & action are making sure we always detect SNMP agent restarts before calculating counter rates-->
 				<Action>501</Action>
 			</Content>
 		</Group>
+		
 		<Group id="1000">
 			<Name>Poll Streams</Name>
 			<Description>Poll Streams</Description>
@@ -808,10 +813,11 @@ Note this whole logic is required instead of simply calculating rates on respons
 			</Content>
 		</Group>
 		<Group id="1001">
-			<Name>Poll Sys Uptime And Streams</Name>
-			<Description>Poll Sys Uptime And Streams</Description>
+			<Name>Poll System Uptime And Streams</Name>
+			<Description>Poll System Uptime And Streams</Description>
 			<Type>poll action</Type>
 			<Content>
+				<!--This group & ation are making sure we always detect SNMP agent restarts before calculating stream rates-->
 				<Action>1001</Action>
 			</Content>
 		</Group>
@@ -1007,7 +1013,7 @@ Note this whole logic is required instead of simply calculating rates on respons
 			<Type>run actions</Type>
 		</Action>
 		<Action id="501">
-			<Name>PollSysUptimeBeforeCounter</Name>
+			<Name>SysUptimeAndCounter_ExecuteNext</Name>
 			<On id="500;1">group</On>
 			<Type>execute next</Type>
 		</Action>
@@ -1033,13 +1039,8 @@ Note this whole logic is required instead of simply calculating rates on respons
 			<On id="993">parameter</On>
 			<Type>run actions</Type>
 		</Action>
-		<Action id="1000">
-			<Name>Streams Execute Next</Name>
-			<On id="1000">group</On>
-			<Type>execute next</Type>
-		</Action>
 		<Action id="1001">
-			<Name>PollSysUptimeBeforeStreams</Name>
+			<Name>SysUptimeAndStreams_ExecuteNext</Name>
 			<On id="1000;1">group</On>
 			<Type>execute next</Type>
 		</Action>
@@ -1051,8 +1052,7 @@ Note this whole logic is required instead of simply calculating rates on respons
 			<Time initial="true">10000</Time>
 			<Interval>75</Interval>
 			<Content>
-				<Group>1</Group>
-				<Group>10</Group>
+				<Group>100</Group>
 				<Group>501</Group>
 				<Group>1001</Group>
 			</Content>
@@ -1151,7 +1151,7 @@ Note this whole logic is required instead of simply calculating rates on respons
 											<Company>Skyline Communications</Company>
 										</Provider>
 										<Changes>
-											<Change>Added actions to poll SysUptime before every group that leads to rate calculations to minimize risk of a race condition after SNMP agent restart.</Change>
+											<Fix>Added actions to poll SysUptime before every group that leads to rate calculations to fix a race condition after SNMP agent restarts.</Fix>
 										</Changes>
 										<References>
 											<TaskId>198352</TaskId>
