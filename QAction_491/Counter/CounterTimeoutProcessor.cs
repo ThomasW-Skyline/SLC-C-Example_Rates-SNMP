@@ -30,7 +30,7 @@
 		{
 			SnmpDeltaHelper snmpDeltaHelper = new SnmpDeltaHelper(protocol, GroupId);
 
-			SnmpRate32 snmpRateHelper = SnmpRate32.FromJsonString(getter.CounterRateData, new TimeSpan(0, 0, 5), new TimeSpan(0, 10, 0));
+			SnmpRate32 snmpRateHelper = SnmpRate32.FromJsonString(getter.CounterRateData, minDelta: new TimeSpan(0, 0, 5), maxDelta: new TimeSpan(0, 10, 0));
 			snmpRateHelper.BufferDelta(snmpDeltaHelper);
 
 			setter.SetParamsData[Parameter.counterratedata] = snmpRateHelper.ToJsonString();
