@@ -328,7 +328,7 @@ By convention, this is the node's fully-qualified domain name.]]>
 					<Position>
 						<Page>General</Page>
 						<Column>1</Column>
-						<Row>2</Row>
+						<Row>1</Row>
 					</Position>
 				</Positions>
 				<Range>
@@ -360,7 +360,7 @@ By convention, this is the node's fully-qualified domain name.]]>
 					<Position>
 						<Page>General</Page>
 						<Column>1</Column>
-						<Row>2</Row>
+						<Row>1</Row>
 					</Position>
 				</Positions>
 				<Range>
@@ -403,7 +403,7 @@ By convention, this is the node's fully-qualified domain name.]]>
 					<Position>
 						<Page>General</Page>
 						<Column>1</Column>
-						<Row>3</Row>
+						<Row>2</Row>
 					</Position>
 				</Positions>
 				<Range>
@@ -435,7 +435,7 @@ By convention, this is the node's fully-qualified domain name.]]>
 					<Position>
 						<Page>General</Page>
 						<Column>1</Column>
-						<Row>3</Row>
+						<Row>2</Row>
 					</Position>
 				</Positions>
 				<Range>
@@ -473,7 +473,7 @@ This value should include the full name and version identification of the system
 					<Position>
 						<Page>General</Page>
 						<Column>1</Column>
-						<Row>1</Row>
+						<Row>3</Row>
 					</Position>
 				</Positions>
 				<Range>
