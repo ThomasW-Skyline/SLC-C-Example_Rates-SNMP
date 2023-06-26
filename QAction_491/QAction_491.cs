@@ -15,7 +15,7 @@ public static class Counter
 	public static void ProcessTimeout(SLProtocol protocol)
 	{
 		const string MethodName = "Counter.ProcessTimeout";
-		////protocol.Log("QA" + protocol.QActionID + "|" + MethodName + "|### Start of QAction", LogType.DebugInfo, LogLevel.NoLogging);
+		////protocol.Log($"QA{protocol.QActionID}|{MethodName}|### Start of QAction", LogType.DebugInfo, LogLevel.NoLogging);
 
 		try
 		{
@@ -25,10 +25,10 @@ public static class Counter
 		}
 		catch (Exception ex)
 		{
-			protocol.Log("QA" + protocol.QActionID + "|" + protocol.GetTriggerParameter() + "|" + MethodName + "|Exception thrown:" + Environment.NewLine + ex, LogType.Error, LogLevel.NoLogging);
+			protocol.Log($"QA{protocol.QActionID}|{protocol.GetTriggerParameter()}|{MethodName}|Exception thrown:{Environment.NewLine}{ex}", LogType.Error, LogLevel.NoLogging);
 		}
 
-		////protocol.Log("QA" + protocol.QActionID + "|" + MethodName + "|### End of QAction", LogType.DebugInfo, LogLevel.NoLogging);
+		////protocol.Log($"QA{protocol.QActionID}|{MethodName}|### End of QAction", LogType.DebugInfo, LogLevel.NoLogging);
 	}
 
 	/// <summary>
@@ -38,7 +38,7 @@ public static class Counter
 	public static void ProcessCounter(SLProtocol protocol)
 	{
 		const string MethodName = "Counter.ProcessCounter";
-		////protocol.Log("QA" + protocol.QActionID + "|" + MethodName + "|### Start of QAction", LogType.DebugInfo, LogLevel.NoLogging);
+		////protocol.Log($"QA{protocol.QActionID}|{MethodName}|### Start of QAction", LogType.DebugInfo, LogLevel.NoLogging);
 
 		try
 		{
@@ -48,9 +48,9 @@ public static class Counter
 		}
 		catch (Exception ex)
 		{
-			protocol.Log("QA" + protocol.QActionID + "|" + protocol.GetTriggerParameter() + "|" + MethodName + "|Exception thrown:" + Environment.NewLine + ex, LogType.Error, LogLevel.NoLogging);
+			protocol.Log($"QA{protocol.QActionID}|{protocol.GetTriggerParameter()}|{MethodName}|Exception thrown:{Environment.NewLine}{ex}", LogType.Error, LogLevel.NoLogging);
 		}
 
-		////protocol.Log("QA" + protocol.QActionID + "|" + MethodName + "|### End of QAction", LogType.DebugInfo, LogLevel.NoLogging);
+		////protocol.Log($"QA{protocol.QActionID}|{MethodName}|### End of QAction", LogType.DebugInfo, LogLevel.NoLogging);
 	}
 }

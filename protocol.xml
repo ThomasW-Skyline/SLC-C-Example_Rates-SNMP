@@ -47,7 +47,7 @@ Any inquiries can be addressed to:
 <Protocol xmlns="http://www.skyline.be/protocol">
 	<Name>SLC SDF Rates - SNMP</Name>
 	<Description>SLC SDF Rates - SNMP DataMiner driver</Description>
-	<Version>1.0.1.5</Version>
+	<Version>1.0.1.6</Version>
 	<IntegrationID>DMS-DRV-0000</IntegrationID>
 	<Provider>Skyline Communications</Provider>
 	<Vendor>Skyline</Vendor>
@@ -1414,6 +1414,19 @@ Note this whole logic is required instead of simply calculating rates on respons
 										</Provider>
 										<Changes>
 											<Fix>Added actions to poll SysUptime before every group that leads to rate calculations to fix a race condition after SNMP agent restarts.</Fix>
+										</Changes>
+										<References>
+											<TaskId>198352</TaskId>
+										</References>
+									</MinorVersion>
+									<MinorVersion id="6" basedOn="1.0.1.5">
+										<Date>2023-06-26</Date>
+										<Provider>
+											<Author>SVD</Author>
+											<Company>Skyline Communications</Company>
+										</Provider>
+										<Changes>
+											<Change>Updated NuGet packages, mostly due to SNMP Utility wrongly referring to Group ID instead of table PID.</Change>
 										</Changes>
 										<References>
 											<TaskId>198352</TaskId>
