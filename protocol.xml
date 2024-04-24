@@ -46,8 +46,8 @@ Any inquiries can be addressed to:
 
 <Protocol xmlns="http://www.skyline.be/protocol">
 	<Name>Skyline Example Rates SNMP</Name>
-	<Description>SLC SDF Rates - SNMP</Description>
-	<Version>1.0.1.6</Version>
+	<Description>Skyline Example - SNMP Rates DataMiner connector</Description>
+	<Version>1.0.1.7</Version>
 	<IntegrationID>DMS-DRV-9035</IntegrationID>
 	<Provider>Skyline Communications</Provider>
 	<Vendor>Skyline Example</Vendor>
@@ -64,14 +64,14 @@ Any inquiries can be addressed to:
 		<CassandraReady>true</CassandraReady>
 		<MinimumRequiredVersion>10.0.10.0 - 9454</MinimumRequiredVersion>
 	</Compliancies>
-	
+
 	<Params>
 		<Param id="2">
 			<Name>AfterStartup</Name>
 			<Description>After Startup</Description>
 			<Type>dummy</Type>
 		</Param>
-		
+
 		<Param id="9" trending="false">
 			<Name>ReadMe</Name>
 			<Description>Read Me</Description>
@@ -135,7 +135,7 @@ Here are the 2 methods:
 				<Value>1</Value>
 			</Interprete>
 		</Param>
-		
+
 		<Param id="91">
 			<Name>SysUptimeTimeoutTrigger</Name>
 			<Type>dummy</Type>
@@ -167,7 +167,7 @@ Here are the 2 methods:
 			<Name>SysUptimeAfterGroupTrigger</Name>
 			<Type>dummy</Type>
 		</Param>
-		<Param id="95" trending="false" save="true">
+		<Param id="95" trending="false">
 			<Name>sysUptimeBuffer</Name>
 			<Description>System Uptime Buffer</Description>
 			<Information>
@@ -486,7 +486,7 @@ This value should include the full name and version identification of the system
 				<Type lines="5">string</Type>
 			</Measurement>
 		</Param>
-		
+
 		<Param id="491">
 			<Name>CounterTimeoutTrigger</Name>
 			<Type>dummy</Type>
@@ -642,7 +642,7 @@ Note this whole logic is required instead of simply calculating rates on respons
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="502" trending="false" save="true">
+		<Param id="502" trending="false">
 			<Name>CounterRateData</Name>
 			<Description>Counter Rate Data</Description>
 			<Type>read</Type>
@@ -668,7 +668,7 @@ Note this whole logic is required instead of simply calculating rates on respons
 				<Type lines="10">string</Type>
 			</Measurement>
 		</Param>
-		
+
 		<!-- Streams Table -->
 		<Param id="991">
 			<Name>StreamsTimeoutTrigger</Name>
@@ -840,7 +840,7 @@ Note this whole logic is required instead of simply calculating rates on respons
 				<ColumnOption idx="1" pid="1002" type="snmp" options="" />
 				<ColumnOption idx="2" pid="1003" type="snmp" options=";disableHeaderSum;disableHistogram;disableHeatmap" />
 				<ColumnOption idx="3" pid="1004" type="retrieved" options=";disableHeaderSum;disableHistogram;disableHeatmap" />
-				<ColumnOption idx="4" pid="1005" type="retrieved" options=";save" />
+				<ColumnOption idx="4" pid="1005" type="retrieved" options="" />
 			</ArrayOptions>
 			<Information>
 				<Subtext>List of streams.</Subtext>
@@ -994,23 +994,17 @@ Note this whole logic is required instead of simply calculating rates on respons
 			</Measurement>
 		</Param>
 	</Params>
-	
+
 	<QActions>
-		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile">
-		</QAction>
-		<QAction id="2" name="After Startup" encoding="csharp" triggers="2">
-		</QAction>
+		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile" />
+		<QAction id="2" name="After Startup" encoding="csharp" triggers="2" />
 
-		<QAction id="91" name="SysUptime Processors" encoding="csharp" triggers="91;93" entryPoint="SysUptime.ProcessTimeout;SysUptime.ProcessNewValue">
-		</QAction>
+		<QAction id="91" name="SysUptime Processors" encoding="csharp" triggers="91;93" entryPoint="SysUptime.ProcessTimeout;SysUptime.ProcessNewValue" />
 
-		<QAction id="491" name="Counter Processors" encoding="csharp" triggers="491;493" entryPoint="Counter.ProcessTimeout;Counter.ProcessCounter">
-		</QAction>
+		<QAction id="491" name="Counter Processors" encoding="csharp" triggers="491;493" entryPoint="Counter.ProcessTimeout;Counter.ProcessCounter" />
 
-		<QAction id="991" name="Streams Processors" encoding="csharp" triggers="991;993" entryPoint="Streams.ProcessTimeout;Streams.ProcessTable">
-		</QAction>
-		<QAction id="995" name="Streams Rate Calculations Method" encoding="csharp" triggers="995">
-		</QAction>
+		<QAction id="991" name="Streams Processors" encoding="csharp" triggers="991;993" entryPoint="Streams.ProcessTimeout;Streams.ProcessTable" />
+		<QAction id="995" name="Streams Rate Calculations Method" encoding="csharp" triggers="995" />
 	</QActions>
 
 	<Groups>
@@ -1034,7 +1028,7 @@ Note this whole logic is required instead of simply calculating rates on respons
 				<Action>2</Action>
 			</Content>
 		</Group>
-		
+
 		<Group id="100">
 			<Name>System Parameters</Name>
 			<Description>System Parameters</Description>
@@ -1065,7 +1059,7 @@ Note this whole logic is required instead of simply calculating rates on respons
 				<Action>501</Action>
 			</Content>
 		</Group>
-		
+
 		<Group id="1000">
 			<Name>Poll Streams</Name>
 			<Description>Poll Streams</Description>
@@ -1427,6 +1421,20 @@ Note this whole logic is required instead of simply calculating rates on respons
 										</Provider>
 										<Changes>
 											<Change>Updated NuGet packages, mostly due to SNMP Utility wrongly referring to Group ID instead of table PID.</Change>
+										</Changes>
+										<References>
+											<TaskId>198352</TaskId>
+										</References>
+									</MinorVersion>
+									<MinorVersion id="7" basedOn="1.0.1.6">
+										<Date>2024-04-24</Date>
+										<Provider>
+											<Author>SVD</Author>
+											<Company>Skyline Communications</Company>
+										</Provider>
+										<Changes>
+											<Change>Migration to SDK.</Change>
+											<Change>No more saving rates data as those should only be saved if the use-case really requires it.</Change>
 										</Changes>
 										<References>
 											<TaskId>198352</TaskId>
