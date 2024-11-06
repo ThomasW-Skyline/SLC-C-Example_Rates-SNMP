@@ -7,7 +7,7 @@
 	using Skyline.DataMiner.Utils.Rates.Protocol;
 	using Skyline.DataMiner.Utils.SafeConverters;
 	using Skyline.DataMiner.Utils.SNMP;
-	using Skyline.Protocol.Extensions;
+	using Skyline.Protocol.Extension;
 
 	public class StreamsProcessor
 	{
@@ -102,7 +102,7 @@
 					columnsToGet.Add(Parameter.Streams.Idx.streamsbitratedata);
 				}
 
-				var tableData = (object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, columnsToGet.ToArray());
+				var tableData = protocol.GetColumns(Parameter.Streams.tablePid, columnsToGet.ToArray());
 
 				Keys = (object[])tableData[0];
 				Octets = (object[])tableData[1];
@@ -123,7 +123,7 @@
 				this.protocol = protocol;
 			}
 
-			internal Dictionary<object, List<object>> SetColumnsData { get; } = new Dictionary<object, List<object>>
+			internal Dictionary<int, List<object>> SetColumnsData { get; } = new Dictionary<int, List<object>>
 			{
 				{ Parameter.Streams.tablePid, new List<object>() },
 				{ Parameter.Streams.Pid.streamsbitrate, new List<object>() },

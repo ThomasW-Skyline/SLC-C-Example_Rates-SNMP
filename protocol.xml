@@ -47,7 +47,7 @@ Any inquiries can be addressed to:
 <Protocol xmlns="http://www.skyline.be/protocol">
 	<Name>Skyline Example Rates SNMP</Name>
 	<Description>Skyline Example - SNMP Rates DataMiner connector</Description>
-	<Version>1.0.1.7</Version>
+	<Version>1.0.1.8</Version>
 	<IntegrationID>DMS-DRV-9035</IntegrationID>
 	<Provider>Skyline Communications</Provider>
 	<Vendor>Skyline Example</Vendor>
@@ -1435,6 +1435,19 @@ Note this whole logic is required instead of simply calculating rates on respons
 										<Changes>
 											<Change>Migration to SDK.</Change>
 											<Change>No more saving rates data as those should only be saved if the use-case really requires it.</Change>
+										</Changes>
+										<References>
+											<TaskId>198352</TaskId>
+										</References>
+									</MinorVersion>
+									<MinorVersion id="8" basedOn="1.0.1.7">
+										<Date>2024-11-06</Date>
+										<Provider>
+											<Author>SVD</Author>
+											<Company>Skyline Communications</Company>
+										</Provider>
+										<Changes>
+											<Change>Improved ProtocolExtensions.</Change>
 										</Changes>
 										<References>
 											<TaskId>198352</TaskId>
