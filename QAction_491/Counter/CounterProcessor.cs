@@ -4,10 +4,10 @@
 	using System.Collections.Generic;
 
 	using Skyline.DataMiner.Scripting;
+	using Skyline.DataMiner.Utils.Protocol.Extension;
 	using Skyline.DataMiner.Utils.Rates.Protocol;
 	using Skyline.DataMiner.Utils.SafeConverters;
 	using Skyline.DataMiner.Utils.SNMP;
-	using Skyline.Protocol.Extension;
 
 	public class CounterProcessor
 	{
@@ -96,7 +96,7 @@
 
 			internal void SetParams()
 			{
-				protocol.SetParams(SetParamsData);
+				protocol.SetParameters(SetParamsData);
 			}
 		}
 	}
