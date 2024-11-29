@@ -89,7 +89,7 @@
 
 			internal void Load()
 			{
-				IsSnmpAgentRestarted = Convert.ToBoolean(Convert.ToInt16(protocol.GetParameter(Parameter.streamssnmpagentrestartflag)));
+				IsSnmpAgentRestarted = Convert.ToBoolean(protocol.GetParameter(Parameter.streamssnmpagentrestartflag));
 
 				List<uint> columnsToGet = new List<uint>
 				{

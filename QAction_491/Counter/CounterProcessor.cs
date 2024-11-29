@@ -79,7 +79,7 @@
 
 				Counter = SafeConvert.ToUInt32(Convert.ToDouble(counterData[0]));
 				CounterRateData = Convert.ToString(counterData[1]);
-				IsSnmpAgentRestarted = Convert.ToBoolean(Convert.ToInt16(counterData[2]));
+				IsSnmpAgentRestarted = Convert.ToBoolean(counterData[2]);
 			}
 		}
 

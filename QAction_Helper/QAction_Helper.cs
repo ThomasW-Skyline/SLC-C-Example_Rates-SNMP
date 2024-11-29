@@ -15,9 +15,9 @@ public static class Parameter
 	public const int readme = 9;
 	/// <summary>PID: 92 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public const int sysuptimetimeoutafterretriesflag_92 = 92;
+	public const int sysuptimegroupresultafterretries_92 = 92;
 	/// <summary>PID: 92 | Type: read</summary>
-	public const int sysuptimetimeoutafterretriesflag = 92;
+	public const int sysuptimegroupresultafterretries = 92;
 	/// <summary>PID: 95 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public const int sysuptimebuffer_95 = 95;
@@ -50,9 +50,9 @@ public static class Parameter
 	public const int sysdescr = 104;
 	/// <summary>PID: 492 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public const int countertimeoutafterretriesflag_492 = 492;
+	public const int countergroupafterretries_492 = 492;
 	/// <summary>PID: 492 | Type: read</summary>
-	public const int countertimeoutafterretriesflag = 492;
+	public const int countergroupafterretries = 492;
 	/// <summary>PID: 494 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public const int countersnmpagentrestartflag_494 = 494;
@@ -75,9 +75,9 @@ public static class Parameter
 	public const int counterratedata = 502;
 	/// <summary>PID: 992 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public const int streamstimeoutafterretriesflag_992 = 992;
+	public const int streamsgroupafterretries_992 = 992;
 	/// <summary>PID: 992 | Type: read</summary>
-	public const int streamstimeoutafterretriesflag = 992;
+	public const int streamsgroupafterretries = 992;
 	/// <summary>PID: 994 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public const int streamssnmpagentrestartflag_994 = 994;
@@ -206,8 +206,8 @@ public interface SLProtocolExt : SLProtocol
 	object Fixed_0__fixed { get; set; }
 	object Fixed_1__fixed { get; set; }
 	object Sysuptimetimeouttrigger_dummy { get; set; }
-	object Sysuptimetimeoutafterretriesflag_92 { get; set; }
-	object Sysuptimetimeoutafterretriesflag { get; set; }
+	object Sysuptimegroupresultafterretries_92 { get; set; }
+	object Sysuptimegroupresultafterretries { get; set; }
 	object Sysuptimeaftergrouptrigger_dummy { get; set; }
 	object Sysuptimebuffer_95 { get; set; }
 	object Sysuptimebuffer { get; set; }
@@ -225,8 +225,8 @@ public interface SLProtocolExt : SLProtocol
 	object Syscontact_202 { get; set; }
 	object Syslocation_203 { get; set; }
 	object Countertimeouttrigger_dummy { get; set; }
-	object Countertimeoutafterretriesflag_492 { get; set; }
-	object Countertimeoutafterretriesflag { get; set; }
+	object Countergroupafterretries_492 { get; set; }
+	object Countergroupafterretries { get; set; }
 	object Counteraftergrouptrigger_dummy { get; set; }
 	object Countersnmpagentrestartflag_494 { get; set; }
 	object Countersnmpagentrestartflag { get; set; }
@@ -237,8 +237,8 @@ public interface SLProtocolExt : SLProtocol
 	object Counterratedata_502 { get; set; }
 	object Counterratedata { get; set; }
 	object Streamstimeouttrigger_dummy { get; set; }
-	object Streamstimeoutafterretriesflag_992 { get; set; }
-	object Streamstimeoutafterretriesflag { get; set; }
+	object Streamsgroupafterretries_992 { get; set; }
+	object Streamsgroupafterretries { get; set; }
 	object Streamsaftergrouptrigger_dummy { get; set; }
 	object Streamssnmpagentrestartflag_994 { get; set; }
 	object Streamssnmpagentrestartflag { get; set; }
@@ -274,11 +274,11 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public System.Object Fixed_1__fixed {get { return GetParameter(11); }set { SetParameter(11, value); }}
 	/// <summary>PID: 91  | Type: dummy</summary>
 	public System.Object Sysuptimetimeouttrigger_dummy {get { return GetParameter(91); }set { SetParameter(91, value); }}
-	/// <summary>PID: 92  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	/// <summary>PID: 92  | Type: read | DISCREETS: Success = 0, Timeout = 1</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public System.Object Sysuptimetimeoutafterretriesflag_92 {get { return GetParameter(92); }set { SetParameter(92, value); }}
-	/// <summary>PID: 92  | Type: read | DISCREETS: False = 0, True = 1</summary>
-	public System.Object Sysuptimetimeoutafterretriesflag {get { return GetParameter(92); }set { SetParameter(92, value); }}
+	public System.Object Sysuptimegroupresultafterretries_92 {get { return GetParameter(92); }set { SetParameter(92, value); }}
+	/// <summary>PID: 92  | Type: read | DISCREETS: Success = 0, Timeout = 1</summary>
+	public System.Object Sysuptimegroupresultafterretries {get { return GetParameter(92); }set { SetParameter(92, value); }}
 	/// <summary>PID: 93  | Type: dummy</summary>
 	public System.Object Sysuptimeaftergrouptrigger_dummy {get { return GetParameter(93); }set { SetParameter(93, value); }}
 	/// <summary>PID: 95  | Type: read</summary>
@@ -322,17 +322,17 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public System.Object Syslocation_203 {get { return GetParameter(203); }set { SetParameter(203, value); }}
 	/// <summary>PID: 491  | Type: dummy</summary>
 	public System.Object Countertimeouttrigger_dummy {get { return GetParameter(491); }set { SetParameter(491, value); }}
-	/// <summary>PID: 492  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	/// <summary>PID: 492  | Type: read | DISCREETS: Success = 0, Timeout = 1</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public System.Object Countertimeoutafterretriesflag_492 {get { return GetParameter(492); }set { SetParameter(492, value); }}
-	/// <summary>PID: 492  | Type: read | DISCREETS: False = 0, True = 1</summary>
-	public System.Object Countertimeoutafterretriesflag {get { return GetParameter(492); }set { SetParameter(492, value); }}
+	public System.Object Countergroupafterretries_492 {get { return GetParameter(492); }set { SetParameter(492, value); }}
+	/// <summary>PID: 492  | Type: read | DISCREETS: Success = 0, Timeout = 1</summary>
+	public System.Object Countergroupafterretries {get { return GetParameter(492); }set { SetParameter(492, value); }}
 	/// <summary>PID: 493  | Type: dummy</summary>
 	public System.Object Counteraftergrouptrigger_dummy {get { return GetParameter(493); }set { SetParameter(493, value); }}
-	/// <summary>PID: 494  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	/// <summary>PID: 494  | Type: read | DISCREETS: Not Restarted = 0, Restarted = 1</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public System.Object Countersnmpagentrestartflag_494 {get { return GetParameter(494); }set { SetParameter(494, value); }}
-	/// <summary>PID: 494  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	/// <summary>PID: 494  | Type: read | DISCREETS: Not Restarted = 0, Restarted = 1</summary>
 	public System.Object Countersnmpagentrestartflag {get { return GetParameter(494); }set { SetParameter(494, value); }}
 	/// <summary>PID: 500  | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
@@ -351,17 +351,17 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public System.Object Counterratedata {get { return GetParameter(502); }set { SetParameter(502, value); }}
 	/// <summary>PID: 991  | Type: dummy</summary>
 	public System.Object Streamstimeouttrigger_dummy {get { return GetParameter(991); }set { SetParameter(991, value); }}
-	/// <summary>PID: 992  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	/// <summary>PID: 992  | Type: read | DISCREETS: Success = 0, Timeout = 1</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public System.Object Streamstimeoutafterretriesflag_992 {get { return GetParameter(992); }set { SetParameter(992, value); }}
-	/// <summary>PID: 992  | Type: read | DISCREETS: False = 0, True = 1</summary>
-	public System.Object Streamstimeoutafterretriesflag {get { return GetParameter(992); }set { SetParameter(992, value); }}
+	public System.Object Streamsgroupafterretries_992 {get { return GetParameter(992); }set { SetParameter(992, value); }}
+	/// <summary>PID: 992  | Type: read | DISCREETS: Success = 0, Timeout = 1</summary>
+	public System.Object Streamsgroupafterretries {get { return GetParameter(992); }set { SetParameter(992, value); }}
 	/// <summary>PID: 993  | Type: dummy</summary>
 	public System.Object Streamsaftergrouptrigger_dummy {get { return GetParameter(993); }set { SetParameter(993, value); }}
-	/// <summary>PID: 994  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	/// <summary>PID: 994  | Type: read | DISCREETS: Not Restarted = 0, Restarted = 1</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public System.Object Streamssnmpagentrestartflag_994 {get { return GetParameter(994); }set { SetParameter(994, value); }}
-	/// <summary>PID: 994  | Type: read | DISCREETS: False = 0, True = 1</summary>
+	/// <summary>PID: 994  | Type: read | DISCREETS: Not Restarted = 0, Restarted = 1</summary>
 	public System.Object Streamssnmpagentrestartflag {get { return GetParameter(994); }set { SetParameter(994, value); }}
 	/// <summary>PID: 995  | Type: read | DISCREETS: Fast = 1, Accurate = 2</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]

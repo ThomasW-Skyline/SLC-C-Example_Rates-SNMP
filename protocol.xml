@@ -47,7 +47,7 @@ Any inquiries can be addressed to:
 <Protocol xmlns="http://www.skyline.be/protocol">
 	<Name>Skyline Example Rates SNMP</Name>
 	<Description>Skyline Example - SNMP Rates DataMiner connector</Description>
-	<Version>1.0.1.8</Version>
+	<Version>1.0.1.9</Version>
 	<IntegrationID>DMS-DRV-9035</IntegrationID>
 	<Provider>Skyline Communications</Provider>
 	<Vendor>Skyline Example</Vendor>
@@ -141,8 +141,8 @@ Here are the 2 methods:
 			<Type>dummy</Type>
 		</Param>
 		<Param id="92">
-			<Name>SysUptimeTimeoutAfterRetriesFlag</Name>
-			<Description>SysUptime Timeout After Retries Flag</Description>
+			<Name>sysUptimeGroupResultAfterRetries</Name>
+			<Description>Group Result After Retries - SysUptime</Description>
 			<Type>read</Type>
 			<Interprete>
 				<RawType>numeric text</RawType>
@@ -153,11 +153,11 @@ Here are the 2 methods:
 				<Type>discreet</Type>
 				<Discreets>
 					<Discreet>
-						<Display>False</Display>
+						<Display>Success</Display>
 						<Value>0</Value>
 					</Discreet>
 					<Discreet>
-						<Display>True</Display>
+						<Display>Timeout</Display>
 						<Value>1</Value>
 					</Discreet>
 				</Discreets>
@@ -492,8 +492,8 @@ This value should include the full name and version identification of the system
 			<Type>dummy</Type>
 		</Param>
 		<Param id="492">
-			<Name>CounterTimeoutAfterRetriesFlag</Name>
-			<Description>Counter Timeout After Retries Flag</Description>
+			<Name>CounterGroupAfterRetries</Name>
+			<Description>Group Result After Retries - Counter</Description>
 			<Information>
 				<Subtext>
 					<![CDATA[When the group is finished, this flag is used to determine if we should calculate rates or not.
@@ -510,11 +510,11 @@ Note this whole logic is required instead of simply calculating rates on respons
 				<Type>discreet</Type>
 				<Discreets>
 					<Discreet>
-						<Display>False</Display>
+						<Display>Success</Display>
 						<Value>0</Value>
 					</Discreet>
 					<Discreet>
-						<Display>True</Display>
+						<Display>Timeout</Display>
 						<Value>1</Value>
 					</Discreet>
 				</Discreets>
@@ -529,7 +529,7 @@ Note this whole logic is required instead of simply calculating rates on respons
 			<Description>SNMP Agent Restart Flag for Counter.</Description>
 			<Type>read</Type>
 			<Information>
-				<Subtext>This flag is set to true if an SNMP Agent restart was detected since last Counter successful group execution.</Subtext>
+				<Subtext>This flag is set to restarted if an SNMP Agent restart was detected since last Counter successful group execution.</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>numeric text</RawType>
@@ -555,11 +555,11 @@ Note this whole logic is required instead of simply calculating rates on respons
 				<Type>discreet</Type>
 				<Discreets>
 					<Discreet>
-						<Display>False</Display>
+						<Display>Not Restarted</Display>
 						<Value>0</Value>
 					</Discreet>
 					<Discreet>
-						<Display>True</Display>
+						<Display>Restarted</Display>
 						<Value>1</Value>
 					</Discreet>
 				</Discreets>
@@ -675,8 +675,8 @@ Note this whole logic is required instead of simply calculating rates on respons
 			<Type>dummy</Type>
 		</Param>
 		<Param id="992">
-			<Name>StreamsTimeoutAfterRetriesFlag</Name>
-			<Description>Streams Timeout After Retries Flag</Description>
+			<Name>StreamsGroupAfterRetries</Name>
+			<Description>Group Result After Retries - Streams</Description>
 			<Information>
 				<Subtext>
 					<![CDATA[When the group is finished, this flag is used to determine if we should calculate rates or not.
@@ -693,11 +693,11 @@ Note this whole logic is required instead of simply calculating rates on respons
 				<Type>discreet</Type>
 				<Discreets>
 					<Discreet>
-						<Display>False</Display>
+						<Display>Success</Display>
 						<Value>0</Value>
 					</Discreet>
 					<Discreet>
-						<Display>True</Display>
+						<Display>Timeout</Display>
 						<Value>1</Value>
 					</Discreet>
 				</Discreets>
@@ -738,11 +738,11 @@ Note this whole logic is required instead of simply calculating rates on respons
 				<Type>discreet</Type>
 				<Discreets>
 					<Discreet>
-						<Display>False</Display>
+						<Display>Not Restarted</Display>
 						<Value>0</Value>
 					</Discreet>
 					<Discreet>
-						<Display>True</Display>
+						<Display>Restarted</Display>
 						<Value>1</Value>
 					</Discreet>
 				</Discreets>
@@ -1451,6 +1451,19 @@ Note this whole logic is required instead of simply calculating rates on respons
 										</Changes>
 										<References>
 											<TaskId>198352</TaskId>
+										</References>
+									</MinorVersion>
+									<MinorVersion id="9" basedOn="1.0.1.8">
+										<Date>2024-11-29</Date>
+										<Provider>
+											<Author>TWZ</Author>
+											<Company>Skyline Communications</Company>
+										</Provider>
+										<Changes>
+											<Change>update parameters to not use the true and false discreets</Change>
+										</Changes>
+										<References>
+											<TaskId>255428</TaskId>
 										</References>
 									</MinorVersion>
 								</MinorVersions>
